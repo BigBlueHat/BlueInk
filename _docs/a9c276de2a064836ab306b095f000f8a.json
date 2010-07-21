@@ -1,0 +1,23 @@
+{
+   "title": "Home",
+   "nav_label": "Home",
+   "url": "home",
+   "page_items": [
+       [
+           {
+               "_id": "html5",
+               "display_title": false
+           },
+           {
+               "_id": "html7",
+               "display_title": true
+           }
+       ],
+       [
+           {
+               "_id": "html5"
+           }
+       ]
+   ],
+   "type": "page"
+}

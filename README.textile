@@ -1,0 +1,7 @@
+h1. BlueInk CMS
+
+BigBlueHat began building BlueInk CMS in late 2005 from ideas gathered from previous projects, problems,
+and paper sketches. Over the years it's grown into a unique and powerful CMS.
+
+Using the current commercial Software-as-a-Service BlueInk as the conceptual prototype, we're rewriting
+BlueInk into an Open Source (Apache 2.0 Licensed) CMS built on CouchDB.

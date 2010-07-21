@@ -1,0 +1,6 @@
+{
+   "_id": "html7",
+   "title": "Another item",
+   "content": "<p>Just some more <strong>content</strong></p>",
+   "type": "html"
+}

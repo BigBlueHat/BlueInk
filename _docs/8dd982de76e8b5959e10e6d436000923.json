@@ -1,0 +1,24 @@
+{
+   "_id": "8dd982de76e8b5959e10e6d436000923",
+   "title": "About Us -=- People",
+   "nav_label": "People",
+   "url": "about/people",
+   "page_items": [
+       [
+           {
+               "_id": "html1",
+               "display_title": true
+           },
+           {
+               "_id": "html5",
+               "display_title": false
+           }
+       ],
+       [
+           {
+               "_id": "html7"
+           }
+       ]
+   ],
+   "type": "page"
+}

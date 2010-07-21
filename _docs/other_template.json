@@ -1,0 +1,10 @@
+{
+	"name": "Super Great Template",
+	"copyright":"BigBlueHat",
+	"license":"AFL2",
+	"templates": {
+		"page": {
+			"header": "    <!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n     \"http://www.w3.org/TR/html4/strict.dtd\">\n    <html>\n    <head>\n       <title>{{title}}</title>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"http://yui.yahooapis.com/combo?2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&2.8.1/build/base/base-min.css\" />\n    </head>\n    <body>\n    <div id=\"doc\" class=\"yui-t7\">\n       <div id=\"hd\"><h1>Other Template - {{title}}</h1></div>\n       <div id=\"bd\">\n    \t<div class=\"yui-gc\">"
+		}
+	}
+}

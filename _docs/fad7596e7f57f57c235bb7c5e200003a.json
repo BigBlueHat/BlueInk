@@ -1,0 +1,24 @@
+{
+   "title": "About Us",
+   "nav_label": "About Us",
+   "url": "about",
+   "page_items": [
+       [
+	       {
+	           "_id": "html1",
+	           "display_title": true
+	       },
+           {
+               "_id": "html5",
+               "display_title": false
+           }
+       ],
+       [
+           {
+               "_id": "html7"
+           }
+       ]
+   ],
+   "type": "page",
+   "template": "other_template"
+}
