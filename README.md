@@ -24,3 +24,7 @@ the Couch soon.
 ### Page Demos
 * [Home](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22home%22]&endkey=[%22home%22,{},{}])
 * [About Us](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22]&endkey=[%22about%22,{},{}])
+
+License
+-------
+BlueInk 0.1 on CouchDB is release under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
