@@ -10,7 +10,7 @@ BlueInk into an Open Source (Apache 2.0 Licensed) CMS built on CouchDB.
 0.1
 ---
 
-This initial release is mearly a proof of concept that shows the core BlueInk concepts could be easily
+This initial release is meerly a proof of concept that shows the core BlueInk concepts could be easily
 ported on to CouchDB.
 
 BlueInk is unique in that it separates content from pages, not just occasionally, but fundamentally. This
@@ -24,6 +24,12 @@ the Couch soon.
 ### Page Demos
 * [Home](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22home%22]&endkey=[%22home%22,{},{}])
 * [About Us](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22]&endkey=[%22about%22,{},{}])
+* [About Us -=- People](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about/people%22]&endkey=[%22about/people%22,{},{}])
+
+0.1.1
+-----
+* Moved some files around in the _docs folder to make the easier HTML editing
+* Changed content items to use UUID's which is closer to what the production environment will be like
 
 License
 -------
