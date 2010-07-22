@@ -26,10 +26,15 @@ the Couch soon.
 * [About Us](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22]&endkey=[%22about%22,{},{}])
 * [About Us -=- People](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about/people%22]&endkey=[%22about/people%22,{},{}])
 
+0.1.2
+-----
+* fixed template loading bug--was caused by when page template was overriding the default template
+* reduce view size by leaning on include_docs rather than outputting whole doc in map/reduce
+
 0.1.1
 -----
-* Moved some files around in the _docs folder to make the easier HTML editing
-* Changed content items to use UUID's which is closer to what the production environment will be like
+* moved some files around in the _docs folder to make the easier HTML editing
+* changed content items to use UUID's which is closer to what the production environment will be like
 
 License
 -------

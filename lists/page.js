@@ -8,7 +8,7 @@ function(head, req) {
 			var page = {items:["","","",""],copyright:'BigBlueHat'};
 			while(row = getRow()) {
 				// it's the page
-				if (row.key.length == 1) {
+				if (row.key[1] == '_' && row.key[2] == '_') {
 					page.title = row.doc.title;
 					send(mustache.to_html(ddoc.templates.page.header, page));
 				} else if (row.key[1] == '' && row.key[2] == 'template') {
