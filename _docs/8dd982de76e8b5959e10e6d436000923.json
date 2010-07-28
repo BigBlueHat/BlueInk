@@ -3,6 +3,7 @@
    "title": "About Us -=- People",
    "nav_label": "People",
    "url": "about/people",
+   "display_order": 15,
    "page_items": [
        [
            {

@@ -1,0 +1,20 @@
+[
+  {
+  "from": "/",
+  "to" : "_list/page/page_and_items",
+  "query" : {
+      "include_docs" : true,
+      "startkey" : ["home"],
+      "endkey" : ["home", {}, {}]
+  	}
+  },
+  {
+    "from" : "*",
+    "to" : "_list/page/page_and_items",
+    "query" : {
+      "include_docs" : true,
+      "startkey" : ["*"],
+      "endkey" : ["*", {}, {}]
+    }
+  }
+]

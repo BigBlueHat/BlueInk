@@ -2,6 +2,7 @@
    "title": "Home",
    "nav_label": "Home",
    "url": "home",
+   "is_home": true,
    "page_items": [
        [
            {

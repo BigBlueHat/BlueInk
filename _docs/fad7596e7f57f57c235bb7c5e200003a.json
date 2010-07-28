@@ -14,11 +14,11 @@
            }
        ],
        [
+           {"_id":"334f3872adba908a679f6d17c6000bcd"},
            {
                "_id": "8dd982de76e8b5959e10e6d43600709a"
            }
        ]
    ],
-   "type": "page",
-   "template": "other_template"
+   "type": "page"
 }

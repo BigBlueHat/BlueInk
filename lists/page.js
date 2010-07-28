@@ -5,27 +5,43 @@ function(head, req) {
 	var row;
 	provides('html',
 		function() {
-			var page = {items:["","","",""],copyright:'BigBlueHat'};
+			var page = {items:[],copyright:'BigBlueHat'};
 			while(row = getRow()) {
 				// it's the page
 				if (row.key[1] == '_' && row.key[2] == '_') {
 					page.title = row.doc.title;
-					send(mustache.to_html(ddoc.templates.page.header, page));
+				} else if (row.key[1] == '' && row.key[2] == 'site') {
+					page.site = row.doc;
+				} else if (row.key[1] == '' && row.key[2] == 'sitemap') {
+					page.sitemap = row.doc.urls;
 				} else if (row.key[1] == '' && row.key[2] == 'template') {
 					ddoc.templates = array_replace_recursive(ddoc.templates, row.doc.templates);
 				} else {
 					// TODO: base template selection off type
-					page.items[row.key[1]] += '<div class="item">';
-					page.items[row.key[1]] += mustache.to_html(ddoc.templates.html, row.doc);
-					page.items[row.key[1]] += '</div>';
+					if (!page.items[row.key[1]]) page.items[row.key[1]] = {'area':[]};
+					if (row.doc.type) {
+						if (row.doc.type == 'navigation') {
+							var navigation = {'sitemap':{}};
+							if (row.doc.show_only && row.doc.show_only == 'children') {
+								// TODO: this needs to be recursive
+								page.sitemap.forEach(function(el) {
+									if (el.url == row.doc.current_url && el.children) {
+										navigation.sitemap = el.children;
+									}
+								});
+							} else {
+								navigation.sitemap = page.sitemap;
+							}
+							log(navigation);
+							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(ddoc.templates.types[row.doc.type], navigation, ddoc.templates.partials)};
+						} else {
+							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(ddoc.templates.types[row.doc.type], row.doc)};
+						}
+					}
+					if (row.key[1] == 0) page.items[row.key[1]].classes = ['first'];
 				}
 			}
-			page.items.forEach(function(column, index) {
-				if (column != "") {
-					send('<div class="yui-u col'+index+(index == 0 ? ' first':'')+'">'+column+'</div>');
-				}
-			});
-			send(mustache.to_html(ddoc.templates.page.footer, page));
+			send(mustache.to_html(ddoc.templates.page, page, ddoc.templates.partials));
 		}
 	);
 }

@@ -9,9 +9,8 @@ function(doc) {
 		emit([doc.url, '_', '_'], {'_id': doc._id});
 		if (doc.template) {
 			emit([doc.url, '', 'template'], {'_id':doc.template});
-		} else {
-			emit([doc.url, '', 'template'], {'_id':'site_template'});
 		}
 		emit([doc.url, '', 'site'], {'_id':'site'});
+		emit([doc.url, '', 'sitemap'], {'_id':'sitemap'});
 	}
 }
