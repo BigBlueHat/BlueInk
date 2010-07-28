@@ -23,7 +23,7 @@ function $$(node) {
   };
   $.forIn = forIn;
   function funViaString(fun) {
-    if (fun && fun.match && fun.match(/function/)) {
+    if (fun && fun.match && fun.match(/^function/)) {
       eval("var f = "+fun);
       if (typeof f == "function") {
         return function() {
@@ -31,7 +31,7 @@ function $$(node) {
             return f.apply(this, arguments);
           } catch(e) {
             // IF YOU SEE AN ERROR HERE IT HAPPENED WHEN WE TRIED TO RUN YOUR FUNCTION
-            // $.log({"message": "Error in evently function.", "error": e, "src" : fun});
+            $.log({"message": "Error in evently function.", "error": e, "src" : fun});
             throw(e);
           }
         };
@@ -65,7 +65,8 @@ function $$(node) {
       });
     },
     paths : [],
-    changesDBs : {}
+    changesDBs : {},
+    changesOpts : {}
   };
   
   function extractFrom(name, evs) {
@@ -102,15 +103,15 @@ function $$(node) {
     });
     
     if (events._init) {
-      $.log("ev _init", elem);
+      // $.log("ev _init", elem);
       elem.trigger("_init", args);
     }
     
     if (app && events._changes) {
-      $("body").bind("evently.changes."+app.db.name, function() {
+      $("body").bind("evently-changes-"+app.db.name, function() {
         // we want to unbind this function when the element is deleted.
         // maybe jquery 1.4.2 has this covered?
-        $.log('changes', elem);
+        // $.log('changes', elem);
         elem.trigger("_changes");        
       });
       followChanges(app);
@@ -152,7 +153,7 @@ function $$(node) {
   };
   
   $.fn.replace = function(elem) {
-    $.log("Replace", this)
+    // $.log("Replace", this)
     $(this).empty().append(elem);
   };
   
@@ -164,6 +165,9 @@ function $$(node) {
   function renderElement(me, h, args, qrun, arun) {
     // if there's a query object we run the query,
     // and then call the data function with the response.
+    if (h.before && (!qrun || !arun)) {
+      funViaString(h.before).apply(me, args);
+    }
     if (h.async && !arun) {
       runAsync(me, h, args)
     } else if (h.query && !qrun) {
@@ -174,10 +178,10 @@ function $$(node) {
       // $.log(me, h, args, qrun)
       // otherwise we just render the template with the current args
       var selectors = runIfFun(me, h.selectors, args);
-      var act = h.render || "replace";
+      var act = (h.render || "replace").replace(/\s/g,"");
       var app = $$(me).app;
       if (h.mustache) {
-        $.log("rendering", h.mustache)
+        // $.log("rendering", h.mustache)
         var newElem = mustachioed(me, h, args);
         me[act](newElem);
       }
@@ -195,7 +199,8 @@ function $$(node) {
         });
       }
       if (h.after) {
-        funViaString(h.after).apply(me, args);
+        runIfFun(me, h.after, args);
+        // funViaString(h.after).apply(me, args);
       }
     }    
   };
@@ -233,7 +238,7 @@ function $$(node) {
     
     if (qType == "newRows") {
       q.success = function(resp) {
-        $.log("runQuery newRows success", resp.rows.length, me, resp)
+        // $.log("runQuery newRows success", resp.rows.length, me, resp)
         resp.rows.reverse().forEach(function(row) {
           renderElement(me, h, [row].concat($.argsToArray(args)), true)
         });
@@ -246,7 +251,7 @@ function $$(node) {
         renderElement(me, h, [resp].concat($.argsToArray(args)), true);
         userSuccess && userSuccess(resp);
       };
-      $.log(app)
+      // $.log(app)
       app.view(viewName, q);      
     }
   }
@@ -312,34 +317,47 @@ function $$(node) {
   
   // only start one changes listener per db
   function followChanges(app) {
-    var dbName = app.db.name;
+    var dbName = app.db.name, changeEvent = function(resp) {
+      $("body").trigger("evently-changes-"+dbName, [resp]);
+    };
     if (!$.evently.changesDBs[dbName]) {
-      connectToChanges(app, function() {
-        $("body").trigger("evently.changes."+dbName);
-      });
+      if (app.db.changes) {
+        // new api in jquery.couch.js 1.0
+        app.db.changes(null, $.evently.changesOpts).onChange(changeEvent);
+      } else {
+        // in case you are still on CouchDB 0.11 ;) deprecated.
+        connectToChanges(app, changeEvent);
+      }
       $.evently.changesDBs[dbName] = true;
     }
   }
-  
-  function connectToChanges(app, fun) {
-    function resetHXR(x) {
-      x.abort();
-      connectToChanges(app, fun);    
+  $.evently.followChanges = followChanges;
+  // deprecated. use db.changes() from jquery.couch.js
+  // this does not have an api for closing changes request.
+  function connectToChanges(app, fun, update_seq) {
+    function changesReq(seq) {
+      var url = app.db.uri+"_changes?heartbeat=10000&feed=longpoll&since="+seq;
+      if ($.evently.changesOpts.include_docs) {
+        url = url + "&include_docs=true";
+      }
+      $.ajax({
+        url: url,
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(req) {
+          var resp = $.httpData(req, "json");
+          fun(resp);
+          connectToChanges(app, fun, resp.last_seq);
+        }
+      });
     };
-    app.db.info({success: function(db_info) {  
-      var c_xhr = jQuery.ajaxSettings.xhr();
-      c_xhr.open("GET", app.db.uri+"_changes?feed=continuous&since="+db_info.update_seq, true);
-      c_xhr.send("");
-      // todo use a timeout to prevent rapid triggers
-      var t;
-      c_xhr.onreadystatechange = function() {
-        clearTimeout(t);
-        t = setTimeout(fun, 100);
-      };
-      setTimeout(function() {
-        resetHXR(c_xhr);      
-      }, 1000 * 60);
-    }});
+    if (update_seq) {
+      changesReq(update_seq);
+    } else {
+      app.db.info({success: function(db_info) {
+        changesReq(db_info.update_seq);
+      }});
+    }
   };
   
 })(jQuery);
