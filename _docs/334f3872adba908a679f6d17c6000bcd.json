@@ -1,5 +1,6 @@
 {
    "_id": "334f3872adba908a679f6d17c6000bcd",
   "type": "navigation",
-  "current_url": "about"
+  "current_url": "about",
+  "show_only": "children"
 }

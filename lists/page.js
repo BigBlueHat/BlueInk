@@ -25,14 +25,13 @@ function(head, req) {
 							if (row.doc.show_only && row.doc.show_only == 'children') {
 								// TODO: this needs to be recursive
 								page.sitemap.forEach(function(el) {
-									if (el.url == row.doc.current_url && el.children) {
+									if (el.body.url == row.doc.current_url && el.children) {
 										navigation.sitemap = el.children;
 									}
 								});
 							} else {
 								navigation.sitemap = page.sitemap;
 							}
-							log(navigation);
 							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(ddoc.templates.types[row.doc.type], navigation, ddoc.templates.partials)};
 						} else {
 							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(ddoc.templates.types[row.doc.type], row.doc)};
