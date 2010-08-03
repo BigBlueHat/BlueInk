@@ -43,6 +43,7 @@ function(head, req) {
 					if (secondtolast == 0) page.items[secondtolast].classes = ['first'];
 				}
 			}
+			page.site.host = req.headers.Host;
 			send(mustache.to_html(templates.page, page, templates.partials));
 		}
 	);
