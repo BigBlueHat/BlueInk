@@ -16,5 +16,14 @@
       "startkey" : [":url"],
       "endkey" : [":url", {}, {}]
     }
+  },
+  {
+    "from" : ":urla/:urlb",
+    "to" : "_list/page/page_and_items",
+    "query" : {
+      "include_docs" : true,
+      "startkey" : [":urla",":urlb"],
+      "endkey" : [":urla",":urlb", {}, {}]
+    }
   }
 ]

@@ -8,18 +8,20 @@ function(head, req) {
 		function() {
 			var page = {items:[],copyright:'BigBlueHat'};
 			while(row = getRow()) {
+				var last = row.key.pop();
+				var secondtolast = row.key.pop();
 				// it's the page
-				if (row.key[1] == '_' && row.key[2] == '_') {
+				if (secondtolast == '_' && last == '_') {
 					page.title = row.doc.title;
-				} else if (row.key[1] == '' && row.key[2] == 'site') {
+				} else if (secondtolast == '' && last == 'site') {
 					page.site = row.doc;
-				} else if (row.key[1] == '' && row.key[2] == 'sitemap') {
+				} else if (secondtolast == '' && last == 'sitemap') {
 					page.sitemap = row.doc.urls;
-				} else if (row.key[1] == '' && row.key[2] == 'template') {
+				} else if (secondtolast == '' && last == 'template') {
 					templates = array_replace_recursive(ddoc.templates, row.doc.templates);
 				} else {
 					// TODO: base template selection off type
-					if (!page.items[row.key[1]]) page.items[row.key[1]] = {'area':[]};
+					if (!page.items[secondtolast]) page.items[secondtolast] = {'area':[]};
 					if (row.doc.type) {
 						if (row.doc.type == 'navigation') {
 							var navigation = {'sitemap':{}};
@@ -33,12 +35,12 @@ function(head, req) {
 							} else {
 								navigation.sitemap = page.sitemap;
 							}
-							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(templates.types[row.doc.type], navigation, templates.partials)};
+							page.items[secondtolast].area[last] = {'item':mustache.to_html(templates.types[row.doc.type], navigation, templates.partials)};
 						} else {
-							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(templates.types[row.doc.type], row.doc)};
+							page.items[secondtolast].area[last] = {'item':mustache.to_html(templates.types[row.doc.type], row.doc)};
 						}
 					}
-					if (row.key[1] == 0) page.items[row.key[1]].classes = ['first'];
+					if (secondtolast == 0) page.items[secondtolast].classes = ['first'];
 				}
 			}
 			send(mustache.to_html(templates.page, page, templates.partials));
