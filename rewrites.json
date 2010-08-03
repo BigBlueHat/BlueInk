@@ -9,12 +9,12 @@
   	}
   },
   {
-    "from" : "*",
+    "from" : ":url",
     "to" : "_list/page/page_and_items",
     "query" : {
       "include_docs" : true,
-      "startkey" : ["*"],
-      "endkey" : ["*", {}, {}]
+      "startkey" : [":url"],
+      "endkey" : [":url", {}, {}]
     }
   }
 ]

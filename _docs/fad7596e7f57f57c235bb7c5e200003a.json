@@ -20,5 +20,6 @@
            }
        ]
    ],
-   "type": "page"
+   "type": "page",
+   "template":"other_template"
 }

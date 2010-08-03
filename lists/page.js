@@ -1,6 +1,7 @@
 function(head, req) {
 	// !code lib/array_replace_recursive.js
 	var ddoc = this;
+	var templates = ddoc.templates;
 	var mustache = require("lib/mustache");
 	var row;
 	provides('html',
@@ -15,7 +16,7 @@ function(head, req) {
 				} else if (row.key[1] == '' && row.key[2] == 'sitemap') {
 					page.sitemap = row.doc.urls;
 				} else if (row.key[1] == '' && row.key[2] == 'template') {
-					ddoc.templates = array_replace_recursive(ddoc.templates, row.doc.templates);
+					templates = array_replace_recursive(ddoc.templates, row.doc.templates);
 				} else {
 					// TODO: base template selection off type
 					if (!page.items[row.key[1]]) page.items[row.key[1]] = {'area':[]};
@@ -32,15 +33,15 @@ function(head, req) {
 							} else {
 								navigation.sitemap = page.sitemap;
 							}
-							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(ddoc.templates.types[row.doc.type], navigation, ddoc.templates.partials)};
+							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(templates.types[row.doc.type], navigation, templates.partials)};
 						} else {
-							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(ddoc.templates.types[row.doc.type], row.doc)};
+							page.items[row.key[1]].area[row.key[2]] = {'item':mustache.to_html(templates.types[row.doc.type], row.doc)};
 						}
 					}
 					if (row.key[1] == 0) page.items[row.key[1]].classes = ['first'];
 				}
 			}
-			send(mustache.to_html(ddoc.templates.page, page, ddoc.templates.partials));
+			send(mustache.to_html(templates.page, page, templates.partials));
 		}
 	);
 }

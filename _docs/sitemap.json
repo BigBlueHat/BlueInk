@@ -14,6 +14,8 @@
 							]
 						}
 					]
-				}
+				},
+			{	"body": {"url": "services","nav_label": "Services"}
+			}
 			]
 }

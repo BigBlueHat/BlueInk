@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <title>Other Template - {{#site}}{{title}}{{/site}}: {{title}}</title>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&2.8.1/build/base/base-min.css" />
+</head>
+<body>
+<div id="doc" class="yui-t7">
+   <div id="hd">
+   	<h1>Other Template - {{title}}</h1>
+	<ul>
+	{{#sitemap}}
+		{{#body}}
+		<li><a href="{{url}}">{{nav_label}}</a></li>
+		{{/body}}
+	{{/sitemap}}
+	</ul>
+   </div>
+   <div id="bd">
+	<div class="yui-gc">
+		{{#items}}<div class="yui-u{{#classes}} {{.}}{{/classes}}">{{#area}}<div class="item">{{{item}}}</div>{{/area}}</div>{{/items}}
+		</div>
+	</div>
+   <div id="ft">
+	   <div class="copyright">&#169; {{copyright}}</div>
+	   <div class="credits">written in <a href="http://www.blueinkcms.com/" class="bigbluehat"><strong>blue</strong>ink</a></div>
+   </div>
+</div>
+</body>
+</html>

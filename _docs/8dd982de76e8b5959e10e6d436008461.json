@@ -4,5 +4,6 @@
    "display_order": 3,
    "title": "Services",
    "nav_label": "Services",
-   "type": "page"
+   "type": "page",
+   "template": "new_template"
 }
