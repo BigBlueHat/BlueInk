@@ -1,2 +1,4 @@
 .couchapprc
 blueink.esproj
+.DS_Store
+*.kpf
