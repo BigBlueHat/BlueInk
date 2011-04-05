@@ -1,5 +1,9 @@
 [
   {
+    "from" : "style/*",
+    "to" : "style/*"
+  },
+  {
   "from": "/",
   "to" : "_list/page/page_and_items",
   "query" : {
