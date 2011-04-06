@@ -2,3 +2,5 @@
 blueink.esproj
 .DS_Store
 *.kpf
+.buildpath
+.externalToolBuilders

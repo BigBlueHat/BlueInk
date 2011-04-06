@@ -17,8 +17,9 @@
     "to" : "_list/page/page_and_items",
     "query" : {
       "include_docs" : true,
-      "startkey" : [":url"],
-      "endkey" : [":url", "500", "500"]
+      "descending": true,
+      "endkey" : [":url"],
+      "startkey" : [":url", "500", "500"]
     }
   },
   {
