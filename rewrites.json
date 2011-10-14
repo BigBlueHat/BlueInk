@@ -7,16 +7,16 @@
   "from": "/",
   "to" : "_list/page/page_and_items",
   "query" : {
-      "include_docs" : true,
+      "include_docs" : "true",
       "startkey" : ["home"],
       "endkey" : ["home", "500", "500"]
-  	}
+    }
   },
   {
     "from" : ":url",
     "to" : "_list/page/page_and_items",
     "query" : {
-      "include_docs" : true,
+      "include_docs" : "true",
       "startkey" : [":url"],
       "endkey" : [":url", "500", "500"]
     }
@@ -25,7 +25,7 @@
     "from" : ":urla/:urlb",
     "to" : "_list/page/page_and_items",
     "query" : {
-      "include_docs" : true,
+      "include_docs" : "true",
       "startkey" : [":urla",":urlb"],
       "endkey" : [":urla",":urlb", "500", "500"]
     }
@@ -34,7 +34,7 @@
     "from" : ":urla/:urlb/:urlc",
     "to" : "_list/page/page_and_items",
     "query" : {
-      "include_docs" : true,
+      "include_docs" : "true",
       "startkey" : [":urla",":urlb",":urlc"],
       "endkey" : [":urla",":urlb",":urlc", "500", "500"]
     }
@@ -43,7 +43,7 @@
     "from" : ":urla/:urlb/:urlc/:urld",
     "to" : "_list/page/page_and_items",
     "query" : {
-      "include_docs" : true,
+      "include_docs" : "true",
       "startkey" : [":urla",":urlb",":urlc",":urld"],
       "endkey" : [":urla",":urlb",":urlc",":urld", "500", "500"]
     }
@@ -52,7 +52,7 @@
     "from" : ":urla/:urlb/:urlc/:urld/:urlf",
     "to" : "_list/page/page_and_items",
     "query" : {
-      "include_docs" : true,
+      "include_docs" : "true",
       "startkey" : [":urla",":urlb",":urlc",":urld",":urlf"],
       "endkey" : [":urla",":urlb",":urlc",":urld",":urlf", "500", "500"]
     }
