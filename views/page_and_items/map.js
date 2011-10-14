@@ -29,7 +29,9 @@ function(doc) {
             post_count++;
           }
           posts.sort(sortByPublishedDate);
-          emit(urlParts.concat(i, n, 'posts'), posts);
+          posts.forEach(function(post) {
+            emit(urlParts.concat(i, n, 'post'), post);
+          });
           post_count = 0; // in case posts exist in other areas
         } else {
           emit(urlParts.concat(i, n), doc.page_items[i][n]);

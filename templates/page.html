@@ -25,9 +25,21 @@
    </div>
    <div id="bd">
 	<div class="yui-gc">
-		{{#items}}<div class="yui-u{{#classes}} {{.}}{{/classes}}">{{#area}}<div class="item">{{{item}}}</div>{{/area}}</div>{{/items}}
+		{{#items}}
+		<div class="yui-u{{#classes}} {{.}}{{/classes}}">
+		  {{#area}}
+		    {{#posts}}
+            <div class="posts">
+		      <div class="item post">{{{item}}}</div>
+		      <div class="pubdate">{{published_date}}</div>
+	        </div>
+		    {{/posts}}
+		    {{^posts}}<div class="item">{{{item}}}</div>{{/posts}}
+		  {{/area}}
 		</div>
-	</div>
+		{{/items}}
+    </div>
+    </div>
    <div id="ft">
 	   <div class="copyright">&#169; {{copyright}}</div>
 	   <div class="credits">written in <a href="http://www.blueinkcms.com/" class="bigbluehat"><strong>blue</strong>ink</a></div>
