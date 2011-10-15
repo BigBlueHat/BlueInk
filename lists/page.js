@@ -3,6 +3,7 @@ function(head, req) {
   var ddoc = this,
       templates = ddoc.templates,
       mustache = require("lib/mustache"),
+      dateToArray = require("lib/dateToArray").dateToArray,
       row;
 
   if (!req.query && !req.query.include_docs) {
@@ -53,7 +54,7 @@ function(head, req) {
                 }
                 page.items[secondtolast].area[last]['posts']
                   .push({'item':mustache.to_html(templates.types[row.doc.type], doc),
-                	    'published_date':row.value.published_date.join('/')});
+                         'published_date': dateToArray(row.value.published_date, 3).join('/')});
               } else {
                 // non-post item
                 page.items[secondtolast].area[last] = {'item':mustache.to_html(templates.types[row.doc.type], doc)};

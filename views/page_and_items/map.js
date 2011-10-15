@@ -4,8 +4,9 @@ function(doc) {
       urlParts, i, n, post, post_count, posts;
 
   function sortByPublishedDate(a, b) {
-    var ad = new Number(a.published_date.join('')),
-        bd = new Number(b.published_date.join(''));
+    // TODO: enforce published_date as timestamp in validate
+    var ad = new Number(a.published_date),
+        bd = new Number(b.published_date);
     if (ad < bd) {
       return 1;
     } else {

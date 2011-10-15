@@ -10,20 +10,12 @@
          {"posts": [
            {
                "_id": "8dd982de76e8b5959e10e6d43600615d",
-               "published_date": [
-                   2010,
-                   10,
-                   23
-               ],
+               "published_date": 1290488400000,
                "display_title": true
            },
            {
                "_id": "8dd982de76e8b5959e10e6d4360067ce",
-               "published_date": [
-                   2010,
-                   10,
-                   21
-               ],
+               "published_date": 1290315600000,
                "display_title": false
            }
          ]}
