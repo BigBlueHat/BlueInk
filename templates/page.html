@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html prefix="og: http://ogp.me/ns#">
 <head>
-   <title>{{#site}}{{title}}{{/site}}: {{title}}</title>
+  <title>{{#site}}{{title}}{{/site}}: {{title}}</title>
+  <meta property="og:title" content="{{title}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{#site}}{{title}}{{/site}}" />
 	<base href="http://{{#site}}{{host}}{{/site}}/blueink/_design/blueink/_rewrite/" />
 	<link rel="stylesheet" type="text/css" href="style/reset-fonts-grids.css" />
 	<link rel="stylesheet" type="text/css" href="style/base-min.css" />
