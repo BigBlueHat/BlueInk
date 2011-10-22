@@ -4,3 +4,5 @@ blueink.esproj
 *.kpf
 .buildpath
 .externalToolBuilders
+.project
+.settings
