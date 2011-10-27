@@ -5,46 +5,46 @@
   <meta property="og:title" content="{{title}}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="{{#site}}{{title}}{{/site}}" />
-	<base href="http://{{#site}}{{host}}{{/site}}/blueink/_design/blueink/_rewrite/" />
-	<link rel="stylesheet" type="text/css" href="style/reset-fonts-grids.css" />
-	<link rel="stylesheet" type="text/css" href="style/base-min.css" />
+  <base href="http://{{#site}}{{host}}{{/site}}/blueink/_design/blueink/_rewrite/" />
+  <link rel="stylesheet" type="text/css" href="style/reset-fonts-grids.css" />
+  <link rel="stylesheet" type="text/css" href="style/base-min.css" />
 </head>
 <body>
 <div id="doc" class="yui-t7">
    <div id="hd">
-   	<h1>{{title}}</h1>
-	<ul>
-	{{#sitemap}}
-		{{#body}}
-		<li><a href="{{url}}">{{nav_label}}</a>
-		{{/body}}
-		{{>nav}}
-		{{#body}}
-		</li>
-		{{/body}}
-	{{/sitemap}}
-	</ul>
+     <h1>{{title}}</h1>
+  <ul>
+  {{#sitemap}}
+    {{#body}}
+    <li><a href="{{url}}">{{nav_label}}</a>
+    {{/body}}
+    {{>nav}}
+    {{#body}}
+    </li>
+    {{/body}}
+  {{/sitemap}}
+  </ul>
    </div>
    <div id="bd">
-	<div class="yui-gc">
-		{{#items}}
-		<div class="yui-u{{#classes}} {{.}}{{/classes}}">
-		  {{#area}}
-		    {{#posts}}
+  <div class="yui-gc">
+    {{#items}}
+    <div class="yui-u{{#classes}} {{.}}{{/classes}}">
+      {{#area}}
+        {{#posts}}
             <div class="posts">
-		      <div class="item post">{{{item}}}</div>
-		      <div class="pubdate">{{published_date}}</div>
-	        </div>
-		    {{/posts}}
-		    {{^posts}}<div class="item">{{{item}}}</div>{{/posts}}
-		  {{/area}}
-		</div>
-		{{/items}}
+          <div class="item post">{{{item}}}</div>
+          <div class="pubdate">{{published_date}}</div>
+          </div>
+        {{/posts}}
+        {{^posts}}<div class="item">{{{item}}}</div>{{/posts}}
+      {{/area}}
+    </div>
+    {{/items}}
     </div>
     </div>
    <div id="ft">
-	   <div class="copyright">&#169; {{copyright}}</div>
-	   <div class="credits">written in <a href="http://www.blueinkcms.com/" class="bigbluehat"><strong>blue</strong>ink</a></div>
+     <div class="copyright">&#169; {{copyright}}</div>
+     <div class="credits">written in <a href="http://www.blueinkcms.com/" class="bigbluehat"><strong>blue</strong>ink</a></div>
    </div>
 </div>
 </body>
