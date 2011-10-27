@@ -13,10 +13,38 @@ BlueInk into an Open Source (Apache 2.0 Licensed) CMS built on CouchDB.
 * [About Us -=- People](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22,%22people%22]&endkey=[%22about%22,%22people%22,{},{}])
 * [Blog](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22blog%22]&endkey=[%22blog%22,{},{}])
 
-0.2
+0.4
 ---
 * added blog rendering
 * fixed rewrites.js to be compatible with CouchDB 1.1+ rewriter "bug": [COUCHDB-1306](https://issues.apache.org/jira/browse/COUCHDB-1306)
+
+0.3.1
+-----
+* added page.site.host to handle site base URLs
+
+0.3
+---
+* subnavigation now works with _rewrite
+* avoiding _doc_ mutation in page_and_items/map.js
+
+0.2.5
+-----
+* fixed template loading system
+
+0.2.2
+-----
+* navigation can load partial sitemaps
+* page now uses new sitemap format
+
+0.2.1
+-----
+* upgraded couchapp
+
+0.2
+---
+* restructured mustache templates to us a single page.html (vs. header, body, footer)
+* added 'site' and 'sitemap' documents for general site info and pages tree/sitemap
+* implemented navigation content item based on sitemap structure - include bits of the sitemap as content items
 
 0.1.2
 -----
