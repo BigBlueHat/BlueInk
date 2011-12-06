@@ -29,6 +29,10 @@
 		{{#items}}
 		<div class="yui-u{{#classes}} {{.}}{{/classes}}">
 		  {{#area}}
+        {{#blog}}
+        <h1>{{title}}</h1>
+        <h3>{{tagline}}</h3>
+        {{/blog}}
 		    {{#posts}}
             <div class="posts">
 		      <div class="item post">{{{item}}}</div>

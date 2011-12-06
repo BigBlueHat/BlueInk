@@ -19,20 +19,18 @@ function(doc) {
     urlParts = doc.url.split('/');
     for (i in doc.page_items) {
       for (n in doc.page_items[i]) {
-        if (doc.page_items[i][n].posts != undefined) {
+        if (doc.page_items[i][n].blog !== undefined) {
+          emit(urlParts.concat(i, n, 'blog'), doc.page_items[i][n]);
           post_count = 0;
-          posts = [];
-          for (post in doc.page_items[i][n].posts) {
-            if (post_count == max_posts) {
-              break;
-            }
-            posts.push(doc.page_items[i][n].posts[post]);
-            post_count++;
-          }
-          posts.sort(sortByPublishedDate);
-          posts.forEach(function(post) {
-            emit(urlParts.concat(i, n, 'post'), post);
-          });
+          // TODO: do we need this? Can we trust the 'posts' array to be pre-sorted?
+          // TODO: this is currently only sorting the "max_posts" (the ones displayed)
+          // TODO: doc.posts will need cloning to posts before this will work
+          //posts.sort(sortByPublishedDate);
+          for (post in doc.posts) {
+            emit(urlParts.concat(i, n, 'post'), doc.posts[post]);
+            if (post_count == max_posts) break;
+            else post_count++;
+          };
           post_count = 0; // in case posts exist in other areas
         } else {
           emit(urlParts.concat(i, n), doc.page_items[i][n]);

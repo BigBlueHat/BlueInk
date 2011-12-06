@@ -17,8 +17,13 @@ function(head, req) {
           navigation = [],
           is_post = false;
       while(row = getRow()) {
-        var last = row.key.pop();
-        if (last == 'post') {
+        var last = row.key.pop(),
+            is_blog = false,
+            is_post = false;
+        if (last == 'blog') {
+          is_blog = true;
+          last = row.key.pop();
+        } else if (last == 'post') {
           is_post = true;
           last = row.key.pop();
         }
@@ -46,13 +51,15 @@ function(head, req) {
               if (row.value.display_title === false) {
                 doc.title = "";
               }
-              if (is_post) {
-                // blog posts handling
+              if (is_blog) {
+                // general blog info handling
                 if (page.items[secondtolast].area[last] === undefined) {
-                  page.items[secondtolast].area[last] = {'posts':[]};
-                  //posts = page.items[secondtolast].area[last];
+                  page.items[secondtolast].area[last] = {'blog':row.value.blog,
+                                                        'posts': []};
                 }
-                page.items[secondtolast].area[last]['posts']
+              } else if (is_post) {
+                // blog posts handling
+                page.items[secondtolast].area[last].posts
                   .push({'item':mustache.to_html(templates.types[row.doc.type], doc),
                          'published_date': dateToArray(row.value.published_date, 3).join('/')});
               } else {
