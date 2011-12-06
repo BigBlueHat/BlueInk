@@ -1,0 +1,31 @@
+{
+   "_id": "9073e40b3c0cac27f46427740600da42",
+   "nav_label": "2007",
+   "title": "2007",
+   "url": "blog/2007",
+   "template": "other_template",
+   "page_items": [
+       [
+         {"blog":{"title": "Witty Thoughts",
+                  "tagline":"A pitfully named blog"},
+          "display_tagline": false 
+         }
+       ],
+       [
+           {
+               "_id": "334f3872adba908a679f6d17c6000bcd",
+               "display_title": false
+           }
+       ]
+   ],
+   "posts": [
+       {
+           "_id": "8dd982de76e8b5959e10e6d43600709a",
+           "published_date": 1190315600000,
+           "display_title": false
+       }
+   ],
+   "type": "page",
+   "couchapp": {
+   }
+}
