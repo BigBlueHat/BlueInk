@@ -1,1 +1,1 @@
-{"name": "couchapp", "fetch_uri": "git://github.com/couchapp/couchapp.git", "description": "official couchapp vendor"}
+{"name": "couchapp", "fetch_uri": "git://github.com/couchapp/vendor.git", "description": "official couchapp vendor"}
