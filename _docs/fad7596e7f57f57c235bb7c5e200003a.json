@@ -4,10 +4,10 @@
    "url": "about",
    "page_items": [
        [
-	       {
-	           "_id": "8dd982de76e8b5959e10e6d43600615d",
-	           "display_title": true
-	       },
+         {
+             "_id": "8dd982de76e8b5959e10e6d43600615d",
+             "display_title": true
+         },
            {
                "_id": "8dd982de76e8b5959e10e6d4360067ce",
                "display_title": false

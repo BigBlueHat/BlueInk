@@ -1,40 +1,42 @@
 {
-   "_id": "2ca99e670f3a463f735758498e1134de",
-   "_rev": "2-7a90566ce88d847fb330e6e96aa37f79",
-   "nav_label": "Blog",
-   "title": "Blog",
-   "url": "blog",
-   "template": "other_template",
-   "page_items": [
-       [
-         {"blog":{"title": "Witty Thoughts",
-                  "tagline":"A pitfully named blog"},
-          "display_tagline": false
-         }
-       ],
-       [
-           {
-               "_id": "334f3872adba908a679f6d17c6000bcd",
-               "display_title": false
-           },
-           {
-               "_id": "8dd982de76e8b5959e10e6d43600709a"
-           }
-       ]
-   ],
-   "posts": [
-       {
-           "_id": "8dd982de76e8b5959e10e6d43600615d",
-           "published_date": 1290488400000,
-           "display_title": true
-       },
-       {
-           "_id": "8dd982de76e8b5959e10e6d4360067ce",
-           "published_date": 1290315600000,
-           "display_title": false
-       }
-   ],
-   "type": "page",
-   "couchapp": {
-   }
+  "_id": "2ca99e670f3a463f735758498e1134de",
+  "_rev": "2-7a90566ce88d847fb330e6e96aa37f79",
+  "nav_label": "Blog",
+  "title": "Blog",
+  "url": "blog",
+  "template": "other_template",
+  "page_items": [
+    [
+      {
+        "blog": {
+          "title": "Witty Thoughts",
+          "tagline": "A pitfully named blog"
+        },
+        "display_tagline": false
+      }
+    ],
+    [
+      {
+        "_id": "334f3872adba908a679f6d17c6000bcd",
+        "display_title": false
+      },
+      {
+        "_id": "8dd982de76e8b5959e10e6d43600709a"
+      }
+    ]
+  ],
+  "posts": [
+    {
+      "_id": "8dd982de76e8b5959e10e6d43600615d",
+      "published_date": 1290488400000,
+      "display_title": true
+    },
+    {
+      "_id": "8dd982de76e8b5959e10e6d4360067ce",
+      "published_date": 1290315600000,
+      "display_title": false
+    }
+  ],
+  "type": "page",
+  "couchapp": {}
 }

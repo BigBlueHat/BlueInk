@@ -1,23 +1,31 @@
 {
-	"_id": "sitemap",
-	"urls": [
-			{	"body": {"url": "home","nav_label": "Home"}
-			},
-			{	"body": {"url": "about","nav_label": "About Us"},
-				"children": [
-					{"body":{"url":"about/contact", "nav_label":"Contact"}},
-					{"body":{"url":"about/history", "nav_label":"History"}},
-					{
-						"body":{"url": "about/people","nav_label": "People"},
-						"children": [
-								{"body":{"url":"about/people/benjamin", "nav_label":"Benjamin Young"}}
-							]
-						}
-					]
-				},
-			{	"body": {"url": "services","nav_label": "Services"}
-			},
-			{	"body": {"url": "blog","nav_label": "Blog"}
-			}
-			]
+  "_id": "sitemap",
+  "urls": [
+    {"body":
+      {"url": "home","nav_label": "Home"}
+    },
+    {"body":
+      {"url": "about","nav_label": "About Us"},
+      "children": [
+        {"body":
+          {"url":"about/contact", "nav_label":"Contact"}
+        },
+        {"body":
+          {"url":"about/history", "nav_label":"History"}
+        },
+        {"body":
+          {"url": "about/people","nav_label": "People"},
+          "children": [
+            {"body":{"url":"about/people/benjamin", "nav_label":"Benjamin Young"}}
+          ]
+        }
+      ]
+    },
+    {"body":
+      {"url": "services","nav_label": "Services"}
+    },
+    {"body":
+      {"url": "blog","nav_label": "Blog"}
+    }
+  ]
 }

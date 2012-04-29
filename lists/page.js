@@ -70,7 +70,7 @@ function(head, req) {
           }
           // TODO: fix .first assignment
           if (secondtolast === 0) {
-        	    page.items[secondtolast].classes = ['first'];
+            page.items[secondtolast].classes = ['first'];
           }
         }
         is_post = false;
