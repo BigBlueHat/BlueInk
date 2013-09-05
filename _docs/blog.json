@@ -1,9 +1,7 @@
 {
-  "_id": "2ca99e670f3a463f735758498e1134de",
-  "_rev": "2-7a90566ce88d847fb330e6e96aa37f79",
+  "_id": "blog",
   "nav_label": "Blog",
   "title": "Blog",
-  "url": "blog",
   "template": "other_template",
   "page_items": [
     [

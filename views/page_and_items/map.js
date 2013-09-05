@@ -16,7 +16,7 @@ function(doc) {
   }
 
   if (doc.type == 'page') {
-    urlParts = doc.url.split('/');
+    urlParts = doc._id.split('/');
     for (i in doc.page_items) {
       for (n in doc.page_items[i]) {
         if (doc.page_items[i][n].blog !== undefined) {

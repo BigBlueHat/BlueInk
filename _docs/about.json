@@ -1,7 +1,7 @@
 {
+  "_id": "about",
    "title": "About Us",
    "nav_label": "About Us",
-   "url": "about",
    "page_items": [
        [
          {
