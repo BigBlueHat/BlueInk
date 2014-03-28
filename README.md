@@ -1,11 +1,19 @@
-BlueInk CMS
-===========
+# BlueInk
 
-BigBlueHat began building BlueInk CMS in late 2005 from ideas gathered from previous projects, problems,
-and paper sketches. Over the years it's grown into a unique and powerful CMS.
+BlueInk began in late 2005 from ideas gathered from previous projects,
+problems, and paper sketches. Over the years it grew into a unique and powerful
+CMS.
 
-Using the current commercial Software-as-a-Service BlueInk as the conceptual prototype, we're rewriting
-BlueInk into an Open Source (Apache 2.0 Licensed) CMS built on CouchDB.
+Using the
+[current commercial Software-as-a-Service BlueInk CMS](http://demo.blueinkcms.com/)
+as the conceptual prototype, BlueInk is being rewritten into an Open Source CMS
+built on Apache CouchDB and Cloudant mostly as a
+[CouchApp](http://docs.couchdb.org/en/latest/couchapp/).
+
+## Friend Funding
+
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=BigBlueHat&url=http://github.com/BigBlueHat/BlueInk&title=BlueInk CMS - over the top Content Management with CouchDB&language=en_GB&tags=github&category=software)
+[![Gittip](http://img.shields.io/gittip/BigBlueHat)](https://www.gittip.com/BigBlueHat/)
 
 ### Page Demos
 * [Home](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22home%22]&endkey=[%22home%22,{},{}])
@@ -13,11 +21,7 @@ BlueInk into an Open Source (Apache 2.0 Licensed) CMS built on CouchDB.
 * [About Us -=- People](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22,%22people%22]&endkey=[%22about%22,%22people%22,{},{}])
 * [Blog](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22blog%22]&endkey=[%22blog%22,{},{}])
 
-### Flattr
-
-If you like this idea, or CouchDB, or replication, we'd love to have you're help in the form of code or some Flattr-y:
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=BigBlueHat&url=http://github.com/BigBlueHat/BlueInk&title=BlueInk CMS - over the top Content Management with CouchDB&language=en_GB&tags=github&category=software)
+#### Past Version Notes
 
 0.4
 ---
@@ -76,6 +80,8 @@ creation down to a single GET request complete with CouchDB's fabulous HTTP head
 All told, we're very excited about what's next for BlueInk. We look forward to getting the rest of it onto
 the Couch soon.
 
-License
--------
+## License
+
 BlueInk on CouchDB is release under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+[![I Love Open Source](http://www.iloveopensource.io/images/logo-lightbg.png)](http://www.iloveopensource.io/projects/5334dccb87659fce660018d8)
