@@ -13,7 +13,7 @@ built on Apache CouchDB and Cloudant mostly as a
 ## Friend Funding
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=BigBlueHat&url=http://github.com/BigBlueHat/BlueInk&title=BlueInk CMS - over the top Content Management with CouchDB&language=en_GB&tags=github&category=software)
-[![Gittip](http://img.shields.io/gittip/BigBlueHat)](https://www.gittip.com/BigBlueHat/)
+[![Gittip](http://img.shields.io/gittip/BigBlueHat.svg)](https://www.gittip.com/BigBlueHat/)
 
 ### Page Demos
 * [Home](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22home%22]&endkey=[%22home%22,{},{}])
