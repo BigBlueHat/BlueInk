@@ -1,5 +1,6 @@
 {
   "_id": "sitemap",
+  "type": "sitemap",
   "urls": [
     {"body":
       {"url": "home","nav_label": "Home"}

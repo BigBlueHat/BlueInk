@@ -1,4 +1,5 @@
 {
+  "type": "site",
   "title":"BlueInk CMS Site",
   "template": {"_id":"site_template"}
 }
