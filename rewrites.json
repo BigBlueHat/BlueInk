@@ -18,6 +18,10 @@
     }
   },
   {
+    "from": "_blueink/:doc",
+    "to": "_show/item/:doc"
+  },
+  {
   "from": "/",
   "to" : "_list/page/page_and_items",
   "query" : {

@@ -1,12 +1,14 @@
 function(head, req) {
   var row;
+  var types = Object.keys(this.templates.types);
+
   provides('html',
     function() {
       send('<ul>');
       while(row = getRow()) {
-        if (row.key != 'page') {
+        if (types.indexOf(row.key) !== -1) {
           send('<li data-blueink-type="' + row.key + '">'
-            + '<a href="' + row._id + '" title="' + row.value + '">'
+            + '<a href="' + row.id + '" title="' + row.value + '">'
             + row.value + '</a></li>');
         }
       }
