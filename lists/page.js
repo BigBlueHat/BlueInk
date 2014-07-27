@@ -103,21 +103,3 @@ function(head, req) {
     }
   );
 }
-
-/*
-
-            if (row.doc.type == 'navigation') {
-              var navigation = {'sitemap':{}};
-              if (row.doc.show_only && row.doc.show_only == 'children') {
-                // TODO: this needs to be recursive
-                page.sitemap.forEach(function(el) {
-                  if (el.body.url == row.doc.current_url && el.children) {
-                    navigation.sitemap = el.children;
-                  }
-                });
-              } else {
-                navigation.sitemap = page.sitemap;
-              }
-              page.items[secondtolast].area[last] = {'item':mustache.to_html(templates.types[row.doc.type], navigation, templates.partials)};
-            } else {
-*/
