@@ -4,6 +4,13 @@
     "to" : "style/*"
   },
   {
+    "from": "_blueink/items-by-type",
+    "to": "_list/item_list/by_type",
+    "query": {
+      "reduce": "false"
+    }
+  },
+  {
   "from": "/",
   "to" : "_list/page/page_and_items",
   "query" : {
