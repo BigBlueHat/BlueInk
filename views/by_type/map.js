@@ -1,3 +1,5 @@
 function(doc) {
-  emit(doc.type, 1);
+  if ('type' in doc && 'title' in doc) {
+    emit(doc.type, doc.title);
+  }
 }
