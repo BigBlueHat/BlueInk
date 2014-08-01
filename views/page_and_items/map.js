@@ -19,14 +19,15 @@ function(doc) {
     urlParts = doc._id.split('/');
     for (i in doc.page_items) {
       for (n in doc.page_items[i]) {
-        if (doc.page_items[i][n].blog !== undefined) {
-          emit(urlParts.concat(i, n, 'blog'), doc.page_items[i][n]);
+        if ('_collection' in doc.page_items[i][n]) {
+          emit(urlParts.concat(i, n, '_collection'), doc.page_items[i][n]);
           post_count = 0;
           // TODO: do we need this? Can we trust the 'posts' array to be pre-sorted?
           // TODO: this is currently only sorting the "max_posts" (the ones displayed)
           // TODO: doc.posts will need cloning to posts before this will work
           //posts.sort(sortByPublishedDate);
-          for (post in doc.posts) {
+          // TODO: switch this to use JSON Pointer library
+          for (post in doc[doc.page_items[i][n]['_collection']['$ref'].substr(2)]) {
             emit(urlParts.concat(i, n, 'post'), doc.posts[post]);
             if (post_count == max_posts) break;
             else post_count++;

@@ -5,8 +5,11 @@
    "template": "other_template",
    "page_items": [
        [
-         {"blog":{"title": "Witty Thoughts",
-                  "tagline":"A pitfully named blog"},
+         {"_collection":
+           {"title": "Witty Thoughts",
+            "tagline":"A pitfully named blog",
+            "$ref": "#/posts"
+           },
           "display_tagline": false 
          }
        ],

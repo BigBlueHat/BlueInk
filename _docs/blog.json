@@ -6,9 +6,10 @@
   "page_items": [
     [
       {
-        "blog": {
+        "_collection": {
           "title": "Witty Thoughts",
-          "tagline": "A pitfully named blog"
+          "tagline": "A pitfully named blog",
+          "$ref": "#/posts"
         },
         "display_tagline": false
       }

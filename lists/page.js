@@ -18,10 +18,10 @@ function(head, req) {
           is_post = false;
       while(row = getRow()) {
         var last = row.key.pop(),
-            is_blog = false,
+            is_collection = false,
             is_post = false;
-        if (last == 'blog') {
-          is_blog = true;
+        if (last == '_collection') {
+          is_collection = true;
           last = row.key.pop();
         } else if (last == 'post') {
           is_post = true;
@@ -51,14 +51,14 @@ function(head, req) {
               if (row.value.display_title === false) {
                 doc.title = "";
               }
-              if (is_blog) {
-                // general blog info handling
+              if (is_collection) {
+                // general collection info handling
                 if (page.items[secondtolast].area[last] === undefined) {
-                  page.items[secondtolast].area[last] = {'blog':row.value.blog,
+                  page.items[secondtolast].area[last] = {'collection':row.value['_collection'],
                                                         'posts': []};
                 }
               } else if (is_post) {
-                // blog posts handling
+                // collection item handling
                 page.items[secondtolast].area[last].posts
                   .push({'item':mustache.to_html(templates.types[row.doc.type], doc),
                          'published_date': dateToArray(row.value.published_date, 3).join('/')});
