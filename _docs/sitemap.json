@@ -4,25 +4,25 @@
   "urls": [
     {
       "body":{"url": "home","nav_label": "Home"},
-      "children": false
+      "children": []
     },
     {
       "body":{"url": "about","nav_label": "About Us"},
       "children": [
         {
           "body":{"url":"about/contact", "nav_label":"Contact"},
-          "children": false
+          "children": []
         },
         {
           "body":{"url":"about/history", "nav_label":"History"},
-          "children": false
+          "children": []
         },
         {
           "body":{"url": "about/people","nav_label": "People"},
           "children": [
             {
               "body":{"url":"about/people/benjamin", "nav_label":"Benjamin Young"},
-              "children": false
+              "children": []
             }
           ]
         }
@@ -30,11 +30,11 @@
     },
     {
       "body":{"url": "services","nav_label": "Services"},
-      "children": false
+      "children": []
     },
     {
       "body":{"url": "blog","nav_label": "Blog"},
-      "children": false
+      "children": []
     }
   ]
 }
