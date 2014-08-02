@@ -21,65 +21,6 @@ built on Apache CouchDB and Cloudant mostly as a
 * [About Us -=- People](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/about/people)
 * [Blog](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/blog)
 
-#### Past Version Notes
-
-0.4
----
-* added blog rendering
-* fixed rewrites.js to be compatible with CouchDB 1.1+ rewriter "bug": [COUCHDB-1306](https://issues.apache.org/jira/browse/COUCHDB-1306)
-
-0.3.1
------
-* added page.site.host to handle site base URLs
-
-0.3
----
-* subnavigation now works with _rewrite
-* avoiding _doc_ mutation in page_and_items/map.js
-
-0.2.5
------
-* fixed template loading system
-
-0.2.2
------
-* navigation can load partial sitemaps
-* page now uses new sitemap format
-
-0.2.1
------
-* upgraded couchapp
-
-0.2
----
-* restructured mustache templates to us a single page.html (vs. header, body, footer)
-* added 'site' and 'sitemap' documents for general site info and pages tree/sitemap
-* implemented navigation content item based on sitemap structure - include bits of the sitemap as content items
-
-0.1.2
------
-* fixed template loading bug--was caused by when page template was overriding the default template
-* reduce view size by leaning on include_docs rather than outputting whole doc in map/reduce
-
-0.1.1
------
-* moved some files around in the _docs folder to make the easier HTML editing
-* changed content items to use UUID's which is closer to what the production environment will be like
-
-0.1
----
-
-This initial release is meerly a proof of concept that shows the core BlueInk concepts could be easily
-ported on to CouchDB.
-
-BlueInk is unique in that it separates content from pages, not just occasionally, but fundamentally. This
-means that every page is an aggregate of one or more content items. In our SQL-based version it took several
-queries to put the page together. On CouchDB (even at this early, un-refactored stage), we've gotten page
-creation down to a single GET request complete with CouchDB's fabulous HTTP headers for super-good caching!
-
-All told, we're very excited about what's next for BlueInk. We look forward to getting the rest of it onto
-the Couch soon.
-
 ## License
 
 BlueInk on CouchDB is release under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
