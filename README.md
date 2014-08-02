@@ -16,10 +16,10 @@ built on Apache CouchDB and Cloudant mostly as a
 [![Gittip](http://img.shields.io/gittip/BigBlueHat.svg)](https://www.gittip.com/BigBlueHat/)
 
 ### Page Demos
-* [Home](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22home%22]&endkey=[%22home%22,{},{}])
-* [About Us](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22]&endkey=[%22about%22,{},{}])
-* [About Us -=- People](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22about%22,%22people%22]&endkey=[%22about%22,%22people%22,{},{}])
-* [Blog](http://bigbluehat.couchone.com:5984/blueink/_design/blueink/_list/page/page_and_items?include_docs=true&startkey=[%22blog%22]&endkey=[%22blog%22,{},{}])
+* [Home](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/home)
+* [About Us](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/about)
+* [About Us -=- People](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/about/people)
+* [Blog](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/blog)
 
 #### Past Version Notes
 
