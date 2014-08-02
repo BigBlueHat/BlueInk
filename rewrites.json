@@ -27,7 +27,7 @@
   "query" : {
       "include_docs" : "true",
       "startkey" : ["home"],
-      "endkey" : ["home", "500", "500"]
+      "endkey" : ["home", "|"]
     }
   },
   {
@@ -36,7 +36,7 @@
     "query" : {
       "include_docs" : "true",
       "startkey" : [":url"],
-      "endkey" : [":url", "500", "500"]
+      "endkey" : [":url", "|"]
     }
   },
   {
@@ -45,7 +45,7 @@
     "query" : {
       "include_docs" : "true",
       "startkey" : [":urla",":urlb"],
-      "endkey" : [":urla",":urlb", "500", "500"]
+      "endkey" : [":urla",":urlb", "|"]
     }
   },
   {
@@ -54,7 +54,7 @@
     "query" : {
       "include_docs" : "true",
       "startkey" : [":urla",":urlb",":urlc"],
-      "endkey" : [":urla",":urlb",":urlc", "500", "500"]
+      "endkey" : [":urla",":urlb",":urlc", "|"]
     }
   },
   {
@@ -63,7 +63,7 @@
     "query" : {
       "include_docs" : "true",
       "startkey" : [":urla",":urlb",":urlc",":urld"],
-      "endkey" : [":urla",":urlb",":urlc",":urld", "500", "500"]
+      "endkey" : [":urla",":urlb",":urlc",":urld", "|"]
     }
   },
   {
@@ -72,7 +72,7 @@
     "query" : {
       "include_docs" : "true",
       "startkey" : [":urla",":urlb",":urlc",":urld",":urlf"],
-      "endkey" : [":urla",":urlb",":urlc",":urld",":urlf", "500", "500"]
+      "endkey" : [":urla",":urlb",":urlc",":urld",":urlf", "|"]
     }
   }
 ]

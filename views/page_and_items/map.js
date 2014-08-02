@@ -20,7 +20,7 @@ function(doc) {
     for (i in doc.page_items) {
       for (n in doc.page_items[i]) {
         if ('_collection' in doc.page_items[i][n]) {
-          emit(urlParts.concat(i, n, '_collection'), doc.page_items[i][n]);
+          emit(urlParts.concat('', i, n, '_collection'), doc.page_items[i][n]);
           post_count = 0;
           // TODO: do we need this? Can we trust the 'posts' array to be pre-sorted?
           // TODO: this is currently only sorting the "max_posts" (the ones displayed)
@@ -28,21 +28,21 @@ function(doc) {
           //posts.sort(sortByPublishedDate);
           // TODO: switch this to use JSON Pointer library
           for (post in doc[doc.page_items[i][n]['_collection']['$ref'].substr(2)]) {
-            emit(urlParts.concat(i, n, 'post'), doc.posts[post]);
+            emit(urlParts.concat('', i, n, 'post'), doc.posts[post]);
             if (post_count == max_posts) break;
             else post_count++;
           };
           post_count = 0; // in case posts exist in other areas
         } else {
-          emit(urlParts.concat(i, n), doc.page_items[i][n]);
+          emit(urlParts.concat('', i, n), doc.page_items[i][n]);
         }
       }
     }
-    emit(urlParts.concat('_', '_'), {'_id': doc._id});
+    emit(urlParts.concat('', '_', '_'), {'_id': doc._id});
     if (doc.template) {
-      emit(urlParts.concat('', 'template'), {'_id':doc.template});
+      emit(urlParts.concat('', '', 'template'), {'_id':doc.template});
     }
-    emit(urlParts.concat('', 'site'), {'_id':'site'});
-    emit(urlParts.concat('', 'sitemap'), {'_id':'sitemap'});
+    emit(urlParts.concat('', '', 'site'), {'_id':'site'});
+    emit(urlParts.concat('', '', 'sitemap'), {'_id':'sitemap'});
   }
 }
