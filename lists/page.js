@@ -31,6 +31,7 @@ function(head, req) {
         // it's the page
         if (secondtolast == '_' && last == '_') {
           page.title = row.doc.title;
+          page.template = row.doc.template;
         } else if (secondtolast == '' && last == 'site') {
           page.site = row.doc;
         } else if (secondtolast == '' && last == 'sitemap') {

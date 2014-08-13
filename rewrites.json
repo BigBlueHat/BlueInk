@@ -4,6 +4,10 @@
     "to" : "style/*"
   },
   {
+    "from": "_blueink/templates/:template/style/:file",
+    "to": "../../:template/style/:file"
+  },
+  {
     "from": "_blueink/item-types",
     "to": "_list/types_list/by_type",
     "query": {
