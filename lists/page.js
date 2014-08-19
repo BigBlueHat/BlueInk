@@ -1,7 +1,7 @@
 function(head, req) {
   // !code lib/array_replace_recursive.js
   var ddoc = this,
-      templates = ddoc.templates,
+      templates = {},
       mustache = require("lib/mustache"),
       dateToArray = require("lib/dateToArray").dateToArray,
       row;
@@ -37,7 +37,9 @@ function(head, req) {
         } else if (secondtolast == '' && last == 'sitemap') {
           page.sitemap = row.doc.urls;
         } else if (secondtolast == '' && last == 'template') {
-          templates = array_replace_recursive(ddoc.templates, row.doc.templates);
+          templates = row.doc.templates;
+        } else if (secondtolast == '' && last == 'template_override') {
+          templates = array_replace_recursive(templates, row.doc.templates);
         } else {
           // TODO: base template selection off type
           if (!page.items[secondtolast]) {
