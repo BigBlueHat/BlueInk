@@ -22,6 +22,10 @@
     }
   },
   {
+    "from": "_blueink/bundle.js",
+    "to": "bundle.js"
+  },
+  {
     "from": "_blueink/:doc",
     "to": "_show/item/:doc"
   },

@@ -6,3 +6,4 @@ blueink.esproj
 .externalToolBuilders
 .project
 .settings
+node_modules/*

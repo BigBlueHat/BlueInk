@@ -1,0 +1,6 @@
+menu-content > nav > h4 {
+  padding: 1em;
+}
+menu-content > nav > .hide {
+  display: none;
+}

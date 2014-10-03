@@ -1,1 +1,1 @@
-["(.*).esproj"]
+["node_modules/*", "src/*"]

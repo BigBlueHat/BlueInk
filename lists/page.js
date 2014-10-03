@@ -101,7 +101,18 @@ function(head, req) {
         });
       });
       page.site.host = req.headers.Host;
-
+      //page.req = JSON.stringify(req);
+      if (req.userCtx.name !== null) {
+        // someone is logged in
+        // TODO: (re)think through user object stuff
+        page.user = {
+          username: req.userCtx.name,
+          roles: req.userCtx.roles
+        };
+      } else {
+        // anonymous site visitor
+        page.user = false;
+      }
       send(mustache.to_html(templates.page, page, templates.partials));
     }
   );

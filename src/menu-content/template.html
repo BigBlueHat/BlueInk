@@ -1,0 +1,7 @@
+<nav v-on="mouseover: toggleMenu(), mouseout: toggleMenu()">
+  <h4>
+    Content</h4>
+  <ul v-class="hide: hidden">
+    <li v-repeat="types">{{key}}</li>
+  </ul>
+</nav>

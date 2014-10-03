@@ -1,0 +1,24 @@
+{
+  "name": "blueink",
+  "version": "0.1.0",
+  "description": "Over the top Content Management on Apache CouchDB",
+  "author": "BigBlueHat",
+  "license": "Apache License 2.0",
+  "repository": "https://github.com/BigBlueHat/BlueInk.git",
+  "main": "src/main.js",
+  "dependencies": {
+    "vue": "~0.10.5",
+    "pouchdb": "~3.0.6"
+  },
+  "devDependencies": {
+    "watchify": "~0.6.1",
+    "partialify": "~3.0.0",
+    "insert-css": "~0.1.1",
+    "mocha": "~1.20.0"
+  },
+  "scripts": {
+    "dev": "browserify -e src/main.js -t partialify -o _attachments/bundle.js && couchapp push . default",
+    "test": "mocha --ui bdd",
+    "test-browser": "browserify -t partialify test/*.js --exclude test-bundle.js > test/test-bundle.js"
+  }
+}

@@ -1,0 +1,11 @@
+ui-blueink {
+  background: orange;
+  border-bottom: 1px solid blue;
+}
+
+ui-blueink > menu-pages,
+ui-blueink > menu-content{
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+}
