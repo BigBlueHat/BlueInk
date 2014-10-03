@@ -15063,19 +15063,28 @@ var db = new PouchDB('http://localhost:5984/blueink');
 
 Vue.component('ui-blueink', {
   data: {
+    pages: [],
     content: {
       types: []
     }
   },
   created: function() {
     var self = this;
+    db.query('blueink/pages?group=true',
+      function(err, response) {
+        for (var i = 0; i < response.rows.length; i++) {
+          self.pages.push({
+            url: response.rows[i].key.join('/')
+          });
+        }
+      });
     db.query('blueink/by_type?group=true',
       function(err, response) {
         self.content.types = response.rows;
       });
   },
   template: '\
-    <menu-pages></menu-pages>\
+    <menu-pages v-with="pages: pages"></menu-pages>\
     <menu-content v-with="types: content.types"></menu-content>',
   components: {
     'menu-pages': require('./menu-pages'),
@@ -15108,16 +15117,25 @@ module.exports = {
 },{"./index.css":86,"./template.html":88,"insert-css":1}],88:[function(require,module,exports){
 module.exports = '<nav v-on="mouseover: toggleMenu(), mouseout: toggleMenu()">\n  <h4>\n    Content</h4>\n  <ul v-class="hide: hidden">\n    <li v-repeat="types">{{key}}</li>\n  </ul>\n</nav>\n';
 },{}],89:[function(require,module,exports){
-module.exports = 'menu-pages > nav > h4 {\n  padding: 1em;\n}\n\nmenu-pages > nav > ul {\n  display: none;\n}\n';
+module.exports = 'menu-pages > nav > h4 {\n  padding: 1em;\n}\n\nmenu-pages > nav > .hide {\n  display: none;\n}\n';
 },{}],90:[function(require,module,exports){
 require('insert-css')(require('./index.css'));
 
 module.exports = {
-  template: require('./template.html')
+  template: require('./template.html'),
+  data: {
+    hidden: true,
+    pages: []
+  },
+  methods: {
+    toggleMenu: function() {
+      this.hidden = !this.hidden;
+    }
+  }
 };
 
 },{"./index.css":89,"./template.html":91,"insert-css":1}],91:[function(require,module,exports){
-module.exports = '<nav>\n  <h4>Pages</h4>\n  <ul>\n    <li>Home</li>\n    <li>About</li>\n  </ul>\n</nav>\n';
+module.exports = '<nav v-on="mouseover: toggleMenu(), mouseout: toggleMenu()">\n  <h4>\n    Pages</h4>\n  <ul v-class="hide: hidden">\n    <li v-repeat="pages">{{url}}</li>\n  </ul>\n</nav>\n';
 },{}],92:[function(require,module,exports){
 
 },{}],93:[function(require,module,exports){

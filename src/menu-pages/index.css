@@ -2,6 +2,6 @@ menu-pages > nav > h4 {
   padding: 1em;
 }
 
-menu-pages > nav > ul {
+menu-pages > nav > .hide {
   display: none;
 }

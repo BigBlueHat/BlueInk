@@ -1,7 +1,7 @@
-<nav>
-  <h4>Pages</h4>
-  <ul>
-    <li>Home</li>
-    <li>About</li>
+<nav v-on="mouseover: toggleMenu(), mouseout: toggleMenu()">
+  <h4>
+    Pages</h4>
+  <ul v-class="hide: hidden">
+    <li v-repeat="pages">{{url}}</li>
   </ul>
 </nav>
