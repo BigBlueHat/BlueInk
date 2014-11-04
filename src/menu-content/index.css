@@ -1,6 +1,7 @@
-menu-content > nav > h4 {
-  padding: 1em;
+menu-content .item .label {
+  display:none;
 }
-menu-content > nav > .hide {
-  display: none;
+
+menu-content .item:hover .label {
+  display:block;
 }

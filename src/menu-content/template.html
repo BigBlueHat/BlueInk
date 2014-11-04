@@ -1,6 +1,13 @@
-<nav class="section ui dropdown simple link item">
+<menu-content class="section ui dropdown simple link item">
   <h4>Content</h4>
   <ul class="menu">
-    <li class="item" v-repeat="types">{{key}}</li>
+    <li class="item" v-repeat="types">{{key}}
+      <span class="ui small bottom right attached label">{{value}}</span>
+      <ul class="menu">
+        <li class="item">
+          ...content item list will go here...
+        </li>
+      </ul>
+    </li>
   </ul>
-</nav>
+</menu-content>
