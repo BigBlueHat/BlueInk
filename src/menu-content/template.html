@@ -1,7 +1,6 @@
-<nav v-on="mouseover: toggleMenu(), mouseout: toggleMenu()">
-  <h4>
-    Content</h4>
-  <ul v-class="hide: hidden">
-    <li v-repeat="types">{{key}}</li>
+<nav class="section ui dropdown simple link item">
+  <h4>Content</h4>
+  <ul class="menu">
+    <li class="item" v-repeat="types">{{key}}</li>
   </ul>
 </nav>

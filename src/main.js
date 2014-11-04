@@ -1,3 +1,4 @@
+require('insert-css')(require('./semantic-ui/css/semantic.css'));
 require('insert-css')(require('./main.css'));
 
 var Vue = require('vue');
@@ -28,9 +29,15 @@ Vue.component('ui-blueink', {
         self.content.types = response.rows;
       });
   },
+  ready: function() {
+    document.body.style.top = this.$el.clientHeight + 'px';
+  },
+  replace: true,
   template: '\
-    <menu-pages v-with="pages: pages"></menu-pages>\
-    <menu-content v-with="types: content.types"></menu-content>',
+    <ui-blueink class="ui fixed transparent inverted main menu">\
+        <menu-pages v-with="pages: pages"></menu-pages>\
+        <menu-content v-with="types: content.types"></menu-content>\
+    </ui-blueink>',
   components: {
     'menu-pages': require('./menu-pages'),
     'menu-content': require('./menu-content')
