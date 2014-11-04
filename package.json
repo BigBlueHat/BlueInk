@@ -17,7 +17,8 @@
     "mocha": "~1.20.0"
   },
   "scripts": {
-    "dev": "browserify -e src/main.js -t partialify -o _attachments/bundle.js && couchapp push . default",
+    "dev": "browserify -e src/main.js -t partialify -o _design/blueink/_attachments/bundle.js && cd _design/blueink && couchapp push . default && cd ../..",
+    "docs": "cd _docs && couchapp pushdocs . default",
     "test": "mocha --ui bdd",
     "test-browser": "browserify -t partialify test/*.js --exclude test-bundle.js > test/test-bundle.js"
   }
