@@ -4,7 +4,8 @@ require('insert-css')(require('./main.css'));
 var Vue = require('vue');
 var PouchDB = require('pouchdb');
 
-var db = new PouchDB('http://localhost:5984/blueink');
+var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
+    + location.port + '/blueink');
 
 
 Vue.component('ui-blueink', {
