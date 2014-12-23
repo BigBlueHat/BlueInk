@@ -7,8 +7,7 @@
   "repository": "https://github.com/BigBlueHat/BlueInk.git",
   "main": "src/main.js",
   "dependencies": {
-    "vue": "~0.10.5",
-    "pouchdb": "~3.0.6"
+    "vue": "~0.11.4"
   },
   "devDependencies": {
     "watchify": "~0.6.1",

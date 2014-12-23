@@ -1,18 +1,21 @@
-require('insert-css')(require('./semantic-ui/css/semantic.css'));
+require('insert-css')(require('./semantic-ui/semantic.css'));
 require('insert-css')(require('./main.css'));
 
 var Vue = require('vue');
-var PouchDB = require('pouchdb');
+Vue.config.debug = true;
+var PouchDB = require('./pouchdb.js');
 
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
     + location.port + '/blueink');
 
 
 Vue.component('ui-blueink', {
-  data: {
-    pages: [],
-    content: {
-      types: []
+  data: function() {
+    return {
+      pages: [],
+      content: {
+        types: []
+      }
     }
   },
   created: function() {
