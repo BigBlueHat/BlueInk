@@ -2,7 +2,7 @@
    "_id": "blog/2007",
    "nav_label": "2007",
    "title": "2007",
-   "template": "template|other",
+   "template": "template~other",
    "page_items": [
        [
          {"_collection":

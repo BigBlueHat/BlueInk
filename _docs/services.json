@@ -20,5 +20,5 @@
     ]
   ],
   "type": "page",
-  "template": "template|new"
+  "template": "template~new"
 }

@@ -43,7 +43,7 @@ function(doc) {
     emit(urlParts.concat('', '', 'site'), {'_id':'site'});
     emit(urlParts.concat('', '', 'sitemap'), {'_id':'sitemap'});
     // always include the default template doc as a foundation
-    emit(urlParts.concat('', '', 'template'), {'_id':'template|default'});
+    emit(urlParts.concat('', '', 'template'), {'_id':'template~default'});
     if (doc.template) {
       emit(urlParts.concat('', '', 'template_override'), {'_id':doc.template});
     }

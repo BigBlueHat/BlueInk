@@ -2,7 +2,7 @@
   "_id": "blog",
   "nav_label": "Blog",
   "title": "Blog",
-  "template": "template|other",
+  "template": "template~other",
   "page_items": [
     [
       {

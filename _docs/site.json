@@ -1,5 +1,5 @@
 {
   "type": "site",
   "title":"BlueInk CMS Site",
-  "template": {"_id":"template|site"}
+  "template": {"_id":"template~site"}
 }
