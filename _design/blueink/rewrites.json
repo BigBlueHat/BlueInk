@@ -4,8 +4,8 @@
     "to" : "style/*"
   },
   {
-    "from": "_blueink/templates/:template/style/:file",
-    "to": "../../:template/style/:file"
+    "from": "_blueink/static/:template/*",
+    "to": "../../:template/*"
   },
   {
     "from": "_blueink/item-types",
