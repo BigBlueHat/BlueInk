@@ -31,12 +31,12 @@ function(head, req) {
         // it's the page
         if (secondtolast == '_' && last == '_') {
           page.title = row.doc.title;
-          page.template = row.doc.template;
         } else if (secondtolast == '' && last == 'site') {
           page.site = row.doc;
         } else if (secondtolast == '' && last == 'sitemap') {
           page.sitemap = row.doc.urls;
         } else if (secondtolast == '' && last == 'template') {
+          page.template = row.doc._id;
           templates = row.doc.templates;
         } else if (secondtolast == '' && last == 'template_override') {
           templates = array_replace_recursive(templates, row.doc.templates);
