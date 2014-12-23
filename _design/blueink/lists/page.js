@@ -1,8 +1,8 @@
 function(head, req) {
-  // !code lib/array_replace_recursive.js
   var ddoc = this,
       templates = {},
       mustache = require("lib/mustache"),
+      array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive,
       dateToArray = require("lib/dateToArray").dateToArray,
       row;
 
