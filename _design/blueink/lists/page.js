@@ -39,6 +39,7 @@ function(head, req) {
           page.template = row.doc._id;
           templates = row.doc.templates;
         } else if (secondtolast == '' && last == 'template_override') {
+          page.template = row.doc._id;
           templates = array_replace_recursive(templates, row.doc.templates);
         } else {
           // TODO: base template selection off type
