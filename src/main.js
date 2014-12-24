@@ -6,7 +6,7 @@ Vue.config.debug = true;
 var PouchDB = require('./pouchdb.js');
 
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
-    + location.port + '/blueink');
+    + location.port + '/' + location.pathname.split('/')[1]);
 
 
 Vue.component('ui-blueink', {
