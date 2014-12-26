@@ -1,5 +1,3 @@
-require('insert-css')(require('./index.css'));
-
 // TODO: componentize
 var PouchDB = require('../pouchdb.js');
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
@@ -8,20 +6,20 @@ var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
 module.exports = {
   replace: true,
   template: require('./template.html'),
+  paramAttributes: ['type'],
   data: function() {
     return {
-      pages: []
+      type: "",
+      items: []
     }
   },
-  created: function() {
-    var self = this;
-    db.query('blueink/pages?group=true',
+  watch: {
+    type: function() {
+      var self = this;
+      db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
       function(err, response) {
-        for (var i = 0; i < response.rows.length; i++) {
-          self.pages.push({
-            url: response.rows[i].key.join('/')
-          });
-        }
+        self.items = response.rows;
       });
+    }
   }
 };

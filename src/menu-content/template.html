@@ -3,11 +3,7 @@
   <ul class="menu">
     <li class="item" v-repeat="types">{{key}}
       <span class="ui small bottom right attached label">{{value}}</span>
-      <ul class="menu">
-        <li class="item">
-          ...content item list will go here...
-        </li>
-      </ul>
+      <menu-items type="{{key}}"></menu-items>
     </li>
   </ul>
 </menu-content>
