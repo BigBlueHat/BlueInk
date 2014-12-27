@@ -1,0 +1,11 @@
+<div class="inline field" data-json="kvp"
+  v-if="type != 'object'">
+  <label for="{{$key}}">{{$key}}</label>
+  <input name="{{$key}}" type="{{type | input_type}}" />
+  <p class="ui message"
+    v-if="description"><small>{{description}}</small></p>
+</div>
+<fieldset data-json="object" class="ui fields" v-if="type == 'object' && $key != '$ref'">
+  <legend>{{$key}}</legend>
+  <div v-component="json-schema-property" v-repeat="properties"></div>
+</fieldset>

@@ -1,0 +1,5 @@
+<form class="ui horizontal form">
+<h1 class="ui header" v-if="schema.title">{{schema.title}}</h1>
+<div class="ui message" v-if="schema.description"><small>{{schema.description}}</small></div>
+<div v-repeat="schema.properties" v-component="json-schema-property"></div>
+</form>

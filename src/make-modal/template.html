@@ -1,0 +1,24 @@
+<div class="ui dimmer page visible active" style="overflow: auto">
+  <div style="margin-top: -243.5px;" class="ui fullscreen modal transition visible active scrolling">
+    <i class="close icon"
+      v-on="click: destroy()"></i>
+    <div class="header">
+      <div class="ui left floated header">
+        {{name}}
+      </div>
+      <div class="ui right floated tiny header">
+        <!-- TODO: make this a drop-down of available schemas -->
+        {{type}}
+      </div>
+    </div>
+    <div class="content">
+      <vue-schema v-with="schema: items"></vue-schema>
+    </div>
+    <div class="actions">
+      <div class="ui black button"
+        v-on="click: destroy()">
+        Close
+      </div>
+    </div>
+  </div>
+</div>

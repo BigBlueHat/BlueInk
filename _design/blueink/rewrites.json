@@ -4,6 +4,13 @@
     "to" : "style/*"
   },
   {
+    "from": "_blueink/schemas/:schema",
+    "to": "../../_design/schemas/_list/compile/schemas",
+    "query": {
+      "include_docs": "true"
+    }
+  },
+  {
     "from": "_blueink/static/:template/*",
     "to": "../../:template/*"
   },

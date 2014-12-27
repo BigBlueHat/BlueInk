@@ -1,4 +1,8 @@
 <ul class="menu">
+  <div class="item">
+    <div class="ui primary button"
+      v-on="click: openMakeModal()">new {{type}}</div>
+  </div>
   <li class="item" v-repeat="items">
     {{value}}
   </li>
