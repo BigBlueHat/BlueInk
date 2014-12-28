@@ -1,15 +1,19 @@
-var Fetchable = require('../fetchable');
+var Vue = require('vue');
 
-module.exports = Fetchable.extend({
+module.exports = Vue.extend({
   data: function() {
     return {
-      schema_name: ''
+      schema_name: '',
+      items: []
     };
   },
   computed: {
     apiUrl: function() {
       return '_blueink/schemas/' + this.schema_name;
     }
+  },
+  watch: {
+    apiUrl: 'fetchData'
   },
   replace: true,
   template: require('./template.html'),
@@ -25,6 +29,16 @@ module.exports = Fetchable.extend({
   methods: {
     destroy: function() {
       this.$destroy(true);
+    },
+    fetchData: function () {
+      if (!this.apiUrl) return false;
+      var xhr = new XMLHttpRequest(),
+          self = this;
+      xhr.open('GET', self.apiUrl);
+      xhr.onload = function () {
+        self.items = JSON.parse(xhr.responseText);
+      };
+      xhr.send();
     }
   },
   components: {
