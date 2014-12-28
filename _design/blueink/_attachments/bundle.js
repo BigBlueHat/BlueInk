@@ -7867,7 +7867,8 @@ module.exports = Vue.extend({
     save: function() {
       var self = this;
       var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
-      db.put(doc, this.doc_id, function (err, resp) {
+      doc._id = this.doc_id,
+      db.post(doc, function (err, resp) {
         if (err) {
           alert('Something went wrong. Please try again.');
           console.log(err);
