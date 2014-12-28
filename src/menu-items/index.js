@@ -16,16 +16,18 @@ module.exports = {
     }
   },
   watch: {
-    type: function() {
+    type: 'loadItems'
+  },
+  methods: {
+    loadItems: function() {
       var self = this;
       db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
       function(err, response) {
         self.items = response.rows;
       });
-    }
-  },
-  methods: {
+    },
     openMakeModal: function(doc_id) {
+      var self = this;
       var modal = new MakeModal({
         data: {
           schema_name: this.type,
@@ -34,6 +36,9 @@ module.exports = {
       });
       modal.$mount();
       modal.$appendTo('body');
+      modal.$on('saved', function(type) {
+        self.loadItems();
+      });
     }
   }
 };

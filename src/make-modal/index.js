@@ -61,6 +61,7 @@ module.exports = Vue.extend({
           console.log(err);
         } else {
           alert('The ' + doc.type + ' was saved successfully!');
+          self.$emit('saved', doc.type);
           self.destroy();
         }
       });
