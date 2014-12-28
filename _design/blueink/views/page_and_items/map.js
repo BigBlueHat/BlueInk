@@ -28,7 +28,8 @@ function(doc) {
           //posts.sort(sortByPublishedDate);
           // TODO: switch this to use JSON Pointer library
           for (post in doc[doc.page_items[i][n]['_collection']['$ref'].substr(2)]) {
-            emit(urlParts.concat('', i, n, 'post'), doc.posts[post]);
+            emit(urlParts.concat('', i, n, 'post'),
+                doc[doc.page_items[i][n]['_collection']['$ref'].substr(2)][post]);
             if (post_count == max_posts) break;
             else post_count++;
           };
