@@ -62,13 +62,15 @@ function(head, req) {
                                                         'posts': []};
                 }
               } else if (is_post) {
+                var post_template = templates.types[row.doc.type][page.items[secondtolast].area[last].collection.template_type] || templates.types[row.doc.type];
                 // collection item handling
                 page.items[secondtolast].area[last].posts
-                  .push({'item':mustache.to_html(templates.types[row.doc.type], doc),
+                  .push({'item':mustache.to_html(post_template, doc),
                          'published_date': dateToArray(row.value.published_date, 3).join('/')});
               } else {
                 // non-post item
-                page.items[secondtolast].area[last] = {'item':mustache.to_html(templates.types[row.doc.type], doc)};
+                var item_template = templates.types[row.doc.type]['default'] || templates.types[row.doc.type];
+                page.items[secondtolast].area[last] = {'item':mustache.to_html(item_template, doc)};
               }
             }
           }
