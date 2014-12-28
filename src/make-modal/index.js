@@ -80,10 +80,17 @@ module.exports = Vue.extend({
       if (!this.valuesUrl) return false;
       var xhr = new XMLHttpRequest(),
           self = this;
-      xhr.open('GET', self.valuesUrl);
       xhr.onload = function () {
-        self.values = JSON.parse(xhr.responseText);
+        var rv = JSON.parse(xhr.responseText);
+        if (!rv.error) {
+          self.values = rv;
+        } else {
+          self.values = {
+            "_id": self.doc_id
+          }
+        }
       };
+      xhr.open('GET', self.valuesUrl);
       xhr.send();
     }
   },

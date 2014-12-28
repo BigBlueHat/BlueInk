@@ -7866,7 +7866,7 @@ module.exports = Vue.extend({
     },
     save: function() {
       var self = this;
-      var doc = array_merge_recursive(this.$get('values'), this.$.editor.output());
+      var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
       db.put(doc, this.doc_id, function (err, resp) {
         if (err) {
           alert('Something went wrong. Please try again.');
@@ -7892,10 +7892,17 @@ module.exports = Vue.extend({
       if (!this.valuesUrl) return false;
       var xhr = new XMLHttpRequest(),
           self = this;
-      xhr.open('GET', self.valuesUrl);
       xhr.onload = function () {
-        self.values = JSON.parse(xhr.responseText);
+        var rv = JSON.parse(xhr.responseText);
+        if (!rv.error) {
+          self.values = rv;
+        } else {
+          self.values = {
+            "_id": self.doc_id
+          }
+        }
       };
+      xhr.open('GET', self.valuesUrl);
       xhr.send();
     }
   },
@@ -8099,5 +8106,5 @@ module.exports = {
 },{"./property-template.html":80,"./template.html":81}],80:[function(require,module,exports){
 module.exports = '<div class="field" data-json="kvp"\n  v-if="type != \'object\'">\n  <label for="{{$key}}">{{$key}}</label>\n  <input name="{{$key}}" type="{{type | input_type}}" v-attr="value: getValue()" />\n  <p class="ui message"\n    v-if="description"><small>{{description}}</small></p>\n</div>\n<fieldset data-json="object" class="ui fields" v-if="type == \'object\' && $key != \'$ref\'">\n  <legend>{{$key}}</legend>\n  <div v-component="json-schema-property" v-repeat="properties"></div>\n</fieldset>\n';
 },{}],81:[function(require,module,exports){
-module.exports = '<form class="ui horizontal form">\n<h1 class="ui header" v-if="schema.title">{{schema.title}}</h1>\n<div class="ui message" v-if="schema.description"><small>{{schema.description}}</small></div>\n<div v-repeat="schema.properties" v-component="json-schema-property"></div>\n</form>\n';
+module.exports = '<form class="ui horizontal form" v-if="schema">\n<h1 class="ui header" v-if="schema.title">{{schema.title}}</h1>\n<div class="ui message" v-if="schema.description"><small>{{schema.description}}</small></div>\n<div v-repeat="schema.properties" v-component="json-schema-property"></div>\n</form>\n\n<form class="ui horizontal form" v-if="!schema.properties">\n  <textarea v-model="values | json"></textarea>\n</form>\n';
 },{}]},{},[65])
