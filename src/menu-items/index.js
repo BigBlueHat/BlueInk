@@ -25,10 +25,11 @@ module.exports = {
     }
   },
   methods: {
-    openMakeModal: function() {
+    openMakeModal: function(doc_id) {
       var modal = new MakeModal({
         data: {
-          schema_name: this.type
+          schema_name: this.type,
+          doc_id: doc_id
         }
       });
       modal.$mount();

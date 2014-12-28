@@ -7727,23 +7727,35 @@ module.exports = Vue.extend({
   data: function() {
     return {
       schema_name: '',
-      items: []
+      schema: {},
+      doc_id: '',
+      values: {}
     };
   },
   computed: {
-    apiUrl: function() {
+    schemaUrl: function() {
       return '_blueink/schemas/' + this.schema_name;
+    },
+    valuesUrl: function() {
+      if (this.doc_id !== undefined) {
+        return '_blueink/' + this.doc_id;
+      }
     }
   },
   watch: {
-    apiUrl: 'fetchData'
+    // TODO: move all this stuff to vue-schema; it's not really modal stuff
+    schemaUrl: 'fetchSchema',
+    valuesUrl: 'fetchValues'
   },
   replace: true,
   template: require('./template.html'),
   created: function() {
     document.body.style.overflow = 'hidden';
     if (this.schema_name !== '') {
-      this.fetchData();
+      this.fetchSchema();
+    }
+    if (this.doc_id !== '') {
+      this.fetchValues();
     }
   },
   destroyed: function() {
@@ -7753,13 +7765,23 @@ module.exports = Vue.extend({
     destroy: function() {
       this.$destroy(true);
     },
-    fetchData: function () {
-      if (!this.apiUrl) return false;
+    fetchSchema: function () {
+      if (!this.schemaUrl) return false;
       var xhr = new XMLHttpRequest(),
           self = this;
-      xhr.open('GET', self.apiUrl);
+      xhr.open('GET', self.schemaUrl);
       xhr.onload = function () {
-        self.items = JSON.parse(xhr.responseText);
+        self.schema = JSON.parse(xhr.responseText);
+      };
+      xhr.send();
+    },
+    fetchValues: function () {
+      if (!this.valuesUrl) return false;
+      var xhr = new XMLHttpRequest(),
+          self = this;
+      xhr.open('GET', self.valuesUrl);
+      xhr.onload = function () {
+        self.values = JSON.parse(xhr.responseText);
       };
       xhr.send();
     }
@@ -7770,7 +7792,7 @@ module.exports = Vue.extend({
 });
 
 },{"../vue-schema":79,"./template.html":67,"vue":62}],67:[function(require,module,exports){
-module.exports = '<div class="ui dimmer page visible active" style="overflow: auto">\n  <div style="margin-top: -243.5px;" class="ui fullscreen modal transition visible active scrolling">\n    <i class="close icon"\n      v-on="click: destroy()"></i>\n    <div class="header">\n      <div class="ui left floated header">\n        {{name}}\n      </div>\n      <div class="ui right floated tiny header">\n        <!-- TODO: make this a drop-down of available schemas -->\n        {{type}}\n      </div>\n    </div>\n    <div class="content">\n      <vue-schema v-with="schema: items"></vue-schema>\n    </div>\n    <div class="actions">\n      <div class="ui black button"\n        v-on="click: destroy()">\n        Close\n      </div>\n    </div>\n  </div>\n</div>\n';
+module.exports = '<div class="ui dimmer page visible active" style="overflow: auto">\n  <div style="margin-top: -243.5px;" class="ui fullscreen modal transition visible active scrolling">\n    <i class="close icon"\n      v-on="click: destroy()"></i>\n    <div class="header">\n      <div class="ui left floated header">\n        {{name}}\n      </div>\n      <div class="ui right floated tiny header">\n        <!-- TODO: make this a drop-down of available schemas -->\n        {{type}}\n      </div>\n    </div>\n    <div class="content">\n      <vue-schema v-with="schema: schema, values: values"></vue-schema>\n    </div>\n    <div class="actions">\n      <div class="ui black button"\n        v-on="click: destroy()">\n        Close\n      </div>\n    </div>\n  </div>\n</div>\n';
 },{}],68:[function(require,module,exports){
 module.exports = 'menu-content .item .label {\n  display:none;\n}\n\nmenu-content .item:hover .label {\n  display:block;\n}\n';
 },{}],69:[function(require,module,exports){
@@ -7831,10 +7853,11 @@ module.exports = {
     }
   },
   methods: {
-    openMakeModal: function() {
+    openMakeModal: function(doc_id) {
       var modal = new MakeModal({
         data: {
-          schema_name: this.type
+          schema_name: this.type,
+          doc_id: doc_id
         }
       });
       modal.$mount();
@@ -7844,7 +7867,7 @@ module.exports = {
 };
 
 },{"../make-modal":66,"../pouchdb.js":76,"./template.html":72}],72:[function(require,module,exports){
-module.exports = '<ul class="menu">\n  <div class="item">\n    <div class="ui primary button"\n      v-on="click: openMakeModal()">new {{type}}</div>\n  </div>\n  <li class="item" v-repeat="items">\n    {{value}}\n  </li>\n</ul>\n';
+module.exports = '<ul class="menu">\n  <div class="item">\n    <div class="ui primary button"\n      v-on="click: openMakeModal()">new {{type}}</div>\n  </div>\n  <li class="item" v-repeat="items" v-on="click: openMakeModal(id)">\n    {{value}}\n  </li>\n</ul>\n';
 },{}],73:[function(require,module,exports){
 module.exports = 'menu-pages > nav > h4 {\n  padding: 1em;\n}\n\nmenu-pages > nav > .hide {\n  display: none;\n}\n';
 },{}],74:[function(require,module,exports){

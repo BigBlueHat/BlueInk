@@ -33,8 +33,12 @@
     "to": "bundle.js"
   },
   {
-    "from": "_blueink/:doc",
+    "from": "_blueink/preview/:doc",
     "to": "_show/item/:doc"
+  },
+  {
+    "from": "_blueink/*",
+    "to": "../../*"
   },
   {
   "from": "/",
