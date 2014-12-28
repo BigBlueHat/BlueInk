@@ -1,5 +1,3 @@
-var array_replace_recursive = require('./array_replace_recursive');
-
 module.exports = {
   data: function() {
     return {
@@ -51,7 +49,10 @@ module.exports = {
         }
         return obj;
       }
-      return JSON.stringify(accumulate(json, jsonDOM), null, "\t");
+      return accumulate(json, jsonDOM);
+    },
+    outputString: function() {
+      return JSON.stringify(this.output());
     }
   }
 };

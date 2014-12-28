@@ -1,4 +1,10 @@
 var Vue = require('vue');
+var array_merge_recursive = require('./array_merge_recursive.js');
+
+// TODO: componentize
+var PouchDB = require('../pouchdb.js');
+var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
+    + location.port + '/' + location.pathname.split('/')[1]);
 
 module.exports = Vue.extend({
   data: function() {
@@ -16,6 +22,10 @@ module.exports = Vue.extend({
     valuesUrl: function() {
       if (this.doc_id !== undefined) {
         return '_blueink/' + this.doc_id;
+      } else {
+        // if we don't have an existing doc,
+        // set a UUID to avoid duplicate doc creation
+        this.doc_id = PouchDB.utils.uuid();
       }
     }
   },
@@ -41,6 +51,19 @@ module.exports = Vue.extend({
   methods: {
     destroy: function() {
       this.$destroy(true);
+    },
+    save: function() {
+      var self = this;
+      var doc = array_merge_recursive(this.$get('values'), this.$.editor.output());
+      db.put(doc, this.doc_id, function (err, resp) {
+        if (err) {
+          alert('Something went wrong. Please try again.');
+          console.log(err);
+        } else {
+          alert('The ' + doc.type + ' was saved successfully!');
+          self.destroy();
+        }
+      });
     },
     fetchSchema: function () {
       if (!this.schemaUrl) return false;

@@ -12,12 +12,17 @@
       </div>
     </div>
     <div class="content">
-      <vue-schema v-with="schema: schema, values: values"></vue-schema>
+      <vue-schema v-ref="editor"
+        v-with="schema: schema, values: values"></vue-schema>
     </div>
     <div class="actions">
       <div class="ui black button"
         v-on="click: destroy()">
-        Close
+        Cancel
+      </div>
+      <div class="ui primary button"
+        v-on="click: save()">
+        Save
       </div>
     </div>
   </div>
