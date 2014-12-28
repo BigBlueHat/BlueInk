@@ -8046,6 +8046,7 @@ module.exports = {
   template: require('./template.html'),
   components: {
     'json-schema-property': {
+      replace: true,
       template: require('./property-template.html'),
       methods: {
         getValue: function() {
@@ -8096,7 +8097,7 @@ module.exports = {
 };
 
 },{"./property-template.html":80,"./template.html":81}],80:[function(require,module,exports){
-module.exports = '<div class="inline field" data-json="kvp"\n  v-if="type != \'object\'">\n  <label for="{{$key}}">{{$key}}</label>\n  <input name="{{$key}}" type="{{type | input_type}}" v-attr="value: getValue()" />\n  <p class="ui message"\n    v-if="description"><small>{{description}}</small></p>\n</div>\n<fieldset data-json="object" class="ui fields" v-if="type == \'object\' && $key != \'$ref\'">\n  <legend>{{$key}}</legend>\n  <div v-component="json-schema-property" v-repeat="properties"></div>\n</fieldset>\n';
+module.exports = '<div class="field" data-json="kvp"\n  v-if="type != \'object\'">\n  <label for="{{$key}}">{{$key}}</label>\n  <input name="{{$key}}" type="{{type | input_type}}" v-attr="value: getValue()" />\n  <p class="ui message"\n    v-if="description"><small>{{description}}</small></p>\n</div>\n<fieldset data-json="object" class="ui fields" v-if="type == \'object\' && $key != \'$ref\'">\n  <legend>{{$key}}</legend>\n  <div v-component="json-schema-property" v-repeat="properties"></div>\n</fieldset>\n';
 },{}],81:[function(require,module,exports){
 module.exports = '<form class="ui horizontal form">\n<h1 class="ui header" v-if="schema.title">{{schema.title}}</h1>\n<div class="ui message" v-if="schema.description"><small>{{schema.description}}</small></div>\n<div v-repeat="schema.properties" v-component="json-schema-property"></div>\n</form>\n';
 },{}]},{},[65])

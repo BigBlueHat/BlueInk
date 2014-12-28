@@ -8,6 +8,7 @@ module.exports = {
   template: require('./template.html'),
   components: {
     'json-schema-property': {
+      replace: true,
       template: require('./property-template.html'),
       methods: {
         getValue: function() {
