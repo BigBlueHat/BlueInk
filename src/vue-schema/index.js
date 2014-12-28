@@ -1,13 +1,28 @@
+var array_replace_recursive = require('./array_replace_recursive');
+
 module.exports = {
   data: function() {
     return {
-      schema: {}
+      schema: {},
+      values: {}
     };
   },
   template: require('./template.html'),
   components: {
     'json-schema-property': {
-      template: require('./property-template.html')
+      template: require('./property-template.html'),
+      methods: {
+        getValue: function() {
+          if (this.$parent.$key == undefined) {
+            return this.$parent.values[this.$key];
+          } else if (this.$parent.$parent.values
+              && this.$parent.$parent.values[this.$parent.$key]
+              && this.$parent.$parent.values[this.$parent.$key][this.$key]) {
+            // TODO: make this recursive
+            return this.$parent.$parent.values[this.$parent.$key][this.$key];
+          }
+        }
+      }
     }
   },
   filters: {
