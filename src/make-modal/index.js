@@ -54,7 +54,7 @@ module.exports = Vue.extend({
     },
     save: function() {
       var self = this;
-      var doc = array_merge_recursive(this.$get('values'), this.$.editor.output());
+      var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
       db.put(doc, this.doc_id, function (err, resp) {
         if (err) {
           alert('Something went wrong. Please try again.');
