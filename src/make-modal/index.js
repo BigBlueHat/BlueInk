@@ -4,23 +4,23 @@ module.exports = Vue.extend({
   data: function() {
     return {
       schema_name: '',
-      items: []
+      schema: {}
     };
   },
   computed: {
-    apiUrl: function() {
+    schemaUrl: function() {
       return '_blueink/schemas/' + this.schema_name;
     }
   },
   watch: {
-    apiUrl: 'fetchData'
+    schemaUrl: 'fetchSchema'
   },
   replace: true,
   template: require('./template.html'),
   created: function() {
     document.body.style.overflow = 'hidden';
     if (this.schema_name !== '') {
-      this.fetchData();
+      this.fetchSchema();
     }
   },
   destroyed: function() {
@@ -30,13 +30,13 @@ module.exports = Vue.extend({
     destroy: function() {
       this.$destroy(true);
     },
-    fetchData: function () {
-      if (!this.apiUrl) return false;
+    fetchSchema: function () {
+      if (!this.schemaUrl) return false;
       var xhr = new XMLHttpRequest(),
           self = this;
-      xhr.open('GET', self.apiUrl);
+      xhr.open('GET', self.schemaUrl);
       xhr.onload = function () {
-        self.items = JSON.parse(xhr.responseText);
+        self.schema = JSON.parse(xhr.responseText);
       };
       xhr.send();
     }
