@@ -34,7 +34,9 @@ function(head, req) {
         // it's the page
         if (secondtolast == '_' && last == '_') {
           page.url = url = row.key.join('/');
-          page.title = row.doc.title;
+          if (row.doc.display_title !== false) {
+            page.title = row.doc.title;
+          }
         } else if (secondtolast == '' && last == 'site') {
           page.site = row.doc;
         } else if (secondtolast == '' && last == 'sitemap') {
