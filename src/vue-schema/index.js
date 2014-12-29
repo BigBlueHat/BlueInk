@@ -38,11 +38,14 @@ module.exports = {
       var jsonDOM = this.$el.querySelectorAll('[data-json]');
       var json = {};
       function accumulate(obj, dom) {
+        var key_name;
         for (var i = 0; i < dom.length; i++) {
           if (dom[i].dataset['json'] == 'kvp') {
-            obj[dom[i].querySelector('label').textContent] = dom[i].querySelector('input').value;
+            // TODO: handle studly labels
+            key_name = dom[i].querySelector('label').getAttribute('for')
+            obj[key_name] = dom[i].querySelector('input').value;
           } else if (dom[i].dataset['json'] == 'object') {
-            var legend = dom[i].querySelector('legend').textContent;
+            var legend = dom[i].querySelector('legend').getAttribute('data-key');
             var sub_dom = dom[i].querySelectorAll('[data-json]');
             obj[legend] = accumulate({}, sub_dom);
             i += sub_dom.length;

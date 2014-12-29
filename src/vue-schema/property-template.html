@@ -7,7 +7,7 @@
     v-if="description"><small>{{description}}</small></p>
 </div>
 <fieldset data-json="object" class="ui fields" v-if="type == 'object' && $key != '$ref'">
-  <legend v-if="!title">{{$key}}</legend>
-  <legend v-if="title">{{title}}</legend>
+  <legend v-if="!title" data-key="{{$key}}">{{$key}}</legend>
+  <legend v-if="title" data-key="{{$key}}">{{title}}</legend>
   <div v-component="json-schema-property" v-repeat="properties"></div>
 </fieldset>
