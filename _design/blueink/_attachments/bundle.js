@@ -7993,7 +7993,7 @@ module.exports = {
 };
 
 },{"../make-modal":67,"../pouchdb.js":77,"./template.html":73}],73:[function(require,module,exports){
-module.exports = '<ul class="menu">\n  <div class="item">\n    <div class="ui primary button"\n      v-on="click: openMakeModal()">new {{type}}</div>\n  </div>\n  <li class="item" v-repeat="items" v-on="click: openMakeModal(id)">\n    {{value}}\n  </li>\n</ul>\n';
+module.exports = '<ul class="menu">\n  <li>\n    <div class="item">\n      <a class="ui tiny primary button"\n        v-on="click: openMakeModal()">new {{type}}</a>\n  </div>\n  </li>\n  <li class="item" v-repeat="items" v-on="click: openMakeModal(id)">\n    {{value}}\n  </li>\n</ul>\n';
 },{}],74:[function(require,module,exports){
 module.exports = 'menu-pages > nav > h4 {\n  padding: 1em;\n}\n\nmenu-pages > nav > .hide {\n  display: none;\n}\n';
 },{}],75:[function(require,module,exports){
@@ -8026,7 +8026,7 @@ module.exports = {
 };
 
 },{"../pouchdb.js":77,"./index.css":74,"./template.html":76,"insert-css":1}],76:[function(require,module,exports){
-module.exports = '<menu-pages class="section ui dropdown simple link item">\n  <div>Pages</div>\n  <ul class="menu">\n    <li v-repeat="pages">\n      <a class="item" href="{{url}}">{{url}}</a>\n    </li>\n  </ul>\n</menu-pages>\n';
+module.exports = '<menu-pages class="section ui dropdown simple link item">\n  <div>Pages</div>\n  <ul class="menu">\n    <li>\n      <div class="item">\n        <a class="ui tiny primary button">edit page</a>\n      </div>\n      <div class="item">\n        <a class="ui tiny positive button">new page</a>\n      </div>\n    </li>\n    <li v-repeat="pages">\n      <a class="item" href="{{url}}">{{url}}</a>\n    </li>\n  </ul>\n</menu-pages>\n';
 },{}],77:[function(require,module,exports){
 (function (global){
 //    PouchDB 3.2.0

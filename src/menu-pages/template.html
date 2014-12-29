@@ -1,6 +1,14 @@
 <menu-pages class="section ui dropdown simple link item">
   <div>Pages</div>
   <ul class="menu">
+    <li>
+      <div class="item">
+        <a class="ui tiny primary button">edit page</a>
+      </div>
+      <div class="item">
+        <a class="ui tiny positive button">new page</a>
+      </div>
+    </li>
     <li v-repeat="pages">
       <a class="item" href="{{url}}">{{url}}</a>
     </li>
