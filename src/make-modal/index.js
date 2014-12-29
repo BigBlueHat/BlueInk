@@ -55,7 +55,8 @@ module.exports = Vue.extend({
     save: function() {
       var self = this;
       var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
-      doc._id = this.doc_id,
+      doc._id = this.doc_id;
+      doc.type = this.schema_name;
       db.post(doc, function (err, resp) {
         if (err) {
           alert('Something went wrong. Please try again.');
@@ -87,7 +88,8 @@ module.exports = Vue.extend({
           self.values = rv;
         } else {
           self.values = {
-            "_id": self.doc_id
+            "_id": self.doc_id,
+            "type": self.schema_name
           }
         }
       };
