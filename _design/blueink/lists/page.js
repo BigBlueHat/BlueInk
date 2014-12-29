@@ -4,7 +4,8 @@ function(head, req) {
       Handlebars = require("lib/handlebars"),
       array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive,
       dateToArray = require("lib/dateToArray").dateToArray,
-      row;
+      row,
+      url;
 
   if (!req.query && !req.query.include_docs) {
     send('Please add include_docs to make this thing work');
@@ -28,8 +29,11 @@ function(head, req) {
           last = row.key.pop();
         }
         var secondtolast = row.key.pop();
+        // dump the extra dividing ""; it's only there for visual parsing
+        var _ = row.key.pop();
         // it's the page
         if (secondtolast == '_' && last == '_') {
+          page.url = url = row.key.join('/');
           page.title = row.doc.title;
         } else if (secondtolast == '' && last == 'site') {
           page.site = row.doc;
@@ -57,6 +61,7 @@ function(head, req) {
               navigation.push(page.items[secondtolast].area[last] = row);
             } else {
               var doc = row.doc;
+              doc.base_url = page.url;
               // display settings
               if (row.value.display_title === false) {
                 doc.title = "";
