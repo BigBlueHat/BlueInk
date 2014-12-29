@@ -12,10 +12,13 @@ module.exports = {
   template: require('./template.html'),
   data: function() {
     return {
+      current: '',
       pages: []
     }
   },
   created: function() {
+    var base = document.getElementsByTagName('base')[0].href;
+    this.current = location.toString().replace(base, '');
     this.loadPages();
   },
   methods: {
@@ -35,7 +38,8 @@ module.exports = {
       var self = this;
       var modal = new MakeModal({
         data: {
-          schema_name: 'page'
+          schema_name: 'page',
+          doc_id: encodeURIComponent(doc_id) || ''
         }
       });
       modal.$mount();
@@ -46,7 +50,9 @@ module.exports = {
       modal.$on('saved', function(type) {
         self.loadPages();
       });
+      modal.$on('afterDel', function() {
+        location.href = 'home';
+      });
     }
   }
-
 };

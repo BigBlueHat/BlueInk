@@ -39,6 +39,9 @@ module.exports = {
       modal.$on('saved', function(type) {
         self.loadItems();
       });
+      modal.$on('afterDel', function() {
+        self.loadItems();
+      });
     }
   }
 };

@@ -25,6 +25,10 @@
         v-with="schema: schema, values: values"></vue-schema>
     </div>
     <div class="actions">
+      <div v-if="values._rev" class="ui left floated tiny red button"
+        v-on="click: del()">
+        Delete
+      </div>
       <div class="ui tiny buttons">
         <div class="ui button"
           v-on="click: destroy()">

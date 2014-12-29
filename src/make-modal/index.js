@@ -52,6 +52,18 @@ module.exports = Vue.extend({
     destroy: function() {
       this.$destroy(true);
     },
+    del: function() {
+      var self = this;
+      db.get(self.doc_id, function(err, doc) {
+        if (doc) {
+          db.remove(doc, function() {
+            alert('The ' + doc.type + ' has been deleted.');
+            self.$emit('afterDel');
+            self.destroy();
+          });
+        }
+      });
+    },
     save: function() {
       var self = this;
       var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
