@@ -55,6 +55,7 @@ module.exports = Vue.extend({
     save: function() {
       var self = this;
       var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
+      self.$emit('beforeSave', doc);
       doc._id = this.doc_id;
       doc.type = this.schema_name;
       db.post(doc, function (err, resp) {
