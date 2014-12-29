@@ -1,7 +1,7 @@
 function(head, req) {
   var ddoc = this,
       templates = {},
-      mustache = require("lib/mustache"),
+      Handlebars = require("lib/handlebars"),
       array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive,
       dateToArray = require("lib/dateToArray").dateToArray,
       row;
@@ -42,6 +42,12 @@ function(head, req) {
           page.template = row.doc._id;
           templates = array_replace_recursive(templates, row.doc.templates);
         } else {
+          var partial_names = Object.keys(templates.partials);
+          for (var i = 0; i < partial_names.length; i++) {
+            Handlebars.registerPartial(partial_names[i],
+              templates.partials[partial_names[i]]);
+          }
+
           // TODO: base template selection off type
           if (!page.items[secondtolast]) {
             page.items[secondtolast] = {'area':[]};
@@ -65,12 +71,12 @@ function(head, req) {
                 var post_template = templates.types[row.doc.type][page.items[secondtolast].area[last].collection.template_type] || templates.types[row.doc.type];
                 // collection item handling
                 page.items[secondtolast].area[last].posts
-                  .push({'item':mustache.to_html(post_template, doc),
+                  .push({'item':Handlebars.compile(post_template)(doc),
                          'published_date': dateToArray(row.value.published_date, 3).join('/')});
               } else {
                 // non-post item
                 var item_template = templates.types[row.doc.type]['default'] || templates.types[row.doc.type];
-                page.items[secondtolast].area[last] = {'item':mustache.to_html(item_template, doc)};
+                page.items[secondtolast].area[last] = {'item':Handlebars.compile(item_template)(doc)};
               }
             }
           }
@@ -99,7 +105,8 @@ function(head, req) {
             } else {
               navigation.sitemap = page.sitemap;
             }
-            page.items[area_idx].area[idx] = {'item':mustache.to_html(templates.types['navigation'], navigation, templates.partials)};
+
+            page.items[area_idx].area[idx] = {'item':Handlebars.compile(templates.types['navigation'])(navigation)};
           }
         });
       });
@@ -116,7 +123,7 @@ function(head, req) {
         // anonymous site visitor
         page.user = false;
       }
-      send(mustache.to_html(templates.page, page, templates.partials));
+      send(Handlebars.compile(templates.page)(page));
     }
   );
 }
