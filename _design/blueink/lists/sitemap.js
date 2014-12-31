@@ -12,7 +12,7 @@ function(head, req) {
        *
        * @return void Adds to the global urls variable
        **/
-      function addToTree(url, parent_url) {
+      var addToTree = function (url, parent_url) {
         var total;
         // we have a top-level element
         if (previous_locations.length === 0) {

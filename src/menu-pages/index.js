@@ -7,6 +7,8 @@ var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
 
 var MakeModal = require('../make-modal');
 
+window.PouchDB = PouchDB;
+
 module.exports = {
   replace: true,
   template: require('./template.html'),
@@ -49,10 +51,28 @@ module.exports = {
       });
       modal.$on('saved', function(type) {
         self.loadPages();
+        self.generateSitemap();
       });
       modal.$on('afterDel', function() {
         location.href = 'home';
       });
+    },
+    generateSitemap: function() {
+      // get the new sitemap from the _list
+      PouchDB.ajax({
+          // TODO: construct this URL better...
+          url: '../_list/sitemap/pages?reduce=false'
+        },
+        function(err, new_sitemap) {
+          // next, get the current sitemap doc
+          db.get('sitemap')
+            .then(function(old_sitemap) {
+              old_sitemap['urls'] = new_sitemap['urls'];
+              db.put(old_sitemap)
+                .then(function(err, resp) { console.log(resp); });
+            });
+        }
+      );
     }
   }
 };

@@ -7864,10 +7864,24 @@ module.exports = Vue.extend({
     destroy: function() {
       this.$destroy(true);
     },
+    del: function() {
+      var self = this;
+      db.get(self.doc_id, function(err, doc) {
+        if (doc) {
+          db.remove(doc, function() {
+            alert('The ' + doc.type + ' has been deleted.');
+            self.$emit('afterDel');
+            self.destroy();
+          });
+        }
+      });
+    },
     save: function() {
       var self = this;
       var doc = array_merge_recursive(this.$.editor.$get('values'), this.$.editor.output());
-      doc._id = this.doc_id,
+      self.$emit('beforeSave', doc);
+      doc._id = this.doc_id;
+      doc.type = this.schema_name;
       db.post(doc, function (err, resp) {
         if (err) {
           alert('Something went wrong. Please try again.');
@@ -7899,7 +7913,8 @@ module.exports = Vue.extend({
           self.values = rv;
         } else {
           self.values = {
-            "_id": self.doc_id
+            "_id": self.doc_id,
+            "type": self.schema_name
           }
         }
       };
@@ -7913,7 +7928,7 @@ module.exports = Vue.extend({
 });
 
 },{"../pouchdb.js":77,"../vue-schema":79,"./array_merge_recursive.js":66,"./template.html":68,"vue":62}],68:[function(require,module,exports){
-module.exports = '<div class="ui dimmer page visible active" style="overflow: auto">\n  <div style="margin-top: -243.5px;" class="ui fullscreen modal transition visible active scrolling">\n    <div class="header">\n      <div class="ui two column grid">\n        <div class="column">\n          <div class="ui huge header">Add {{schema_name}}</div>\n        </div>\n        <div class="right aligned column">\n          <div class="ui tiny buttons">\n            <div class="ui button"\n              v-on="click: destroy()">\n              Cancel\n            </div>\n            <div class="or"></div>\n            <div class="ui positive button"\n              v-on="click: save()">\n              Save\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class="content">\n      <vue-schema v-ref="editor"\n        v-with="schema: schema, values: values"></vue-schema>\n    </div>\n    <div class="actions">\n      <div class="ui tiny buttons">\n        <div class="ui button"\n          v-on="click: destroy()">\n          Cancel\n        </div>\n        <div class="or"></div>\n        <div class="ui positive button"\n          v-on="click: save()">\n          Save\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
+module.exports = '<div class="ui dimmer page visible active" style="overflow: auto">\n  <div style="margin-top: -243.5px;" class="ui fullscreen modal transition visible active scrolling">\n    <div class="header">\n      <div class="ui two column grid">\n        <div class="column">\n          <div class="ui huge header">Add {{schema_name}}</div>\n        </div>\n        <div class="right aligned column">\n          <div class="ui tiny buttons">\n            <div class="ui button"\n              v-on="click: destroy()">\n              Cancel\n            </div>\n            <div class="or"></div>\n            <div class="ui positive button"\n              v-on="click: save()">\n              Save\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class="content">\n      <vue-schema v-ref="editor"\n        v-with="schema: schema, values: values"></vue-schema>\n    </div>\n    <div class="actions">\n      <div v-if="values._rev" class="ui left floated tiny red button"\n        v-on="click: del()">\n        Delete\n      </div>\n      <div class="ui tiny buttons">\n        <div class="ui button"\n          v-on="click: destroy()">\n          Cancel\n        </div>\n        <div class="or"></div>\n        <div class="ui positive button"\n          v-on="click: save()">\n          Save\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 },{}],69:[function(require,module,exports){
 module.exports = 'menu-content .item .label {\n  display:none;\n}\n\nmenu-content .item:hover .label {\n  display:block;\n}\n';
 },{}],70:[function(require,module,exports){
@@ -7988,6 +8003,9 @@ module.exports = {
       modal.$on('saved', function(type) {
         self.loadItems();
       });
+      modal.$on('afterDel', function() {
+        self.loadItems();
+      });
     }
   }
 };
@@ -8004,29 +8022,80 @@ var PouchDB = require('../pouchdb.js');
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
     + location.port + '/' + location.pathname.split('/')[1]);
 
+var MakeModal = require('../make-modal');
+
+window.PouchDB = PouchDB;
+
 module.exports = {
   replace: true,
   template: require('./template.html'),
   data: function() {
     return {
+      current: '',
       pages: []
     }
   },
   created: function() {
-    var self = this;
-    db.query('blueink/pages?group=true',
-      function(err, response) {
-        for (var i = 0; i < response.rows.length; i++) {
-          self.pages.push({
-            url: response.rows[i].key.join('/')
-          });
+    var base = document.getElementsByTagName('base')[0].href;
+    this.current = location.toString().replace(base, '');
+    this.loadPages();
+  },
+  methods: {
+    loadPages: function() {
+      var self = this;
+      db.query('blueink/pages?group=true',
+        function(err, response) {
+          self.pages = [];
+          for (var i = 0; i < response.rows.length; i++) {
+            self.pages.push({
+              url: response.rows[i].key.join('/')
+            });
+          }
+        });
+    },
+    openMakeModal: function(doc_id) {
+      var self = this;
+      var modal = new MakeModal({
+        data: {
+          schema_name: 'page',
+          doc_id: encodeURIComponent(doc_id) || ''
         }
       });
+      modal.$mount();
+      modal.$appendTo('body');
+      modal.$on('beforeSave', function(doc) {
+        modal.doc_id = doc.url;
+      });
+      modal.$on('saved', function(type) {
+        self.loadPages();
+        self.generateSitemap();
+      });
+      modal.$on('afterDel', function() {
+        location.href = 'home';
+      });
+    },
+    generateSitemap: function() {
+      // get the new sitemap from the _list
+      PouchDB.ajax({
+          // TODO: construct this URL better...
+          url: '../_list/sitemap/pages?reduce=false'
+        },
+        function(err, new_sitemap) {
+          // next, get the current sitemap doc
+          db.get('sitemap')
+            .then(function(old_sitemap) {
+              old_sitemap['urls'] = new_sitemap['urls'];
+              db.put(old_sitemap)
+                .then(function(err, resp) { console.log(resp); });
+            });
+        }
+      );
+    }
   }
 };
 
-},{"../pouchdb.js":77,"./index.css":74,"./template.html":76,"insert-css":1}],76:[function(require,module,exports){
-module.exports = '<menu-pages class="section ui dropdown simple link item">\n  <div>Pages</div>\n  <ul class="menu">\n    <li>\n      <div class="item">\n        <a class="ui tiny primary button">edit page</a>\n      </div>\n      <div class="item">\n        <a class="ui tiny positive button">new page</a>\n      </div>\n    </li>\n    <li v-repeat="pages">\n      <a class="item" href="{{url}}">{{url}}</a>\n    </li>\n  </ul>\n</menu-pages>\n';
+},{"../make-modal":67,"../pouchdb.js":77,"./index.css":74,"./template.html":76,"insert-css":1}],76:[function(require,module,exports){
+module.exports = '<menu-pages class="section ui dropdown simple link item">\n  <div>Pages</div>\n  <ul class="menu">\n    <li>\n      <div class="item">\n        <a class="ui tiny primary button" v-on="click: openMakeModal(current)">edit page</a>\n      </div>\n      <div class="item" v-on="click: openMakeModal(\'\')">\n        <a class="ui tiny positive button">new page</a>\n      </div>\n    </li>\n    <li v-repeat="pages">\n      <a class="item" href="{{url}}">{{url}}</a>\n    </li>\n  </ul>\n</menu-pages>\n';
 },{}],77:[function(require,module,exports){
 (function (global){
 //    PouchDB 3.2.0
@@ -8084,11 +8153,14 @@ module.exports = {
       var jsonDOM = this.$el.querySelectorAll('[data-json]');
       var json = {};
       function accumulate(obj, dom) {
+        var key_name;
         for (var i = 0; i < dom.length; i++) {
           if (dom[i].dataset['json'] == 'kvp') {
-            obj[dom[i].querySelector('label').textContent] = dom[i].querySelector('input').value;
+            // TODO: handle studly labels
+            key_name = dom[i].querySelector('label').getAttribute('for')
+            obj[key_name] = dom[i].querySelector('input').value;
           } else if (dom[i].dataset['json'] == 'object') {
-            var legend = dom[i].querySelector('legend').textContent;
+            var legend = dom[i].querySelector('legend').getAttribute('data-key');
             var sub_dom = dom[i].querySelectorAll('[data-json]');
             obj[legend] = accumulate({}, sub_dom);
             i += sub_dom.length;
@@ -8105,7 +8177,7 @@ module.exports = {
 };
 
 },{"./property-template.html":80,"./template.html":81}],80:[function(require,module,exports){
-module.exports = '<div class="field" data-json="kvp"\n  v-if="type != \'object\'">\n  <label for="{{$key}}">{{$key}}</label>\n  <input name="{{$key}}" type="{{type | input_type}}" v-attr="value: getValue()" />\n  <p class="ui message"\n    v-if="description"><small>{{description}}</small></p>\n</div>\n<fieldset data-json="object" class="ui fields" v-if="type == \'object\' && $key != \'$ref\'">\n  <legend>{{$key}}</legend>\n  <div v-component="json-schema-property" v-repeat="properties"></div>\n</fieldset>\n';
+module.exports = '<div class="field" data-json="kvp"\n  v-if="type != \'object\'">\n  <label v-if="!title" for="{{$key}}">{{$key}}</label>\n  <label v-if="title" for="{{$key}}">{{title}}</label>\n  <input name="{{$key}}" type="{{type | input_type}}" v-attr="value: getValue()" />\n  <p class="ui message"\n    v-if="description"><small>{{description}}</small></p>\n</div>\n<fieldset data-json="object" class="ui fields" v-if="type == \'object\' && $key != \'$ref\'">\n  <legend v-if="!title" data-key="{{$key}}">{{$key}}</legend>\n  <legend v-if="title" data-key="{{$key}}">{{title}}</legend>\n  <div v-component="json-schema-property" v-repeat="properties"></div>\n</fieldset>\n';
 },{}],81:[function(require,module,exports){
 module.exports = '<form class="ui horizontal form" v-if="schema">\n<h1 class="ui header" v-if="schema.title">{{schema.title}}</h1>\n<div class="ui message" v-if="schema.description"><small>{{schema.description}}</small></div>\n<div v-repeat="schema.properties" v-component="json-schema-property"></div>\n</form>\n\n<form class="ui horizontal form" v-if="!schema.properties">\n  <textarea v-model="values | json"></textarea>\n</form>\n';
 },{}]},{},[65])
