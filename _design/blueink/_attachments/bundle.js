@@ -7687,7 +7687,7 @@ function traverse (obj) {
 
 module.exports = Watcher
 },{"./batcher":8,"./config":12,"./observer":45,"./parsers/expression":48,"./util":59}],64:[function(require,module,exports){
-module.exports = 'body {\n  position: relative;\n}\nui-blueink {\n  top: 0;\n  right: 0;\n  left: 0;\n  text-align: left;\n}\n';
+module.exports = 'body {\n  position: relative;\n}\nui-blueink {\n  top: 0;\n  right: 0;\n  left: 0;\n  text-align: left;\n}\n\nul.menu {\n  list-style: none;\n}\n';
 },{}],65:[function(require,module,exports){
 require('insert-css')(require('./semantic-ui/semantic.css'));
 require('insert-css')(require('./main.css'));
@@ -8095,7 +8095,7 @@ module.exports = {
 };
 
 },{"../make-modal":67,"../pouchdb.js":77,"./index.css":74,"./template.html":76,"insert-css":1}],76:[function(require,module,exports){
-module.exports = '<menu-pages class="section ui dropdown simple link item">\n  <div>Pages</div>\n  <ul class="menu">\n    <li>\n      <div class="item">\n        <a class="ui tiny primary button" v-on="click: openMakeModal(current)">edit page</a>\n      </div>\n      <div class="item" v-on="click: openMakeModal(\'\')">\n        <a class="ui tiny positive button">new page</a>\n      </div>\n    </li>\n    <li v-repeat="pages">\n      <a class="item" href="{{url}}">{{url}}</a>\n    </li>\n  </ul>\n</menu-pages>\n';
+module.exports = '<menu-pages class="section ui dropdown simple link item">\n  <div>Pages</div>\n  <ul class="menu">\n    <li>\n      <div class="item">\n        <a class="ui tiny primary button" v-on="click: openMakeModal(current)">page options</a>\n      </div>\n      <div class="item" v-on="click: openMakeModal(\'\')">\n        <a class="ui tiny positive button"><strong>new page</strong></a>\n      </div>\n    </li>\n    <li v-repeat="pages">\n      <a class="item" href="{{url}}">{{url}}</a>\n    </li>\n  </ul>\n</menu-pages>\n';
 },{}],77:[function(require,module,exports){
 (function (global){
 //    PouchDB 3.2.0

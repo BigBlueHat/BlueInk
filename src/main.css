@@ -7,3 +7,7 @@ ui-blueink {
   left: 0;
   text-align: left;
 }
+
+ul.menu {
+  list-style: none;
+}
