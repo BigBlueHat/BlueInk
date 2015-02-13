@@ -11,7 +11,7 @@ module.exports = {
   paramAttributes: ['type'],
   data: function() {
     return {
-      type: "",
+      type: '',
       items: []
     }
   },

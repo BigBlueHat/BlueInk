@@ -13,6 +13,8 @@ module.exports = {
   },
   data: function() {
     return {
+      active: false,
+      selected: '',
       types: []
     }
   },
