@@ -1,0 +1,26 @@
+{
+   "_id": "schema~page",
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+       "title": {
+           "id": "#title",
+           "type": "string",
+           "additionalProperties": false
+       },
+       "nav_label": {
+           "id": "#nav_label",
+           "type": "string",
+           "title": "Navigation Label",
+           "additionalProperties": false
+       },
+       "url": {
+           "id": "#_id",
+           "type": "string",
+           "title": "URL",
+           "additionalProperties": false
+       }
+   },
+   "required": [
+   ]
+}
