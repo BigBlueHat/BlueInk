@@ -76,12 +76,18 @@ function(head, req) {
             var post_template = templates.types[row.doc.type][page.items[secondtolast].area[last].collection.template_type] || templates.types[row.doc.type];
             // collection item handling
             page.items[secondtolast].area[last].posts
-              .push({'item':Handlebars.compile(post_template)(doc),
-                     'published_date': dateToArray(row.value.published_date, 3).join('/')});
+              .push({
+                '_id': doc._id,
+                'item':Handlebars.compile(post_template)(doc),
+                'published_date': dateToArray(row.value.published_date, 3).join('/')
+              });
           } else {
             // non-post item
             var item_template = templates.types[row.doc.type]['default'] || templates.types[row.doc.type];
-            page.items[secondtolast].area[last] = {'item':Handlebars.compile(item_template)(doc)};
+            page.items[secondtolast].area[last] = {
+              '_id': doc._id,
+              'item':Handlebars.compile(item_template)(doc)
+            };
           }
         }
       }
