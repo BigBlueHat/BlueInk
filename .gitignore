@@ -7,3 +7,4 @@ blueink.esproj
 .project
 .settings
 node_modules/*
+_design/blueink/_attachments/bundle.js
