@@ -3,7 +3,7 @@ require('insert-css')(require('./main.css'));
 
 var Vue = require('vue');
 Vue.config.debug = true;
-var PouchDB = require('./pouchdb.js');
+var PouchDB = require('pouchdb');
 var Sortable = require('sortablejs');
 
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'

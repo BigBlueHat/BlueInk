@@ -2,7 +2,7 @@ var Vue = require('vue');
 var array_merge_recursive = require('./array_merge_recursive.js');
 
 // TODO: componentize
-var PouchDB = require('../pouchdb.js');
+var PouchDB = require('pouchdb');
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
     + location.port + '/' + location.pathname.split('/')[1]);
 
