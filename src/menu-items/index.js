@@ -24,6 +24,16 @@ module.exports = {
     selected: 'loadPreview'
   },
   methods: {
+    addToPage: function() {
+      // TODO: don't use a global >_<
+      BlueInk.page.page_items[0].unshift({
+        _id: this.selected
+        // TODO: also add date info about when this was added to the page
+      });
+      BlueInk.savePage(function() {
+        location.reload();
+      });
+    },
     loadPreview: function() {
       // TODO: implement an actual preview
       PouchDB.ajax({

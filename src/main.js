@@ -62,12 +62,16 @@ window.BlueInk = new Vue({
     }
   },
   methods: {
-    savePage: function() {
+    savePage: function(callback) {
       var self = this;
       db.put(self.page)
         .then(function(resp) {
           // TODO: let the user know this worked
           self.page._rev = resp.rev
+          if (callback) {
+            // TODO: error callbacks might be good
+            callback();
+          }
         });
     },
     sortItem: function(area, from, to) {
