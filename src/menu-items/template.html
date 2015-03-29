@@ -1,11 +1,25 @@
-<ul class="menu" v-class="transition: $parent.selected == type, visible: $parent.selected == type">
-  <li>
+<div class="menu" v-class="transition: $parent.selected != '', visible: $parent.selected != ''">
+  <div class="item">
+    <a class="ui tiny primary button"
+      v-on="click: openMakeModal()">new {{type}}</a>
+  </div>
+  <div class="item" v-repeat="items" v-on="click: selected = id">
+    {{value}}
+  </div>
+  <!-- preview -->
+  <div class="menu" v-class="transition: selected != '', visible: selected != ''">
     <div class="item">
       <a class="ui tiny primary button"
-        v-on="click: openMakeModal()">new {{type}}</a>
+        v-on="click: openMakeModal(selected)">
+        edit
+      </a>
+      <a class="ui tiny green button">
+        add to page
+      </a>
+    </div>
+    <div class="text item">
+      <p>This is a preview of...</p>
+      <p><strong>{{selected}}</strong></p>
+    </div>
   </div>
-  </li>
-  <li class="item" v-repeat="items" v-on="click: openMakeModal(id)">
-    {{value}}
-  </li>
-</ul>
+</div>

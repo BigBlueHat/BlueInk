@@ -7,7 +7,7 @@
     <li class="item" v-repeat="types" v-on="click: selected = key">
       {{key}}
       <span class="ui small bottom right attached label">{{value}}</span>
-      <menu-items type="{{key}}"></menu-items>
     </li>
+    <menu-items type="{{selected}}"></menu-items>
   </ul>
 </menu-content>

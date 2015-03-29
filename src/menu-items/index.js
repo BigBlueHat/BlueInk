@@ -12,13 +12,26 @@ module.exports = {
   data: function() {
     return {
       type: '',
-      items: []
+      items: [],
+      selected: ''
     }
   },
   watch: {
-    type: 'loadItems'
+    type: function() {
+      this.loadItems();
+      this.selected = '';
+    },
+    selected: 'loadPreview'
   },
   methods: {
+    loadPreview: function() {
+      // TODO: implement an actual preview
+      PouchDB.ajax({
+        url: '_blueink/preview/' + this.selected
+      }, function (err, resp) {
+        console.log(resp);
+      });
+    },
     loadItems: function() {
       var self = this;
       db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
