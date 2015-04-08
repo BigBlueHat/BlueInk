@@ -38,24 +38,21 @@ module.exports = {
     },
     openMakeModal: function(doc_id) {
       var self = this;
-      var modal = new MakeModal({
-        data: {
-          schema_name: 'page',
-          doc_id: encodeURIComponent(doc_id) || ''
-        }
-      });
-      modal.$mount();
-      modal.$appendTo('body');
-      modal.$on('beforeSave', function(doc) {
-        modal.doc_id = doc.url;
-      });
-      modal.$on('saved', function(type) {
-        self.loadPages();
-        self.generateSitemap();
-      });
-      modal.$on('afterDel', function() {
-        location.href = 'home';
-      });
+      db.get(doc_id)
+        .then(function(resp) {
+          var doc = resp;
+          var modal = self.$root.editDoc(doc);
+          modal.$on('beforeSave', function(doc) {
+            modal.doc_id = doc.url;
+          });
+          modal.$on('saved', function(type) {
+            self.loadPages();
+            self.generateSitemap();
+          });
+          modal.$on('afterDel', function() {
+            location.href = 'home';
+          });
+        });
     },
     generateSitemap: function() {
       // get the new sitemap from the _list

@@ -1,43 +1,42 @@
-<div class="ui dimmer page visible active" style="overflow: auto">
-  <div style="margin-top: -243.5px;" class="ui fullscreen modal transition visible active scrolling">
+<div class="ui dimmer page visible" v-class="active: active">
+  <div class="ui fullscreen modal transition visible active scrolling">
     <div class="header">
       <div class="ui two column grid">
         <div class="column">
-          <div class="ui huge header">Add {{schema_name}}</div>
+          <div class="ui huge header">{{name}}</div>
         </div>
         <div class="right aligned column">
           <div class="ui tiny buttons">
-            <div class="ui button"
-              v-on="click: destroy()">
-              Cancel
-            </div>
-            <div class="or"></div>
             <div class="ui positive button"
               v-on="click: save()">
               Save
+            </div>
+            <div class="or"></div>
+            <div class="ui button"
+              v-on="click: destroy()">
+              Cancel
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="content">
-      <vue-schema v-ref="editor"
-        v-with="schema: schema, values: values"></vue-schema>
+      <div v-ref="editor" v-component="{{editor}}" v-with="id: schema_url, doc: doc"></div>
     </div>
     <div class="actions">
-      <div v-if="values._rev" class="ui left floated tiny red button"
+      <div v-if="doc._rev" class="ui left floated tiny red button"
         v-on="click: del()">
         Delete
       </div>
       <div class="ui tiny buttons">
-        <div class="ui button"
-          v-on="click: destroy()">
-          Cancel
-        </div>
-        <div class="or"></div>
         <div class="ui positive button"
           v-on="click: save()">
           Save
+        </div>
+        <div class="or"></div>
+        <div class="ui button"
+          v-on="click: destroy()">
+          Cancel
         </div>
       </div>
     </div>
