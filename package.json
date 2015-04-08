@@ -7,6 +7,7 @@
   "repository": "https://github.com/BigBlueHat/BlueInk.git",
   "main": "src/main.js",
   "dependencies": {
+    "jsinclude": "~1.0.2",
     "pouchdb": "~3.3.1",
     "vue": "~0.11.4",
     "sortablejs": "~1.1.1"

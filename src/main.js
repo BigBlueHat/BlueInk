@@ -2,12 +2,17 @@ require('insert-css')(require('./semantic-ui/semantic.css'));
 require('insert-css')(require('./main.css'));
 
 var Vue = require('vue');
+// TODO: kill the global T_T
+window.Vue = Vue;
 Vue.config.debug = true;
 var PouchDB = require('pouchdb');
+var include = require('jsinclude');
 var Sortable = require('sortablejs');
 
-var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
-    + location.port + '/' + location.pathname.split('/')[1]);
+var db_name = location.pathname.split('/')[1];
+var db_url = location.protocol + '//' + location.hostname
+    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
+var db = new PouchDB(db_url);
 
 Vue.component('ui-blueink', {
   ready: function() {
