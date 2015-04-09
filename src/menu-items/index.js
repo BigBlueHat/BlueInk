@@ -3,8 +3,6 @@ var PouchDB = require('pouchdb');
 var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
     + location.port + '/' + location.pathname.split('/')[1]);
 
-var MakeModal = require('../make-modal');
-
 module.exports = {
   replace: true,
   template: require('./template.html'),
@@ -51,20 +49,25 @@ module.exports = {
     },
     openMakeModal: function(doc_id) {
       var self = this;
-      var modal = new MakeModal({
-        data: {
-          schema_name: this.type,
-          doc_id: doc_id
-        }
-      });
-      modal.$mount();
-      modal.$appendTo('body');
-      modal.$on('saved', function(type) {
-        self.loadItems();
-      });
-      modal.$on('afterDel', function() {
-        self.loadItems();
-      });
+      if (doc_id) {
+        db.get(doc_id)
+          .then(function(resp) {
+            var doc = resp;
+            var modal = self.$root.editDoc(doc);
+            modal.$on('saved', function() {
+              self.loadItems();
+            });
+            modal.$on('afterDel', function() {
+              self.loadItems();
+            });
+          }
+        );
+      } else {
+        var modal = self.$root.editDoc({});
+        modal.$on('saved', function() {
+          self.loadItems();
+        });
+      }
     }
   }
 };

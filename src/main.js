@@ -2,12 +2,17 @@ require('insert-css')(require('./semantic-ui/semantic.css'));
 require('insert-css')(require('./main.css'));
 
 var Vue = require('vue');
+// TODO: kill the global T_T
+window.Vue = Vue;
 Vue.config.debug = true;
 var PouchDB = require('pouchdb');
+var include = require('jsinclude');
 var Sortable = require('sortablejs');
 
-var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
-    + location.port + '/' + location.pathname.split('/')[1]);
+var db_name = location.pathname.split('/')[1];
+var db_url = location.protocol + '//' + location.hostname
+    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
+var db = new PouchDB(db_url);
 
 Vue.component('ui-blueink', {
   ready: function() {
@@ -28,7 +33,8 @@ Vue.component('ui-blueink', {
 window.BlueInk = new Vue({
   el: 'body',
   data: {
-    page: {}
+    page: {},
+    types: {}
   },
   created: function() {
     var self = this;
@@ -59,6 +65,17 @@ window.BlueInk = new Vue({
           self.sortItem(e.from.dataset.blueinkAreaIndex, e.oldIndex, e.newIndex);
         }
       });
+
+      db.query('blueink/type_definitions',
+        function(err, resp) {
+          resp.rows.forEach(function(row) {
+            // load type info
+            self.types[row.key] = row.value;
+            // and it's component JS (editor and/or viewer)
+            include.once(db_url + row.id + '/component.js');
+          });
+        }
+      );
     }
   },
   methods: {
@@ -94,6 +111,20 @@ window.BlueInk = new Vue({
       self.page.page_items[old_area].splice(old_index, 1);
       // save it
       self.savePage();
+    },
+    editDoc: function(doc, schema_name) {
+      var modal = this.$addChild(require('./make-modal'));
+      if (schema_name) {
+        // TODO: update this to use _blueink route
+        modal.$set('schema_url', '_rewrite/schemas/' + schema_name);
+      } else {
+        modal.$set('schema_url', '');
+      }
+      modal.$set('doc', doc);
+      modal.$set('active', true);
+      modal.$mount();
+      modal.$appendTo(this.$el);
+      return modal;
     }
   }
 });

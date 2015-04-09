@@ -10,6 +10,23 @@ as the conceptual prototype, BlueInk is being rewritten into an Open Source CMS
 built on Apache CouchDB and Cloudant mostly as a
 [CouchApp](http://docs.couchdb.org/en/latest/couchapp/).
 
+## Development
+
+It's a bit rough in here still...but improving!
+
+1. copy `config.json.sample` to `config.json`
+2. update it with your settings
+3. `npm install`
+4. `gulp`
+5. visit the URL you stored in 1config.json` sans login info and plus
+`/_design/blueink/_rewrite/`
+
+That should load the `home` (see `home.json`) page.
+
+The site contents (content, templates, schemas, the whole shootin' match)
+lives in `_docs`. The BlueInk editing UI and CouchDB views live in
+`_design/blueink`.
+
 ## Friend Funding
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=BigBlueHat&url=http://github.com/BigBlueHat/BlueInk&title=BlueInk CMS - over the top Content Management with CouchDB&language=en_GB&tags=github&category=software)

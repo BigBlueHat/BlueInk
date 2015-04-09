@@ -1,4 +1,5 @@
 .couchapprc
+config.json
 blueink.esproj
 .DS_Store
 *.kpf
@@ -8,3 +9,4 @@ blueink.esproj
 .settings
 node_modules/*
 _design/blueink/_attachments/bundle.js
+_docs/*/_attachments/component.js

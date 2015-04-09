@@ -1,0 +1,7 @@
+{
+  "env": {
+    "default": {
+      "db": "http://{USER}:{PASS}@localhost:5984/{DB}"
+    }
+  }
+}

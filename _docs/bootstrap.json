@@ -1,4 +1,5 @@
 {
+  "_id": "bootstrap",
    "title": "Bootstrap Jumbotron Narrow",
    "nav_label": "Bootstrap Jumbotron Narrow",
    "template": "template~jumbotron-narrow",
