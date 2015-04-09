@@ -48,6 +48,18 @@ window.BlueInk = new Vue({
         self.page = resp;
       });
 
+    // load types
+    db.query('blueink/type_definitions',
+      function(err, resp) {
+        resp.rows.forEach(function(row) {
+          // load type info
+          self.types[row.key] = row.value;
+          // and it's component JS (editor and/or viewer)
+          include.once(db_url + row.id + '/component.js');
+        });
+      }
+    );
+
     // turn on Sortable for...sorting
     // TODO: explore a better way to find / define page areas in templates
     var areas = document.querySelectorAll('[data-blueink-area-index]');
@@ -65,17 +77,6 @@ window.BlueInk = new Vue({
           self.sortItem(e.from.dataset.blueinkAreaIndex, e.oldIndex, e.newIndex);
         }
       });
-
-      db.query('blueink/type_definitions',
-        function(err, resp) {
-          resp.rows.forEach(function(row) {
-            // load type info
-            self.types[row.key] = row.value;
-            // and it's component JS (editor and/or viewer)
-            include.once(db_url + row.id + '/component.js');
-          });
-        }
-      );
     }
   },
   methods: {
