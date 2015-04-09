@@ -23,12 +23,18 @@ module.exports = {
   },
   methods: {
     addToPage: function() {
-      // TODO: don't use a global >_<
-      BlueInk.page.page_items[0].unshift({
+      var item = {
         _id: this.selected
         // TODO: also add date info about when this was added to the page
-      });
-      BlueInk.savePage(function() {
+      };
+
+      if (this.$root.page.page_items) {
+        this.$root.page.page_items[0].unshift(item);
+      } else {
+        // add to area 0 as item 0
+        this.$root.page.page_items = [[item]];
+      }
+      this.$root.savePage(function() {
         location.reload();
       });
     },
