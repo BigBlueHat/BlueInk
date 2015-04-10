@@ -66,6 +66,20 @@ window.BlueInk = new Vue({
     for (var i = 0; i < areas.length; i++) {
       Sortable.create(areas[i], {
         group: 'areas',
+        onStart: function(e) {
+          // loop through the areas...
+          for (var i = 0; i < areas.length; i++) {
+            // tweak their CSS a bit to make them more findable
+            areas[i].classList.add('blueink-drop-spot');
+          }
+        },
+        onEnd: function(e) {
+          // loop through the areas...
+          for (var i = 0; i < areas.length; i++) {
+            // remove drag-time-only class from areas
+            areas[i].classList.remove('blueink-drop-spot');
+          }
+        },
         onAdd: function(e) {
           // get old area index
           var old_area = e.from.dataset.blueinkAreaIndex;
@@ -107,6 +121,9 @@ window.BlueInk = new Vue({
       // get page_item from old location (area, index)
       var page_item = self.page.page_items[old_area][old_index];
       // save it into the new location
+      if (undefined == self.page.page_items[new_area]) {
+        self.page.page_items[new_area] = [];
+      }
       self.page.page_items[new_area].splice(new_index, 0, page_item);
       // remove it from the old one
       self.page.page_items[old_area].splice(old_index, 1);

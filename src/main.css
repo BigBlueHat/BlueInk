@@ -8,6 +8,12 @@ ui-blueink {
   text-align: left;
 }
 
-ul.menu {
+ui-blueink ul.menu {
   list-style: none;
+}
+
+/* TODO: make this configurable...or template-able...or something */
+[data-blueink-area-index].blueink-drop-spot {
+  border: 1px solid blue;
+  min-height: 8px;
 }
