@@ -38,19 +38,19 @@
         <h3 class="text-muted">{{site.title}}</h3>
       </div>
 
-      {{#items.0.area.0}}
+      {{#items.[0].area.[0]}}
       <div class="jumbotron">
         <h1>{{title}}</h1>
         <p class="lead">{{{item}}}</p>
       </div>
-      {{/items.0.area.0}}
+      {{/items.[0].area.[0]}}
 
       <div class="row marketing">
         <div class="col-lg-6">
-          {{#items.1.area}}
+          {{#items.[1].area}}
           <h4>Subheading</h4>
           <p>{{{item}}}</p>
-          {{/items.1.area}}
+          {{/items.[1].area}}
         </div>
 
         <div class="col-lg-6">
