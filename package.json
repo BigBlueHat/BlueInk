@@ -22,7 +22,8 @@
     "partialify": "^3.1.3",
     "vinyl-source-stream": "~1.1.0",
     "watchify": "~0.6.1",
-    "yargs": "~3.6.0"
+    "yargs": "~3.6.0",
+    "run-sequence": "^1.0.2"
   },
   "scripts": {
     "dev": "browserify -e src/main.js -t partialify -o _design/blueink/_attachments/bundle.js && cd _design/blueink && couchapp push . default && cd ../..",
