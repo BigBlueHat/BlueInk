@@ -1,5 +1,4 @@
 {
-   "_id": "schema~page",
    "type": "object",
    "additionalProperties": false,
    "properties": {
@@ -11,14 +10,14 @@
        "nav_label": {
            "id": "#nav_label",
            "type": "string",
-           "title": "Navigation Label",
+           "title": "Navigation label",
            "additionalProperties": false
        },
        "url": {
-           "id": "#_id",
-           "type": "string",
-           "title": "URL",
-           "additionalProperties": false
+          "id": "#url",
+          "type": "string",
+          "title": "URL",
+          "additionalProperties": false
        }
    },
    "required": [
