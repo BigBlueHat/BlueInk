@@ -53,7 +53,7 @@ module.exports = {
         self.items = response.rows;
       });
     },
-    openMakeModal: function(doc_id) {
+    openMakeModal: function(doc_id, type) {
       var self = this;
       if (doc_id) {
         db.get(doc_id)
@@ -69,7 +69,7 @@ module.exports = {
           }
         );
       } else {
-        var modal = self.$root.editDoc({});
+        var modal = self.$root.editDoc({type: type});
         modal.$on('saved', function() {
           self.loadItems();
         });
