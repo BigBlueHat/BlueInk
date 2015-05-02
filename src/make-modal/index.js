@@ -42,8 +42,13 @@ module.exports = {
       }
     }
   },
+  created: function() {
+    document.body.classList.add('dimmed', 'dimmable', 'scrolling');
+  },
   methods: {
     destroy: function() {
+      // TODO: danger: this could remove a sites version of these :( namespace?
+      document.body.classList.remove('dimmed', 'dimmable', 'scrolling');
       this.$destroy(true);
     },
     del: function() {
