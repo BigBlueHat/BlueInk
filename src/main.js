@@ -6,7 +6,9 @@ var Vue = require('vue');
 window.Vue = Vue;
 Vue.config.debug = true;
 var PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-authentication'));
 var include = require('jsinclude');
+var key = require('keymaster');
 var Sortable = require('sortablejs');
 
 var db_name = location.pathname.split('/')[1];
@@ -14,27 +16,28 @@ var db_url = location.protocol + '//' + location.hostname
     + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
 var db = new PouchDB(db_url);
 
-Vue.component('ui-blueink', {
-  ready: function() {
-    document.body.style.top = this.$el.clientHeight + 'px';
-  },
-  replace: true,
-  template: '\
-    <ui-blueink class="ui fixed transparent inverted main menu">\
-        <menu-pages></menu-pages>\
-        <menu-content></menu-content>\
-    </ui-blueink>',
-  components: {
-    'menu-pages': require('./menu-pages'),
-    'menu-content': require('./menu-content')
-  }
-});
-
 window.BlueInk = new Vue({
   el: 'body',
   data: {
+    user: {},
     page: {},
     types: {}
+  },
+  watch: {
+    user: function() {
+      var self = this;
+      if (self.user != {} &&
+          undefined != self.user.name) {
+        self.loadUI();
+      }
+    }
+  },
+  events: {
+    loggedin: function(userCtx) {
+      var self = this;
+      self.user = userCtx;
+      self.loadUI();
+    }
   },
   created: function() {
     var self = this;
@@ -59,6 +62,16 @@ window.BlueInk = new Vue({
         });
       }
     );
+
+    // check session / load user name
+    db.getSession(function (err, resp) {
+        if (err) {
+          // network error
+        } else if (resp.userCtx.name) {
+          // response.userCtx.name is the current user
+          self.user = resp.userCtx;
+        }
+    });
 
     // turn on Sortable for...sorting
     // TODO: explore a better way to find / define page areas in templates
@@ -93,7 +106,39 @@ window.BlueInk = new Vue({
       });
     }
   },
+  ready: function() {
+    var self = this;
+
+    // listen for document-wide keyboard events
+    key('ctrl+shift+l', function() {
+      db.getSession(function (err, resp) {
+        if (err) {
+          // network error
+        } else if (!resp.userCtx.name) {
+          // reset the user to empty
+          // TODO: should trigger UI changes
+          self.user = {};
+          // open login modal
+          var modal = self.$addChild(require('./login-modal'));
+          modal.$mount();
+          modal.$appendTo(document.body);
+        } else{
+          // response.userCtx.name is the current user
+          self.user = resp.userCtx;
+
+        }
+      });
+      return false;
+    });
+  },
   methods: {
+    loadUI: function() {
+      var self = this;
+      var ui = self.$addChild(require('./ui-blueink'));
+      ui.user = self.user;
+      ui.$mount();
+      ui.$appendTo(document.body);
+    },
     savePage: function(callback) {
       var self = this;
       db.put(self.page)

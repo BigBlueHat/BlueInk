@@ -1,0 +1,23 @@
+<div class="ui dimmer page visible active"
+  v-on="keyup: destroy | key esc, keyup: login | key enter">
+  <div class="ui small modal transition visible active">
+    <div class="content">
+      <div class="ui header">
+        Login
+      </div>
+      <form class="ui horizontal form">
+        <div class="inline field">
+          <input id="username" v-model="user" type="text" placeholder="Username" />
+          <input id="password" v-model="pass" type="password" placeholder="Password" />
+        </div>
+    </div>
+    <div class="actions">
+      <div class="ui left button" v-on="click: destroy()">
+        Cancel
+      </div>
+      <div class="ui positive right button" v-on="click: login()">
+        Login
+      </div>
+    </div>
+  </div>
+</div>
