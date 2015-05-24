@@ -50,6 +50,7 @@ module.exports = {
       // it works on a fresh page, but not after login + logout clicks
       // ...also works on second click O.o
       self.$destroy(true);
+      self.$destroy(true);
     }
   }
 };
