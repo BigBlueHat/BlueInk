@@ -11,7 +11,8 @@ module.exports = {
     return {
       type: '',
       items: [],
-      selected: ''
+      selected: '',
+      preview: {}
     }
   },
   watch: {
@@ -39,11 +40,12 @@ module.exports = {
       });
     },
     loadPreview: function() {
+      var self = this;
       // TODO: implement an actual preview
       PouchDB.ajax({
         url: '_blueink/preview/' + this.selected
       }, function (err, resp) {
-        console.log(resp);
+        self.preview = resp;
       });
     },
     loadItems: function() {
@@ -75,5 +77,8 @@ module.exports = {
         });
       }
     }
+  },
+  components: {
+    'item-preview': require('../item-preview')
   }
 };

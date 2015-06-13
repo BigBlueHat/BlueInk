@@ -34,7 +34,7 @@
   },
   {
     "from": "_blueink/preview/:doc",
-    "to": "_show/item/:doc"
+    "to": "../../:doc"
   },
   {
     "from": "_blueink/*",

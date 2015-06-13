@@ -7,7 +7,7 @@
     {{value}}
   </div>
   <!-- preview -->
-  <div class="menu" v-class="transition: selected != '', visible: selected != ''">
+  <div class="ui vertical menu" v-class="transition: selected != '', visible: selected != ''" style="width: auto">
     <div class="item">
       <a class="ui tiny primary button"
         v-on="click: openMakeModal(selected)">
@@ -18,9 +18,9 @@
         add to page
       </a>
     </div>
-    <div class="text item">
-      <p>This is a preview of...</p>
-      <p><strong>{{selected}}</strong></p>
+    <div v-if="preview" class="text item">
+      <!-- TODO: build a proper preview system leveraging types system -->
+      <item-preview v-with="doc: preview"></item-preview>
     </div>
   </div>
 </div>
