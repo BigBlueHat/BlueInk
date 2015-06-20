@@ -1,9 +1,9 @@
-<form class="ui horizontal form" v-if="schema">
-<h1 class="ui header" v-if="schema.title">{{schema.title}}</h1>
-<div class="ui message" v-if="schema.description"><small>{{schema.description}}</small></div>
-<div v-repeat="schema.properties" v-component="json-schema-property"></div>
+<form class="ui horizontal form" blueink-if="schema">
+<h1 class="ui header" blueink-if="schema.title">{{schema.title}}</h1>
+<div class="ui message" blueink-if="schema.description"><small>{{schema.description}}</small></div>
+<div blueink-repeat="schema.properties" blueink-component="json-schema-property"></div>
 </form>
 
-<form class="ui horizontal form" v-if="!schema.properties">
-  <textarea v-model="values | json"></textarea>
+<form class="ui horizontal form" blueink-if="!schema.properties">
+  <textarea blueink-model="values | json"></textarea>
 </form>

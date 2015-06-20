@@ -1,7 +1,7 @@
-menu-content .item .label {
+#blueink-menu-content .item .label {
   display:none;
 }
 
-menu-content .item:hover .label {
+#blueink-menu-content .item:hover .label {
   display:block;
 }

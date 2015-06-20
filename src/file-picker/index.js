@@ -4,7 +4,7 @@ var include = require('jsinclude');
 var APIKEY = require('../../config_ui.json').services['filepicker.io'].apikey;
 
 module.exports = {
-  template: '<button class="ui button" v-on="click: filepick">Pick a File</button>',
+  template: '<button class="ui button" blueink-on="click: filepick">Pick a File</button>',
   paramAttributes: [
     'mimetype'
   ],

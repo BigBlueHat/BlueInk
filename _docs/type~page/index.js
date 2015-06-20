@@ -1,4 +1,4 @@
-Vue.component('page-editor', {
+BlueInk.component('page-editor', {
   template: require('./editor.html'),
   replace: true,
   data: function() {

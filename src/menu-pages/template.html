@@ -1,16 +1,16 @@
-<menu-pages class="section ui dropdown simple link item">
+<div id="blueink-menu-pages" class="section ui dropdown simple link item">
   <div>Pages</div>
   <ul class="menu">
     <li>
       <div class="item">
-        <a class="ui tiny primary button" v-on="click: openMakeModal(current)">page options</a>
+        <a class="ui tiny primary button" blueink-on="click: openMakeModal(current)">page options</a>
       </div>
-      <div class="item" v-on="click: openMakeModal()">
+      <div class="item" blueink-on="click: openMakeModal()">
         <a class="ui tiny positive button">new page</a>
       </div>
     </li>
-    <li v-repeat="pages">
+    <li blueink-repeat="pages">
       <a class="item" href="{{url}}">{{url}}</a>
     </li>
   </ul>
-</menu-pages>
+</div>

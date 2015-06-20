@@ -1,26 +1,26 @@
-<div class="menu" v-class="transition: $parent.selected != '', visible: $parent.selected != ''">
+<div class="menu" blueink-class="transition: $parent.selected != '', visible: $parent.selected != ''">
   <div class="item">
     <a class="ui tiny primary button"
-      v-on="click: openMakeModal(false, type)">new {{type}}</a>
+      blueink-on="click: openMakeModal(false, type)">new {{type}}</a>
   </div>
-  <div class="item" v-repeat="items" v-on="click: selected = id">
+  <div class="item" blueink-repeat="items" blueink-on="click: selected = id">
     {{value}}
   </div>
   <!-- preview -->
-  <div class="ui vertical menu" v-class="transition: selected != '', visible: selected != ''" style="width: auto">
+  <div class="ui vertical menu" blueink-class="transition: selected != '', visible: selected != ''" style="width: auto">
     <div class="item">
       <a class="ui tiny primary button"
-        v-on="click: openMakeModal(selected)">
+        blueink-on="click: openMakeModal(selected)">
         edit
       </a>
       <a class="ui tiny green button"
-        v-on="click: addToPage()">
+        blueink-on="click: addToPage()">
         add to page
       </a>
     </div>
-    <div v-if="preview" class="text item">
+    <div blueink-if="preview" class="text item">
       <!-- TODO: build a proper preview system leveraging types system -->
-      <item-preview v-with="doc: preview"></item-preview>
+      <div blueink-component="item-preview" blueink-with="doc: preview"></div>
     </div>
   </div>
 </div>

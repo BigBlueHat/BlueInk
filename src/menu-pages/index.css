@@ -1,7 +1,7 @@
-menu-pages > nav > h4 {
+#blueink-menu-pages > nav > h4 {
   padding: 1em;
 }
 
-menu-pages > nav > .hide {
+#blueink-menu-pages > nav > .hide {
   display: none;
 }

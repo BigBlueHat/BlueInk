@@ -1,4 +1,4 @@
-Vue.component('widget-editor', {
+BlueInk.component('widget-editor', {
   template: require('./editor.html'),
   replace: true,
   data: function() {

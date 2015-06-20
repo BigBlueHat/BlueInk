@@ -1,4 +1,4 @@
-<div class="ui dimmer page visible" v-class="active: active">
+<div class="ui dimmer page visible" blueink-class="active: active">
   <div class="ui fullscreen modal transition visible active scrolling">
     <div class="header">
       <div class="ui two column grid">
@@ -8,12 +8,12 @@
         <div class="right aligned column">
           <div class="ui tiny buttons">
             <div class="ui positive button"
-              v-on="click: save()">
+              blueink-on="click: save()">
               Save
             </div>
             <div class="or"></div>
             <div class="ui button"
-              v-on="click: destroy()">
+              blueink-on="click: destroy()">
               Cancel
             </div>
           </div>
@@ -21,21 +21,21 @@
       </div>
     </div>
     <div class="content">
-      <div v-ref="editor" v-component="{{editor}}" v-with="id: schema_url, doc: doc"></div>
+      <div blueink-ref="editor" blueink-component="{{editor}}" blueink-with="id: schema_url, doc: doc"></div>
     </div>
     <div class="actions">
-      <div v-if="doc._rev" class="ui left floated tiny red button"
-        v-on="click: del()">
+      <div blueink-if="doc._rev" class="ui left floated tiny red button"
+        blueink-on="click: del()">
         Delete
       </div>
       <div class="ui tiny buttons">
         <div class="ui positive button"
-          v-on="click: save()">
+          blueink-on="click: save()">
           Save
         </div>
         <div class="or"></div>
         <div class="ui button"
-          v-on="click: destroy()">
+          blueink-on="click: destroy()">
           Cancel
         </div>
       </div>

@@ -1,9 +1,9 @@
-<ui-blueink class="ui fixed transparent inverted main menu">
-    <menu-pages></menu-pages>
-    <menu-content></menu-content>
-    <div v-on="click: logout()" class="right menu">
+<div id="ui-blueink" class="ui fixed transparent inverted main menu">
+    <div blueink-component="menu-pages"></div>
+    <div blueink-component="menu-content"></div>
+    <div blueink-on="click: logout()" class="right menu">
       <a class="item">
         logout {{user.name}}
       </a>
     </div>
-</ui-blueink>
+</div>

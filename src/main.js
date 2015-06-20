@@ -1,10 +1,12 @@
 require('insert-css')(require('./semantic-ui/semantic.css'));
 require('insert-css')(require('./main.css'));
 
-var Vue = require('vue');
-// TODO: kill the global T_T
-window.Vue = Vue;
-Vue.config.debug = true;
+var BlueInk = require('vue');
+// TODO: in use by arbitrarily loaded type components...can we avoid it?
+window.BlueInk = BlueInk;
+BlueInk.config.prefix = 'blueink-';
+BlueInk.config.debug = true;
+
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-authentication'));
 var include = require('jsinclude');
@@ -16,7 +18,7 @@ var db_url = location.protocol + '//' + location.hostname
     + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
 var db = new PouchDB(db_url);
 
-window.BlueInk = new Vue({
+var page = new BlueInk({
   el: 'body',
   data: {
     user: {},

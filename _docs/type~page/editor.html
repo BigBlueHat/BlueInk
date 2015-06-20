@@ -1,16 +1,16 @@
 <form class="ui horizontal form">
   <div class="field">
     <label for="title">Title</label>
-    <input v-model="doc.title" name="title" type="text">
+    <input blueink-model="doc.title" name="title" type="text">
   </div>
   <div class="field">
     <label for="nav_label">Navigation Label</label>
-    <input v-model="doc.nav_label" name="nav_label" type="text">
+    <input blueink-model="doc.nav_label" name="nav_label" type="text">
   </div>
   <div class="field">
     <label for="url">URL</label>
-    <input v-model="doc._id"
-      v-attr="disabled: (doc._rev ? 'disabled' : '')"
+    <input blueink-model="doc._id"
+      blueink-attr="disabled: (doc._rev ? 'disabled' : '')"
       name="url" type="text">
   </div>
 </form>

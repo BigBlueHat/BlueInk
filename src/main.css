@@ -1,14 +1,14 @@
 body {
   position: relative;
 }
-ui-blueink {
+#ui-blueink {
   top: 0;
   right: 0;
   left: 0;
   text-align: left;
 }
 
-ui-blueink ul.menu {
+#ui-blueink ul.menu {
   list-style: none;
 }
 
