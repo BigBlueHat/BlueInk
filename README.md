@@ -16,9 +16,11 @@ It's a bit rough in here still...but improving!
 
 1. copy `config.json.sample` to `config.json`
 2. update it with your settings
-3. `npm install`
-4. `gulp`
-5. visit the URL you stored in 1config.json` sans login info and plus
+3. copy `config_ui.json.sample` to `config_ui.json`
+4. update it with your settings
+5. `npm install`
+6. `gulp`
+7. visit the URL you stored in 1config.json` sans login info and plus
 `/_design/blueink/_rewrite/`
 
 That should load the `home` (see `home.json`) page.

@@ -1,0 +1,7 @@
+{
+  "services": {
+    "filepicker.io": {
+      "apikey": "...YOUR API KEY HERE..."
+    }
+  }
+}

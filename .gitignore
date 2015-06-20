@@ -1,5 +1,6 @@
 .couchapprc
 config.json
+config_ui.json
 blueink.esproj
 .DS_Store
 *.kpf

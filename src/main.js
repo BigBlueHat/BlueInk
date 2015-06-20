@@ -189,5 +189,8 @@ window.BlueInk = new Vue({
       modal.$appendTo(this.$el);
       return modal;
     }
+  },
+  components: {
+    'file-picker': require('./file-picker')
   }
 });
