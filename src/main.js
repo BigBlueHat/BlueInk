@@ -199,13 +199,16 @@ var page = new BlueInk({
     'page-item': {
       isLiteral: true,
       bind: function() {
-        this.el.style.position = 'relative';
-        var buttons = this.vm.$addChild(require('./page-item-buttons'));
-        buttons.$set('doc_id', this.expression);
-        buttons.$mount();
-        this.el.insertBefore(buttons.$el, this.el.firstChild);
-        console.log('buttons', JSON.stringify(buttons.$data));
-        return buttons;
+        // TODO: there has to be a better way...
+        if (this.vm.$root.loggedIn) {
+          this.el.style.position = 'relative';
+          var buttons = this.vm.$addChild(require('./page-item-buttons'));
+          buttons.$set('doc_id', this.expression);
+          buttons.$mount();
+          this.el.insertBefore(buttons.$el, this.el.firstChild);
+          console.log('buttons', JSON.stringify(buttons.$data));
+          return buttons;
+        }
       }
     }
   }
