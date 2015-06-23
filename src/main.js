@@ -18,19 +18,31 @@ var db_url = location.protocol + '//' + location.hostname
     + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
 var db = new PouchDB(db_url);
 
-var page = new BlueInk({
+window.page = page = new BlueInk({
   el: 'body',
   data: {
+    ui: {
+      pushed_down_by: 0
+    },
     user: {},
     page: {},
     types: {}
   },
+  computed: {
+    loggedIn: function() {
+      if (this.user
+          && Object.keys(this.user).length > 0
+          && undefined != this.user.name) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   watch: {
-    user: function() {
-      var self = this;
-      if (self.user != {} &&
-          undefined != self.user.name) {
-        self.loadUI();
+    loggedIn: function(v) {
+      if (v) {
+        this.loadUI();
       }
     }
   },
@@ -38,7 +50,6 @@ var page = new BlueInk({
     loggedin: function(userCtx) {
       var self = this;
       self.user = userCtx;
-      self.loadUI();
     }
   },
   created: function() {
@@ -193,23 +204,7 @@ var page = new BlueInk({
     }
   },
   components: {
-    'file-picker': require('./file-picker')
-  },
-  directives: {
-    'page-item': {
-      isLiteral: true,
-      bind: function() {
-        // TODO: there has to be a better way...
-        if (this.vm.$root.loggedIn) {
-          this.el.style.position = 'relative';
-          var buttons = this.vm.$addChild(require('./page-item-buttons'));
-          buttons.$set('doc_id', this.expression);
-          buttons.$mount();
-          this.el.insertBefore(buttons.$el, this.el.firstChild);
-          console.log('buttons', JSON.stringify(buttons.$data));
-          return buttons;
-        }
-      }
-    }
+    'file-picker': require('./file-picker'),
+    'page-item': require('./page-item')
   }
 });

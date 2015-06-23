@@ -7,18 +7,17 @@ var db_url = location.protocol + '//' + location.hostname
 var db = new PouchDB(db_url);
 
 module.exports = {
-  replace: true,
+  replace: false,
   template: require('./template.html'),
-  data: function() {
-    return {
-      doc_id: ''
-    }
+  paramAttributes: ['item-id'],
+  attached: function() {
+    this.$el.style.position = 'relative';
   },
   methods: {
     edit: function(ev) {
       ev.preventDefault();
       var self = this;
-      db.get(self.doc_id)
+      db.get(self.itemId)
         .then(function(resp) {
           var doc = resp;
           var modal = self.$root.editDoc(doc);

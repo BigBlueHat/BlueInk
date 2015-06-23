@@ -6,14 +6,7 @@ var db_url = location.protocol + '//' + location.hostname
 var db = new PouchDB(db_url);
 
 module.exports = {
-  data: function() {
-    return {
-      ui: {
-        pushed_down_by: 0
-      },
-      user: {}
-    };
-  },
+  inherit: true,
   watch: {
     'ui.pushed_down_by': function(v) {
       document.body.style.top = v;
@@ -38,19 +31,11 @@ module.exports = {
           console.log('error', err);
         } else {
           // no need to hang around if we are logged out
-          self.destroy();
+          self.user = {};
+          self.ui.pushed_down_by = 0;
+          self.$destroy(true);
         }
       });
-    },
-    destroy: function() {
-      var self = this;
-      self.ui.pushed_down_by = 0;
-      // it's not properly destroying...
-      // TODO: bug?
-      // it works on a fresh page, but not after login + logout clicks
-      // ...also works on second click O.o
-      self.$destroy(true);
-      self.$destroy(true);
     }
   }
 };
