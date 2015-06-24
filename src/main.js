@@ -55,11 +55,11 @@ window.page = page = new BlueInk({
   created: function() {
     var self = this;
     // find page name
-    // TODO: seriously? O.o
-    var base = document.querySelector('base').getAttribute('href');
-    var url = location.href;
-    var page_id = url.replace(base, '');
-    db.get(page_id)
+    var url = location.pathname.split('/');
+    if (url.indexOf('_rewrite') > -1) {
+      url = url.splice(url.indexOf('_rewrite') + 1);
+    }
+    db.get(url.join('/'))
       .then(function(resp) {
         self.page = resp;
       });
