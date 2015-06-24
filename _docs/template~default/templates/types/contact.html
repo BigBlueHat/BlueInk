@@ -1,35 +1,37 @@
-<h3 class="ddheader">{{title}}</h3>
-<div class="vcard">
-  <div class="fn n">
-    {{#first_name}}<span class="given-name">{{first_name}}</span>{{/first_name}}
-    {{#last_name}}<span class="family-name"> {{last_name}}</span>{{/last_name}}
+<div blueink-component="page-item" item-id="{{_id}}">
+  <h3 class="ddheader">{{title}}</h3>
+  <div class="vcard">
+    <div class="fn n">
+      {{#first_name}}<span class="given-name">{{first_name}}</span>{{/first_name}}
+      {{#last_name}}<span class="family-name"> {{last_name}}</span>{{/last_name}}
+    </div>
+    {{#email}}<a class="email" href="mailto:{{email}}">{{email}}</a>{{/email}}
+    <div>
+      <a class="url" href=""></a>
+    </div>
+    <div class="adr">
+      {{#address}}<div class="street-address">{{address}}</div>{{/address}}
+      {{#city}}<span class="locality">{{city}}</span>,{{/city}}
+      {{#state}}<span class="region">{{state}}</span>{{/state}}
+      {{#zip}}<span class="postal-code">{{zip}}</span>{{/zip}}
+      {{#country}}<span class="country-name">{{country}}</span>{{/country}}
+    </div>
+    {{#phone}}<div class="tel">{{phone}}</div>{{/phone}}
+    {{#cell_phone}}<div class="tel"><span class="type">Cell</span>: <span class="value">{{cell_phone}}</span></div>{{/cell_phone}}
+    {{#work_phone}}<div class="tel"><span class="type">Work</span>: <span class="value">{{work_phone}}</span></div>{{/work_phone}}
+    {{#tollfree_phone}}<div class="tel"><span class="type">Toll Free</span>: <span class="value">{{tollfree_phone}}</span></div>{{/tollfree_phone}}
+    {{#fax}}<div class="tel"><span class="type">Fax</span>: <span class="value">{{fax}}</span></div>{{/fax}}
+    {{#geo_lat}}
+    <div class="geo">GEO:
+      <span class="latitude">{{geo_lat}}</span>,
+      {{#geo_long}}<span class="longitude">{{geo_long}}</span>{{/geo_long}}
+    </div>
+    {{/geo_lat}}
+    {{#customfields}}
+    <div class="custom-field">
+      <span class="label">{{title}}:</span>
+      <span class="value">{{value}}</span>
+    </div>
+    {{/customfields}}
   </div>
-  {{#email}}<a class="email" href="mailto:{{email}}">{{email}}</a>{{/email}}
-  <div>
-    <a class="url" href=""></a>
-  </div>
-  <div class="adr">
-    {{#address}}<div class="street-address">{{address}}</div>{{/address}}
-    {{#city}}<span class="locality">{{city}}</span>,{{/city}}
-    {{#state}}<span class="region">{{state}}</span>{{/state}}
-    {{#zip}}<span class="postal-code">{{zip}}</span>{{/zip}}
-    {{#country}}<span class="country-name">{{country}}</span>{{/country}}
-  </div>
-  {{#phone}}<div class="tel">{{phone}}</div>{{/phone}}
-  {{#cell_phone}}<div class="tel"><span class="type">Cell</span>: <span class="value">{{cell_phone}}</span></div>{{/cell_phone}}
-  {{#work_phone}}<div class="tel"><span class="type">Work</span>: <span class="value">{{work_phone}}</span></div>{{/work_phone}}
-  {{#tollfree_phone}}<div class="tel"><span class="type">Toll Free</span>: <span class="value">{{tollfree_phone}}</span></div>{{/tollfree_phone}}
-  {{#fax}}<div class="tel"><span class="type">Fax</span>: <span class="value">{{fax}}</span></div>{{/fax}}
-  {{#geo_lat}}
-  <div class="geo">GEO:
-    <span class="latitude">{{geo_lat}}</span>,
-    {{#geo_long}}<span class="longitude">{{geo_long}}</span>{{/geo_long}}
-  </div>
-  {{/geo_lat}}
-  {{#customfields}}
-  <div class="custom-field">
-    <span class="label">{{title}}:</span>
-    <span class="value">{{value}}</span>
-  </div>
-  {{/customfields}}
 </div>
