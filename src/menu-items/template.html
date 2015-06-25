@@ -13,10 +13,24 @@
         blueink-on="click: openMakeModal(selected)">
         edit
       </a>
-      <a class="ui tiny green button"
+      <a class="ui tiny positive button"
+        blueink-if="!canHazCollection(type)"
         blueink-on="click: addToPage()">
         add to page
       </a>
+      <div class="ui tiny buttons"
+           style="min-width: 13em"
+           blueink-if="canHazCollection(type)">
+        <a class="ui positive button"
+           blueink-on="click: addToPage()">
+          add to page
+        </a>
+        <div class="or"></div>
+        <a class="ui positive button"
+           blueink-on="click: addToCollection(type)">
+          collection
+        </a>
+      </div>
     </div>
     <div blueink-if="preview" class="text item">
       <!-- TODO: build a proper preview system leveraging types system -->
