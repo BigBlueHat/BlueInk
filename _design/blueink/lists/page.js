@@ -22,7 +22,7 @@ function(head, req) {
     if (last == '_collection') {
       is_collection = true;
       last = row.key.pop();
-    } else if (last == 'post') {
+    } else if (last == 'item') {
       is_post = true;
       last = row.key.pop();
     }
