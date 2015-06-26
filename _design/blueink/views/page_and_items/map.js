@@ -19,8 +19,8 @@ function(doc) {
           emit(urlParts.concat('', i, n, '_collection'),
                doc.page_items[i][n]);
 
-          doc.collection.forEach(function(item) {
-            emit(urlParts.concat('', i, n, 'item'), item);
+          doc.collection.forEach(function(item, idx) {
+            emit(urlParts.concat('', i, n, 'item', idx), item);
             // emit item id as child URL of the collection page
             emit_meta(urlParts.concat(item._id));
             // emit collection page as the "page"

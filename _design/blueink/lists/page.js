@@ -1,116 +1,136 @@
 function(head, req) {
-  var ddoc = this,
-      templates = {},
-      Handlebars = require("lib/handlebars"),
-      array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive,
-      dateToArray = require("lib/dateToArray").dateToArray,
-      row,
-      url;
+  var ddoc = this;
+  var templates = {};
+  var Handlebars = require("lib/handlebars");
+  var array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive;
+  var dateToArray = require("lib/dateToArray").dateToArray;
+  var row;
 
+  // sort of require include_docs
+  // TODO: ...should throw a proper error here
   if (!req.query && !req.query.include_docs) {
     send('Please add include_docs to make this thing work');
   }
 
-  var page = {items:[],copyright:'BigBlueHat'},
-      posts = [],
-      navigation = [],
-      is_post = false;
-  while(row = getRow()) {
-    var last = row.key.pop(),
-        is_collection = false,
-        is_post = false;
-    if (last == '_collection') {
-      is_collection = true;
-      last = row.key.pop();
-    } else if (last == 'item') {
-      is_post = true;
-      last = row.key.pop();
-    }
-    var secondtolast = row.key.pop();
-    // dump the extra dividing ""; it's only there for visual parsing
-    var _ = row.key.pop();
-    // it's the page
-    if (secondtolast == '_' && last == '_') {
-      page.url = url = row.key.join('/');
-      if (row.doc.display_title !== false) {
-        page.title = row.doc.title;
-      }
-    } else if (secondtolast == '' && last == 'site') {
-      page.site = row.doc;
-    } else if (secondtolast == '' && last == 'sitemap') {
-      page.sitemap = row.doc.urls;
-    } else if (secondtolast == '' && last == 'template') {
-      page.template = row.doc._id;
-      templates = row.doc.templates;
-    } else if (secondtolast == '' && last == 'template_override') {
-      page.template = row.doc._id;
-      templates = array_replace_recursive(templates, row.doc.templates);
-    } else {
-      var partial_names = Object.keys(templates.partials);
+  function populatePartials() {
+    // if we have partials defined in the templates
+    if (undefined !== templates.partials) {
+      partial_names = Object.keys(templates.partials);
       for (var i = 0; i < partial_names.length; i++) {
+        // tell Handlebars about them
         Handlebars.registerPartial(partial_names[i],
           templates.partials[partial_names[i]]);
       }
+    }
+  }
 
-      // TODO: base template selection off type
-      if (!page.items[secondtolast]) {
-        page.items[secondtolast] = {'area':[]};
+  function prepItem(doc, display_settings, index, template_type) {
+    // TODO: handle template_type from collection
+    template_type = template_type || 'default';
+    var template = templates.types[doc.type][template_type]
+      || templates.types[doc.type];
+    var obj = {};
+    var for_template = doc;
+    // TODO: yeah...this is a mess >_<
+    obj._blueink = for_template._blueink = display_settings || {};
+    obj._blueink.index = for_template._blueink.index = index;
+    // TODO: is this a unique case? or will display settings always effect data?
+    if (display_settings.display_title === false) {
+      delete for_template.title;
+    }
+    // TODO: handle published_date
+    obj.item = Handlebars.compile(template)(for_template);
+    return obj;
+  }
+
+  var output = {
+    url: req.query.startkey.join('/'),
+    site: {},
+    items:[],
+    copyright: 'BigBlueHat'
+  };
+  var item = {};
+  var key, value, split_here, obj_part, partial_names;
+  while(row = getRow()) {
+    item = {};
+    key = row.key;
+    value = row.value;
+    doc = row.doc;
+    // pull out the "config" part of the key
+    // we've already calculated the URL, so we don't need the front (grouping)
+    // portion any longer.
+    obj_part = key.slice(key.indexOf("")+1);
+
+    switch (obj_part[1]) {
+      case 'site':
+        // add the site-wide information
+        output.site = doc;
+        continue;
+        break;
+      case 'sitemap':
+        // add the sitemap
+        output.sitemap = doc.urls;
+        continue;
+        break;
+      case 'template':
+        // add default template stuff
+        output.template = doc._id;
+        templates = doc.templates;
+        populatePartials();
+        continue;
+        break;
+      case 'template_override':
+        // override templates...maybe
+        templates = array_replace_recursive(templates, doc.templates);
+        populatePartials();
+        continue;
+        break;
+      default:
+        break;
+    }
+    // TODO: display settings too, yo!
+
+    // TODO: fix map/reduce to output "page" key in the style of site, sitemap, etc.
+    if (obj_part[0] === "_" && obj_part[1] === "_") {
+      output.page = doc;
+    }
+
+    if (obj_part[0] !== "" && obj_part[0] !== "_") {
+      // we are into the area/item stuff
+      area_idx = Number(obj_part[0]);
+      if (undefined !== value._collection) {
+        item.collection = value._collection;
+        item.posts = [];
+      } else {
+        item = value;
       }
-      if (row.doc.type) {
-        if (row.doc.type === 'navigation') {
-          navigation.push(page.items[secondtolast].area[last] = row);
+
+      if (obj_part[2] === "item") {
+        // items live inside collections
+        var current_collection = output.items[area_idx].area[output.items[area_idx].area.length-1].collection;
+        // which can override templates
+        item = prepItem(doc, value, obj_part[3], current_collection.template_type);
+        output.items[area_idx].area[output.items[area_idx].area.length-1].posts.push(item);
+      } else {
+        if (undefined !== value._id) {
+          item = prepItem(doc, value, obj_part[3]);
+        } else if (doc.type === 'navigation') {
+          item = doc;
         } else {
-          var doc = row.doc;
-          doc.base_url = page.url;
-          // display settings
-          if (row.value.display_title === false) {
-            doc.title = "";
-          }
-          if (is_collection) {
-            // general collection info handling
-            if (page.items[secondtolast].area[last] === undefined) {
-              page.items[secondtolast].area[last] = {'collection':row.value['_collection'],
-                                                    'posts': []};
-            }
-          } else if (is_post) {
-            var post_template = templates.types[row.doc.type][page.items[secondtolast].area[last].collection.template_type] || templates.types[row.doc.type];
-            // collection item handling
-            var length = page.items[secondtolast].area[last].posts
-                          .push({
-                            '_id': doc._id,
-                            'item': '',
-                            'published_date': dateToArray(row.value.published_date, 3).join('/')
-                          });
-            var obj = doc;
-            obj._blueink = {index: length-1};
-            page.items[secondtolast].area[last].posts[length-1].item = Handlebars.compile(post_template)(obj);
-          } else {
-            // non-post item
-            var item_template = templates.types[row.doc.type]['default'] || templates.types[row.doc.type];
-            var obj = doc;
-            // TODO: populate with display settings?
-            obj._blueink = {index: last};
-            page.items[secondtolast].area[last] = {
-              '_id': doc._id,
-              // TODO: exposing display settings / meta to the template means:
-              // a. poluting the doc
-              // b. sub-namespacing the doc into a `doc` key
-              // c. ...there is no option c...
-              'item': Handlebars.compile(item_template)(obj)
-            };
-          }
+          // we've got a collection item
+          item._blueink = {index: obj_part[1]};
+        }
+        if (undefined === output.items[area_idx]) {
+          output.items[area_idx] = {area: [item]};
+        } else {
+          output.items[area_idx].area.push(item);
         }
       }
-      // TODO: fix .first assignment
-      if (secondtolast === 0) {
-        page.items[secondtolast].classes = ['first'];
-      }
     }
-    is_post = false;
   } // end while
 
   // find navigation items and generate their content
-  page.items.forEach(function(area, area_idx) {
+  output.items.forEach(function(area, area_idx) {
     area.area.forEach(function(item, idx) {
       if (item.doc && item.doc.type && item.doc.type == 'navigation') {
         var nav_item = item,
@@ -118,35 +138,38 @@ function(head, req) {
 
         if (nav_item.doc.show_only && nav_item.doc.show_only == 'children') {
           // TODO: this needs to be recursive
-          page.sitemap.forEach(function(el) {
+          output.sitemap.forEach(function(el) {
             if (el.body.url == nav_item.doc.current_url && el.children) {
               navigation.sitemap = el.children;
             }
           });
         } else {
-          navigation.sitemap = page.sitemap;
+          navigation.sitemap = output.sitemap;
         }
 
-        page.items[area_idx].area[idx] = {'item':Handlebars.compile(templates.types['navigation'])(navigation)};
+        output.items[area_idx].area[idx] = {'item':Handlebars.compile(templates.types['navigation'])(navigation)};
       }
     });
   });
-  page.site.host = req.headers.Host;
-  //page.req = JSON.stringify(req);
+
+  // add host domain data
+  output.site.host = req.headers.Host;
+
+  // add current user data
   if (req.userCtx.name !== null) {
     // someone is logged in
     // TODO: (re)think through user object stuff
-    page.user = {
+    output.user = {
       username: req.userCtx.name,
       roles: req.userCtx.roles
     };
   } else {
     // anonymous site visitor
-    page.user = false;
+    output.user = false;
   }
 
   provides('json', function() {
-    send(JSON.stringify(page));
+    send(JSON.stringify(output, null, 4));
   });
 
   provides('html',
@@ -156,7 +179,8 @@ function(head, req) {
           'Content-Type': 'text/html'
         }
       });
-      return Handlebars.compile(templates.page)(page);
+      return Handlebars.compile(templates.page)(output);
     }
   );
+
 }
