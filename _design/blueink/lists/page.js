@@ -75,18 +75,28 @@ function(head, req) {
           } else if (is_post) {
             var post_template = templates.types[row.doc.type][page.items[secondtolast].area[last].collection.template_type] || templates.types[row.doc.type];
             // collection item handling
-            page.items[secondtolast].area[last].posts
-              .push({
-                '_id': doc._id,
-                'item':Handlebars.compile(post_template)(doc),
-                'published_date': dateToArray(row.value.published_date, 3).join('/')
-              });
+            var length = page.items[secondtolast].area[last].posts
+                          .push({
+                            '_id': doc._id,
+                            'item': '',
+                            'published_date': dateToArray(row.value.published_date, 3).join('/')
+                          });
+            var obj = doc;
+            obj._blueink = {index: length-1};
+            page.items[secondtolast].area[last].posts[length-1].item = Handlebars.compile(post_template)(obj);
           } else {
             // non-post item
             var item_template = templates.types[row.doc.type]['default'] || templates.types[row.doc.type];
+            var obj = doc;
+            // TODO: populate with display settings?
+            obj._blueink = {index: last};
             page.items[secondtolast].area[last] = {
               '_id': doc._id,
-              'item':Handlebars.compile(item_template)(doc)
+              // TODO: exposing display settings / meta to the template means:
+              // a. poluting the doc
+              // b. sub-namespacing the doc into a `doc` key
+              // c. ...there is no option c...
+              'item': Handlebars.compile(item_template)(obj)
             };
           }
         }

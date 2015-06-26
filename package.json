@@ -8,11 +8,12 @@
   "main": "src/main.js",
   "dependencies": {
     "jsinclude": "~1.0.2",
+    "keymaster": "~1.6.2",
     "pouchdb": "~3.5.0",
     "pouchdb-authentication": "~0.4.0",
-    "keymaster": "~1.6.2",
-    "vue": "~0.11.9",
-    "sortablejs": "~1.1.1"
+    "sortablejs": "~1.1.1",
+    "traversty": "^1.0.5",
+    "vue": "~0.11.9"
   },
   "devDependencies": {
     "browserify": "^9.0.7",

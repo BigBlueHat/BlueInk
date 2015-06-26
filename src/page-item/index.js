@@ -1,3 +1,5 @@
+var dom = require('traversty');
+window.dom = dom;
 var PouchDB = require('pouchdb');
 
 // TODO: move this to a config lib
@@ -9,7 +11,7 @@ var db = new PouchDB(db_url);
 module.exports = {
   replace: false,
   template: require('./template.html'),
-  paramAttributes: ['item-id'],
+  paramAttributes: ['item-id', 'item-index'],
   attached: function() {
     this.$el.style.position = 'relative';
   },
@@ -31,6 +33,35 @@ module.exports = {
           });
         }
       );
+    },
+    remove: function(ev) {
+      ev.preventDefault();
+      var self = this;
+
+      var collection = dom(this.$el).parents('[data-blueink-collection]');
+      if (collection.length > 0) {
+        // remove from the collection, not the page
+        // TODO: check that we indeed do have a collection
+        console.log(this.itemIndex);
+        console.log('collection', this.$root.page.collection);
+        this.$root.page.collection.splice(this.itemIndex, 1);
+        console.log('collection', this.$root.page.collection);
+        // TODO: index change when you remove items...so all this must be smarter T_T
+        this.$root.savePage(function() {
+          self.$destroy(true);
+        });
+      } else {
+        // look up area index
+        // currently requires templates to have direct area > item markup
+        var area_idx = this.$el.parentElement.dataset.blueinkAreaIndex;
+        // look up item index
+        // TODO: and if it's not been set?
+        var item_idx = this.itemIndex;
+        // remove item from page object
+        this.$root.removeItem(area_idx, item_idx);
+        // TODO: do this with a callback (as with savePage);
+        this.$destroy(true);
+      }
     }
   }
 }

@@ -201,6 +201,12 @@ window.page = page = new BlueInk({
       // save it
       self.savePage();
     },
+    removeItem: function(area_idx, item_idx) {
+      this.page.page_items[area_idx].splice(item_idx, 1);
+      // TODO: if the wrong indexes come in this could wipe out the page items!
+      // validate by double checking the item id?
+      this.savePage();
+    },
     editDoc: function(doc, schema_name) {
       var modal = this.$addChild(require('./make-modal'));
       if (schema_name) {
