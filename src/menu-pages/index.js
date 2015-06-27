@@ -34,36 +34,27 @@ module.exports = {
           }
         });
     },
-    openMakeModal: function(doc_id) {
+    modalize: function(doc) {
       var self = this;
-      function modalize(doc) {
-        var modal = self.$root.editDoc(doc);
-        modal.$on('beforeSave', function(doc) {
-          modal.doc_id = doc.url;
-        });
-        modal.$on('saved', function(type) {
-          self.generateSitemap();
-          location.href = doc._id;
-        });
-        modal.$on('afterDel', function() {
-          location.href = 'home';
-        });
-      }
-
-      if (doc_id) {
-        db.get(doc_id)
-          .then(function(resp) {
-            modalize(resp);
-          });
-      } else {
-        // TODO: pull default object from type definition
-        modalize({
-          type: "page",
-          title: "",
-          nav_label: "",
-          page_items: [[]]
-        });
-      }
+      var modal = self.$root.editDoc(doc);
+      modal.$on('saved', function() {
+        self.generateSitemap();
+        location.href = this.doc._id;
+      });
+      modal.$on('afterDel', function() {
+        location.href = 'home';
+      });
+    },
+    createDoc: function() {
+      this.modalize({type: "page"});
+    },
+    editDoc: function(doc_id) {
+      var self = this;
+      db.get(doc_id)
+        .then(function(resp) {
+          self.modalize(resp);
+        }
+      );
     },
     generateSitemap: function() {
       // get the new sitemap from the _list
