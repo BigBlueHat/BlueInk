@@ -10,7 +10,8 @@ var default_data = {
   active: false,
   name: 'JSON',
   schema_url: '',
-  doc: {}
+  doc: {},
+  editor: ''
 };
 
 module.exports = {
@@ -30,20 +31,36 @@ module.exports = {
       if (this.doc.type) {
         return this.doc.type;
       }
+    }
+  },
+  watch: {
+    schema_url: function() {
+      this.editor = 'vue-schema';
     },
-    editor: function() {
-      if (this.schema_url) {
-        return 'vue-schema';
-      } else if (this.doc.type && undefined != this.$root.types[this.doc.type]
+    'doc.type': function() {
+      if (undefined != this.$root.types[this.doc.type]
           && undefined != this.$root.types[this.doc.type].editor) {
-        return this.$root.types[this.doc.type].editor;
-      } else {
-        return 'json';
+        this.editor = this.$root.types[this.doc.type].editor;
       }
     }
   },
   created: function() {
     document.body.classList.add('dimmed', 'dimmable', 'scrolling');
+  },
+  compiled: function() {
+    if (Object.keys(this.doc).length < 2
+        && undefined !== this.doc.type) {
+      // we have "stub" / initiation doc, so reset to defaults
+      this.doc = this.$.editor.$options.data.doc;
+    }
+    // connect the editor.doc and modal docs for change watching
+    this.$watch('doc', function() {
+      this.$.editor.doc = this.doc;
+    },
+    // watch the entire doc
+    true,
+    // and triger changes (such as editor component choice) now
+    true);
   },
   methods: {
     destroy: function() {

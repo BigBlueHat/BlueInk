@@ -88,27 +88,27 @@ module.exports = {
         self.items = response.rows;
       });
     },
-    openMakeModal: function(doc_id, type) {
+    createDoc: function(type) {
       var self = this;
-      if (doc_id) {
-        db.get(doc_id)
-          .then(function(resp) {
-            var doc = resp;
-            var modal = self.$root.editDoc(doc);
-            modal.$on('saved', function() {
-              self.loadItems();
-            });
-            modal.$on('afterDel', function() {
-              self.loadItems();
-            });
-          }
-        );
-      } else {
-        var modal = self.$root.editDoc({type: type});
-        modal.$on('saved', function() {
-          self.loadItems();
-        });
-      }
+      var modal = self.$root.createDoc(type);
+      modal.$on('saved', function() {
+        self.loadItems();
+      });
+    },
+    editDoc: function(doc_id) {
+      var self = this;
+      db.get(doc_id)
+        .then(function(resp) {
+          var doc = resp;
+          var modal = self.$root.editDoc(doc);
+          modal.$on('saved', function() {
+            self.loadItems();
+          });
+          modal.$on('afterDel', function() {
+            self.loadItems();
+          });
+        }
+      );
     }
   },
   components: {

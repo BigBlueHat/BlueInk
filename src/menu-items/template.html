@@ -1,7 +1,7 @@
 <div class="menu" blueink-class="transition: $parent.selected != '', visible: $parent.selected != ''">
   <div class="item">
     <a class="ui tiny primary button"
-      blueink-on="click: openMakeModal(false, type)">new {{type}}</a>
+      blueink-on="click: createDoc(type)">new {{type}}</a>
   </div>
   <div class="item" blueink-repeat="items" blueink-on="click: selected = id">
     {{value}}
@@ -10,7 +10,7 @@
   <div class="ui vertical menu" blueink-class="transition: selected != '', visible: selected != ''" style="width: auto">
     <div class="item">
       <a class="ui tiny primary button"
-        blueink-on="click: openMakeModal(selected)">
+        blueink-on="click: editDoc(selected)">
         edit
       </a>
       <a class="ui tiny positive button"

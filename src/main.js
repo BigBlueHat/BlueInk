@@ -207,6 +207,9 @@ window.page = page = new BlueInk({
       // validate by double checking the item id?
       this.savePage();
     },
+    createDoc: function(type) {
+      return this.editDoc({type: type});
+    },
     editDoc: function(doc, schema_name) {
       var modal = this.$addChild(require('./make-modal'));
       if (schema_name) {
