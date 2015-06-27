@@ -102,7 +102,8 @@ function(head, req) {
 
     // TODO: fix map/reduce to output "page" key in the style of site, sitemap, etc.
     if (obj_part[0] === "_" && obj_part[1] === "_") {
-      if (doc.display_title) {
+      if (undefined === doc.display_title
+          || doc.display_title === true) {
         output.title = doc.title;
       }
       // everything else...in case templaters need it
