@@ -66,6 +66,11 @@ function(head, req) {
     // portion any longer.
     obj_part = key.slice(key.indexOf("")+1);
 
+    // TODO: handle deleted docs better--output placeholder with info
+    if (doc === null) {
+      continue;
+    }
+
     switch (obj_part[1]) {
       case 'site':
         // add the site-wide information
