@@ -12,6 +12,17 @@ function(head, req) {
     send('Please add include_docs to make this thing work');
   }
 
+
+  var output = {
+    url: req.query.startkey.join('/'),
+    site: {},
+    items:[],
+    copyright: 'BigBlueHat'
+  };
+  var item = {};
+  var key, value, split_here, obj_part, partial_names;
+
+  // reusable bits
   function populatePartials() {
     // if we have partials defined in the templates
     if (undefined !== templates.partials) {
@@ -38,19 +49,13 @@ function(head, req) {
     if (display_settings.display_title === false) {
       delete for_template.title;
     }
+    for_template._blueink.base_url = output.url;
     // TODO: handle published_date
     obj.item = Handlebars.compile(template)(for_template);
     return obj;
   }
 
-  var output = {
-    url: req.query.startkey.join('/'),
-    site: {},
-    items:[],
-    copyright: 'BigBlueHat'
-  };
-  var item = {};
-  var key, value, split_here, obj_part, partial_names;
+  // where it all gets put together
   while(row = getRow()) {
     item = {};
     key = row.key;
@@ -92,6 +97,10 @@ function(head, req) {
 
     // TODO: fix map/reduce to output "page" key in the style of site, sitemap, etc.
     if (obj_part[0] === "_" && obj_part[1] === "_") {
+      if (doc.display_title) {
+        output.title = doc.title;
+      }
+      // everything else...in case templaters need it
       output.page = doc;
     }
 
