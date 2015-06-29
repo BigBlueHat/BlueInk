@@ -128,7 +128,7 @@ function(head, req) {
         output.items[area_idx].area[output.items[area_idx].area.length-1].posts.push(item);
       } else {
         if (undefined !== value._id) {
-          item = prepItem(doc, value, obj_part[3]);
+          item = prepItem(doc, value, obj_part[1]);
         } else if (doc.type === 'navigation') {
           item = doc;
         } else {
