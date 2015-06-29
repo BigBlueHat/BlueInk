@@ -18,6 +18,8 @@ var db_url = location.protocol + '//' + location.hostname
     + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
 var db = new PouchDB(db_url);
 
+var sortables = [];
+
 window.page = page = new BlueInk({
   el: 'body',
   data: {
@@ -56,6 +58,8 @@ window.page = page = new BlueInk({
     loggedIn: function(v) {
       if (v) {
         this.loadUI();
+      } else {
+        this.destroySortables();
       }
     }
   },
@@ -99,38 +103,6 @@ window.page = page = new BlueInk({
         }
     });
 
-    // turn on Sortable for...sorting
-    // TODO: explore a better way to find / define page areas in templates
-    var areas = document.querySelectorAll('[data-blueink-area-index]');
-    for (var i = 0; i < areas.length; i++) {
-      Sortable.create(areas[i], {
-        group: 'areas',
-        onStart: function(e) {
-          // loop through the areas...
-          for (var i = 0; i < areas.length; i++) {
-            // tweak their CSS a bit to make them more findable
-            areas[i].classList.add('blueink-drop-spot');
-          }
-        },
-        onEnd: function(e) {
-          // loop through the areas...
-          for (var i = 0; i < areas.length; i++) {
-            // remove drag-time-only class from areas
-            areas[i].classList.remove('blueink-drop-spot');
-          }
-        },
-        onAdd: function(e) {
-          // get old area index
-          var old_area = e.from.dataset.blueinkAreaIndex;
-          // get new area index
-          var new_area = e.item.parentNode.dataset.blueinkAreaIndex;
-          self.moveItem(old_area, e.oldIndex, new_area, e.newIndex);
-        },
-        onUpdate: function(e) {
-          self.sortItem(e.from.dataset.blueinkAreaIndex, e.oldIndex, e.newIndex);
-        }
-      });
-    }
   },
   ready: function() {
     var self = this;
@@ -164,6 +136,7 @@ window.page = page = new BlueInk({
       ui.user = self.user;
       ui.$mount();
       ui.$appendTo(document.body);
+      self.enableSortables();
     },
     savePage: function(callback) {
       var self = this;
@@ -176,6 +149,50 @@ window.page = page = new BlueInk({
             callback();
           }
         });
+    },
+    enableSortables: function() {
+      var self = this;
+      // turn on Sortable for...sorting
+      // TODO: explore a better way to find / define page areas in templates
+      var areas = document.querySelectorAll('[data-blueink-area-index]');
+      for (var i = 0; i < areas.length; i++) {
+        sortables.push(Sortable.create(areas[i], {
+          group: 'areas',
+          onStart: function(e) {
+            // loop through the areas...
+            for (var i = 0; i < areas.length; i++) {
+              // tweak their CSS a bit to make them more findable
+              areas[i].classList.add('blueink-drop-spot');
+            }
+          },
+          onEnd: function(e) {
+            // loop through the areas...
+            for (var i = 0; i < areas.length; i++) {
+              // remove drag-time-only class from areas
+              areas[i].classList.remove('blueink-drop-spot');
+            }
+          },
+          onAdd: function(e) {
+            // get old area index
+            var old_area = e.from.dataset.blueinkAreaIndex;
+            // get new area index
+            var new_area = e.item.parentNode.dataset.blueinkAreaIndex;
+            self.moveItem(old_area, e.oldIndex, new_area, e.newIndex);
+          },
+          onUpdate: function(e) {
+            self.sortItem(e.from.dataset.blueinkAreaIndex, e.oldIndex, e.newIndex);
+          }
+        }));
+      }
+    },
+    destroySortables: function() {
+      var sortable = false;
+      do {
+        sortable = sortables.pop();
+        if (sortable) {
+          sortable.destroy();
+        }
+      } while (sortables.length > 0);
     },
     sortItem: function(area, from, to) {
       var self = this;
