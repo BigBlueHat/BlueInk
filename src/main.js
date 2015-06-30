@@ -240,6 +240,26 @@ window.page = page = new BlueInk({
       modal.$mount();
       modal.$appendTo(this.$el);
       return modal;
+    },
+    generateSitemap: function(callback) {
+      // TODO: construct this URL better...
+      var url = location.pathname.split(this.page._id)[0] + '/_blueink/sitemap';
+      // get the new sitemap from the _list
+      PouchDB.ajax({url: url},
+        function(err, new_sitemap) {
+          // next, get the current sitemap doc
+          db.get('sitemap')
+            .then(function(old_sitemap) {
+              old_sitemap['urls'] = new_sitemap['urls'];
+              return old_sitemap;
+            }).then(function(updated_sitemap) {
+              return db.put(updated_sitemap);
+            }).then(function(resp) {
+              console.log('stored?', resp);
+              callback();
+            }).catch(console.log.bind(console));
+        }
+      );
     }
   },
   components: {

@@ -38,11 +38,14 @@ module.exports = {
       var self = this;
       var modal = self.$root.editDoc(doc);
       modal.$on('saved', function() {
-        self.generateSitemap();
-        location.href = this.doc._id;
+        self.$root.generateSitemap(function() {
+          location.href = self.doc._id;
+        });
       });
       modal.$on('afterDel', function() {
-        location.href = 'home';
+        self.$root.generateSitemap(function() {
+          location.href = 'home';
+        });
       });
     },
     createDoc: function() {
@@ -53,23 +56,6 @@ module.exports = {
       db.get(doc_id)
         .then(function(resp) {
           self.modalize(resp);
-        }
-      );
-    },
-    generateSitemap: function() {
-      // get the new sitemap from the _list
-      PouchDB.ajax({
-          // TODO: construct this URL better...
-          url: '../_list/sitemap/pages?reduce=false'
-        },
-        function(err, new_sitemap) {
-          // next, get the current sitemap doc
-          db.get('sitemap')
-            .then(function(old_sitemap) {
-              old_sitemap['urls'] = new_sitemap['urls'];
-              db.put(old_sitemap)
-                .then(function(err, resp) { console.log(resp); });
-            });
         }
       );
     }
