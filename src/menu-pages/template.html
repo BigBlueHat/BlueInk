@@ -19,7 +19,9 @@
       </div>
     </li>
     <li blueink-repeat="pages">
-      <a class="item" href="{{url}}">{{url}}</a>
+      <a class="item" href="{{url}}"
+         blueink-class="active: url == current">
+        {{url}}</a>
     </li>
   </ul>
 </div>
