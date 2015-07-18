@@ -15,6 +15,12 @@ module.exports = {
   attached: function() {
     this.$el.style.position = 'relative';
   },
+  computed: {
+    canBeRemoved: function() {
+      // auto-generated pages don't have ID's currently
+      return (undefined !== this.$root.page._id);
+    }
+  },
   methods: {
     edit: function(ev) {
       ev.preventDefault();

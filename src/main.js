@@ -136,7 +136,11 @@ window.page = page = new BlueInk({
       ui.user = self.user;
       ui.$mount();
       ui.$appendTo(document.body);
-      self.enableSortables();
+      // auto-generated pages don't have ID's
+      if (undefined !== self.page._id) {
+        // and should not be sortable
+        self.enableSortables();
+      }
     },
     savePage: function(callback) {
       var self = this;
