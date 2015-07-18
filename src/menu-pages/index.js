@@ -12,14 +12,25 @@ module.exports = {
   template: require('./template.html'),
   data: function() {
     return {
+      autogen: false,
+      parent_url: '',
       current: '',
       pages: []
     }
   },
   created: function() {
     var base = document.getElementsByTagName('base')[0].href;
+    // staticly storing these (vs. computed props) to avoid constant recalc
     this.current = location.toString().replace(base, '');
+    this.parent_url = this.current.substring(0, this.current.lastIndexOf('/'));
+
     this.loadPages();
+  },
+  computed: {
+    autogen: function() {
+      // page data loads later, so this needs to be a computed property
+      return Boolean(undefined === this.$root.page._id);
+    }
   },
   methods: {
     loadPages: function() {
