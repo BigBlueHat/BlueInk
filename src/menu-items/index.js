@@ -57,6 +57,14 @@ module.exports = {
         // TODO: also add date info about when this was added to the page
       };
 
+      // prevent duplicate items in the collection
+      for (var i = 0; i < this.$root.page.collection.length; i++) {
+        if (this.selected === this.$root.page.collection[i]._id) {
+          // TODO: UI still implies that you can...button just stops working
+          return false;
+        }
+      }
+
       if (undefined !== this.$root.page.collection) {
         this.$root.page.collection.push(item);
       } else {
