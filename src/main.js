@@ -43,14 +43,17 @@ window.page = page = new BlueInk({
     collection_info: function() {
       var collection_info = {};
       // TODO: >_< rather expensive looping -- turn into a $watch + deep watching
-      this.page.page_items.forEach(function(area) {
-        area.forEach(function(item) {
-          if (undefined !== item._collection
-              && Object.keys(item._collection).length > 0) {
-            collection_info = item._collection;
-          }
+      if (undefined !== this.page.page_items) {
+        // now that we have page info, dig for a collection
+        this.page.page_items.forEach(function(area) {
+          area.forEach(function(item) {
+            if (undefined !== item._collection
+                && Object.keys(item._collection).length > 0) {
+              collection_info = item._collection;
+            }
+          });
         });
-      });
+      }
       return collection_info;
     }
   },

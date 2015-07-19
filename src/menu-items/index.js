@@ -41,12 +41,9 @@ module.exports = {
     },
     addToCollection: function(type) {
       var collection_info = this.$root.collection_info;
-      var allowed_type = '';
-      if (undefined !== collection_info.type) {
-        allowed_type = collection_info.type;
-      }
+      var allowed_type = collection_info.type;
       // TODO: support multiple types?
-      if (type !== allowed_type) {
+      if (allowed_type !== '' && type !== allowed_type) {
         return false;
       }
 
@@ -76,9 +73,17 @@ module.exports = {
       });
     },
     canHazCollection: function(type) {
-      return (undefined !== this.$root.page.collection
-              && undefined !== this.$root.collection_info.type
-              && type === this.$root.collection_info.type);
+      var collection_type = this.$root.collection_info.type;
+      // if it's a collection
+      if (undefined !== this.$root.page.collection) {
+        // with a specified type
+        if (undefined !== collection_type && collection_type !== "") {
+          return (type === collection_type);
+        } else {
+          // if no type is specified by the collection, take whatever.
+          return true;
+        }
+      }
     },
     loadPreview: function() {
       var self = this;

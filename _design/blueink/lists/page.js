@@ -38,8 +38,14 @@ function(head, req) {
   function prepItem(doc, display_settings, index, template_type) {
     // TODO: handle template_type from collection
     template_type = template_type || 'default';
-    var template = templates.types[doc.type][template_type]
-      || templates.types[doc.type];
+    var template = '';
+    if (undefined !== templates.types[doc.type]) {
+      if (undefined !== templates.types[doc.type][template_type]) {
+        template = templates.types[doc.type][template_type];
+      } else {
+        template = templates.types[doc.type];
+      }
+    }
     var obj = {};
     var for_template = doc;
     // TODO: yeah...this is a mess >_<
