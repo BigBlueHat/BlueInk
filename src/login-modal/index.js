@@ -28,6 +28,7 @@ module.exports = {
     key('esc', function() {
       self.destroy();
     });
+    self.$el.querySelector('[name=username]').focus();
   },
   methods: {
     login: function() {
