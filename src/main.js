@@ -248,7 +248,7 @@ window.page = page = new BlueInk({
       modal.$appendTo(this.$el);
       return modal;
     },
-    generateSitemap: function(callback) {
+    generateSitemap: function(callback, page_id) {
       // TODO: construct this URL better...
       var url = location.pathname.split(this.page._id)[0] + '/_blueink/sitemap';
       // get the new sitemap from the _list
@@ -263,7 +263,7 @@ window.page = page = new BlueInk({
               return db.put(updated_sitemap);
             }).then(function(resp) {
               console.log('stored?', resp);
-              callback();
+              callback(page_id);
             }).catch(console.log.bind(console));
         }
       );

@@ -48,10 +48,10 @@ module.exports = {
     modalize: function(doc) {
       var self = this;
       var modal = self.$root.editDoc(doc);
-      modal.$on('saved', function() {
-        self.$root.generateSitemap(function() {
-          location.href = self.doc._id;
-        });
+      modal.$on('saved', function(saved_doc) {
+        self.$root.generateSitemap(function(url) {
+          location.href = url;
+        }, saved_doc._id);
       });
       modal.$on('afterDel', function() {
         self.$root.generateSitemap(function() {
