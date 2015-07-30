@@ -12,18 +12,9 @@ function(head, req) {
     send('Please add include_docs to make this thing work');
   }
 
-
-  var output = {
-    url: req.query.startkey.join('/'),
-    site: {},
-    items:[],
-    copyright: 'BigBlueHat'
-  };
-  var item = {};
-  var key, value, split_here, obj_part, partial_names;
-
   // reusable bits
   function populatePartials() {
+    var partial_names;
     // if we have partials defined in the templates
     if (undefined !== templates.partials) {
       partial_names = Object.keys(templates.partials);
@@ -61,16 +52,24 @@ function(head, req) {
     return obj;
   }
 
+
+  var output = {
+    url: req.query.startkey.join('/'),
+    site: {},
+    items:[],
+    copyright: 'BigBlueHat'
+  };
+
   // where it all gets put together
   while(row = getRow()) {
-    item = {};
-    key = row.key;
-    value = row.value;
-    doc = row.doc;
+    var item = {};
+    var key = row.key;
+    var value = row.value;
+    var doc = row.doc;
     // pull out the "config" part of the key
     // we've already calculated the URL, so we don't need the front (grouping)
     // portion any longer.
-    obj_part = key.slice(key.indexOf("")+1);
+    var obj_part = key.slice(key.indexOf("")+1);
 
     // TODO: handle deleted docs better--output placeholder with info
     if (doc === null) {
