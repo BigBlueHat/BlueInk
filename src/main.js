@@ -58,11 +58,21 @@ window.page = page = new BlueInk({
     }
   },
   watch: {
-    loggedIn: function(v) {
-      if (v) {
+    loggedIn: function(yes) {
+      if (yes) {
         this.loadUI();
+        if (undefined !== this.page._id) {
+          this.enableSortables();
+        }
       } else {
         this.destroySortables();
+      }
+    },
+    'page._id': function(page_id) {
+      // doing this with a `watch` since page._id may get set "late"
+      // auto-generated pages don't have ID's
+      if (undefined !== page_id && this.loggedIn) {
+        this.enableSortables();
       }
     }
   },
@@ -139,11 +149,6 @@ window.page = page = new BlueInk({
       ui.user = self.user;
       ui.$mount();
       ui.$appendTo(document.body);
-      // auto-generated pages don't have ID's
-      if (undefined !== self.page._id) {
-        // and should not be sortable
-        self.enableSortables();
-      }
     },
     savePage: function(callback) {
       var self = this;
