@@ -1,5 +1,5 @@
 function(doc) {
-  var urlParts, i, n, collection_key, collection_info;
+  var urlParts = doc._id.split('/');
 
   var emit_meta = function(urlParts, template) {
     emit(urlParts.concat('', '', 'site'), {'_id':'site'});
@@ -12,9 +12,8 @@ function(doc) {
   };
 
   if (doc.type == 'page') {
-    urlParts = doc._id.split('/');
-    for (i in doc.page_items) {
-      for (n in doc.page_items[i]) {
+    for (var i in doc.page_items) {
+      for (var n in doc.page_items[i]) {
         if ('_collection' in doc.page_items[i][n]) {
           emit(urlParts.concat('', i, n, '_collection'),
                doc.page_items[i][n]);
