@@ -77,6 +77,16 @@ function(head, req) {
     }
 
     switch (obj_part[1]) {
+      case 'redirect':
+        start({
+          code: 302,
+          headers: {
+            'Content-Type': 'text/html',
+            'Location': value.url
+          }
+        });
+        return '';
+        break;
       case 'site':
         // add the site-wide information
         output.site = doc;

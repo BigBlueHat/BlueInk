@@ -1,0 +1,7 @@
+{
+  "_id": "index",
+   "title": "go home...",
+   "nav_label": "go home...",
+   "type": "redirect",
+   "url": "home"
+}
