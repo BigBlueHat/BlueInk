@@ -21,7 +21,7 @@ var db = new PouchDB(db_url);
 var sortables = [];
 
 window.page = page = new BlueInk({
-  el: 'body',
+  el: document.body,
   data: {
     ui: {
       pushed_down_by: 0
