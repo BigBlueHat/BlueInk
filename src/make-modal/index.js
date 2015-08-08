@@ -11,7 +11,7 @@ var default_data = {
   name: 'JSON',
   schema_url: '',
   doc: {},
-  editor: ''
+  editor: 'json'
 };
 
 module.exports = {
@@ -41,6 +41,9 @@ module.exports = {
       if (undefined != this.$root.types[this.doc.type]
           && undefined != this.$root.types[this.doc.type].editor) {
         this.editor = this.$root.types[this.doc.type].editor;
+      } else {
+        // default to JSON editor
+        this.editor = 'json';
       }
     }
   },
