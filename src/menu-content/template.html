@@ -1,4 +1,4 @@
-<div id="blueink-menu-content" class="section ui dropdown link item"
+<div id="blueink-menu-content" class="section blueink-ui dropdown link item"
     blueink-on="mouseover: active = true, mouseleave: active = false"
     blueink-class="active: active, visible: active">
   <div>Content</div>
@@ -6,7 +6,7 @@
     blueink-class="transition: active, visible: active">
     <li class="item" blueink-repeat="types" blueink-on="click: selected = key">
       {{key}}
-      <span class="ui small bottom right attached label">{{value}}</span>
+      <span class="blueink-ui small bottom right attached label">{{value}}</span>
     </li>
     <div blueink-component="menu-items" type="{{selected}}"></div>
   </ul>

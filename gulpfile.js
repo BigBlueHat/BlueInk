@@ -7,8 +7,10 @@ var glob = require('glob');
 var gulp = require('gulp');
 var partialify = require('partialify');
 var push = require('couch-push');
+var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
+var rework = require('gulp-rework');
 
 var argv = require('yargs').argv;
 var config = require('./config.json');
@@ -21,6 +23,42 @@ if (argv.url) {
   // TODO: make this hault
   console.log('You must supply the URL to your CouchDB instance (via --url or config.json');
 }
+
+gulp.task('rework', function() {
+  // TODO: call `gulp build` in `src/semantic/` first
+  return gulp.src('src/semantic/dist/semantic.css')
+    .pipe(rework(function (style) {
+      var walk = require('rework-walk');
+      walk(style, function(rule, node) {
+        if (!rule.selectors) return rule;
+        rule.selectors = rule.selectors.map(function(selector) {
+          if (selector[0] === '.') {
+            return selector.replace(/\.ui/g, '.blueink-ui');
+          } else {
+            // for reset / tag-named stuff
+            if (selector.substr(0,4) !== 'html'
+                && selector.substr(0,4) !== 'body'
+                && selector[0] !== '*') {
+              return '.blueink-ui ' + selector;
+            } else if ((selector.substr(0,4) !== 'html'
+                && selector.substr(0,4) !== 'body')
+                || selector[0] === '*') {
+              return selector;
+            }
+          }
+        });
+
+        // remove html & body specific reset styles
+        // to avoid overriding template styles excessively
+        if (undefined === rule.selectors[0]) {
+          rule.selectors = [];
+          rule.declarations = [];
+        }
+      });
+    }, {sourcemap: true}))
+    .pipe(rename('app.css'))
+    .pipe(gulp.dest('_design/blueink/_attachments/ui/'));
+});
 
 gulp.task('blueink', function() {
   var b = browserify({

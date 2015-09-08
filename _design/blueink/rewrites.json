@@ -22,6 +22,10 @@
     "to": "../../:template/*"
   },
   {
+    "from": "_blueink/ui/*",
+    "to": "ui/*"
+  },
+  {
     "from": "_blueink/item-types",
     "to": "_list/types_list/by_type",
     "query": {

@@ -1,18 +1,18 @@
-<div class="ui dimmer page visible" blueink-class="active: active">
-  <div class="ui fullscreen modal transition visible active scrolling">
+<div class="blueink-ui dimmer modals page visible" blueink-class="active: active">
+  <div class="blueink-ui fullscreen modal transition visible active scrolling">
     <div class="header">
-      <div class="ui two column grid">
+      <div class="blueink-ui two column grid">
         <div class="column">
-          <div class="ui huge header">{{name}}</div>
+          <div class="blueink-ui huge header">{{name}}</div>
         </div>
-        <div class="right aligned column">
-          <div class="ui tiny buttons">
-            <div class="ui positive button"
+        <div class="right floated right aligned column">
+          <div class="blueink-ui tiny buttons">
+            <div class="blueink-ui positive button"
               blueink-on="click: save()">
               Save
             </div>
             <div class="or"></div>
-            <div class="ui button"
+            <div class="blueink-ui button"
               blueink-on="click: destroy()">
               Cancel
             </div>
@@ -24,17 +24,21 @@
       <div blueink-ref="editor" blueink-component="{{editor}}" blueink-with="id: schema_url"></div>
     </div>
     <div class="actions">
-      <div blueink-if="doc._rev" class="ui left floated tiny red button"
+      <div blueink-if="doc._rev" class="blueink-ui left floated tiny red button"
         blueink-on="click: del()">
         Delete
       </div>
-      <div class="ui tiny buttons">
-        <div class="ui positive button"
+      <!-- debugging only -->
+      <a blueink-if="doc._id" class="disabled" target="_blank" href="../../../{{doc._id}}">
+        {{doc._id}}
+      </a>
+      <div class="blueink-ui tiny buttons">
+        <div class="blueink-ui positive button"
           blueink-on="click: save()">
           Save
         </div>
         <div class="or"></div>
-        <div class="ui button"
+        <div class="blueink-ui button"
           blueink-on="click: destroy()">
           Cancel
         </div>

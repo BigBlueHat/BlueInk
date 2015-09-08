@@ -1,4 +1,3 @@
-require('insert-css')(require('./semantic-ui/semantic.css'));
 require('insert-css')(require('./main.css'));
 
 var BlueInk = require('vue');
@@ -130,6 +129,7 @@ window.page = page = new BlueInk({
           // TODO: should trigger UI changes
           self.user = {};
           // open login modal
+          self.addCSS();
           var modal = self.$addChild(require('./login-modal'));
           modal.$mount();
           modal.$appendTo(document.body);
@@ -143,8 +143,12 @@ window.page = page = new BlueInk({
     });
   },
   methods: {
+    addCSS: function() {
+      include.css('_blueink/ui/app.css');
+    },
     loadUI: function() {
       var self = this;
+      self.addCSS();
       var ui = self.$addChild(require('./ui-blueink'));
       ui.user = self.user;
       ui.$mount();

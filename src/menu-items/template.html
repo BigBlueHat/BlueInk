@@ -1,32 +1,32 @@
 <div class="menu" blueink-class="transition: $parent.selected != '', visible: $parent.selected != ''">
   <div class="item">
-    <a class="ui tiny primary button"
+    <a class="blueink-ui tiny primary button"
       blueink-on="click: createDoc(type)">new {{type}}</a>
   </div>
   <div class="item" blueink-repeat="items" blueink-on="click: selected = id">
     {{value}}
   </div>
   <!-- preview -->
-  <div class="ui vertical menu" blueink-class="transition: selected != '', visible: selected != ''" style="width: auto">
+  <div class="blueink-ui vertical menu" blueink-class="transition: selected != '', visible: selected != ''" style="width: auto">
     <div class="item">
-      <a class="ui tiny primary button"
+      <a class="blueink-ui tiny primary button"
         blueink-on="click: editDoc(selected)">
         edit
       </a>
-      <a class="ui tiny positive button"
+      <a class="blueink-ui tiny positive button"
         blueink-if="!canHazCollection(type)"
         blueink-on="click: addToPage()">
         add to page
       </a>
-      <div class="ui tiny buttons"
+      <div class="blueink-ui tiny buttons"
            style="min-width: 13em"
            blueink-if="canHazCollection(type)">
-        <a class="ui positive button"
+        <a class="blueink-ui positive button"
            blueink-on="click: addToPage()">
           add to page
         </a>
         <div class="or"></div>
-        <a class="ui positive button"
+        <a class="blueink-ui positive button"
            blueink-on="click: addToCollection(type)">
           collection
         </a>

@@ -24,6 +24,7 @@ module.exports = {
   methods: {
     logout: function() {
       var self = this;
+      document.body.classList.remove('ui-blueink');
       // TODO: make this data state driven
       db.logout(function (err, response) {
         if (err) {

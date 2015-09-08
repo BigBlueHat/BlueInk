@@ -17,3 +17,11 @@ body {
   border: 1px solid blue;
   min-height: 8px;
 }
+
+/**
+ * We can't use the semantic-ui `html` override due to template style
+ * conflicts, so we'll set those defaults on .blueink-ui
+ **/
+.blueink-ui {
+  box-sizing: border-box;
+}

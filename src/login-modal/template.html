@@ -1,21 +1,22 @@
-<div class="ui dimmer page visible active"
+<div class="blueink-ui dimmer modals page visible active"
   blueink-on="keyup: destroy | key esc, keyup: login | key enter">
-  <div class="ui small modal transition visible active">
+  <div class="blueink-ui small modal transition visible active">
     <div class="content">
-      <div class="ui header">
+      <div class="blueink-ui header">
         Login
       </div>
-      <form class="ui horizontal form">
+      <form class="blueink-ui horizontal form">
         <div class="inline field">
           <input name="username" blueink-model="user" type="text" placeholder="Username" />
           <input name="password" blueink-model="pass" type="password" placeholder="Password" />
         </div>
+      </form>
     </div>
     <div class="actions">
-      <div class="ui left button" blueink-on="click: destroy()">
+      <div class="blueink-ui left button" blueink-on="click: destroy()">
         Cancel
       </div>
-      <div class="ui positive right button" blueink-on="click: login()">
+      <div class="blueink-ui positive right button" blueink-on="click: login()">
         Login
       </div>
     </div>
