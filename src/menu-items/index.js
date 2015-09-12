@@ -101,25 +101,25 @@ module.exports = {
         self.items = response.rows;
       });
     },
-    createDoc: function(type) {
+    modalize: function(doc) {
+      console.log('modalize', doc);
       var self = this;
-      var modal = self.$root.createDoc(type);
+      var modal = self.$root.editDoc(doc);
       modal.$on('saved', function() {
         self.loadItems();
       });
+      modal.$on('afterDel', function() {
+        self.loadItems();
+      });
+    },
+    createDoc: function(type) {
+      this.modalize({type: type});
     },
     editDoc: function(doc_id) {
       var self = this;
       db.get(doc_id)
         .then(function(resp) {
-          var doc = resp;
-          var modal = self.$root.editDoc(doc);
-          modal.$on('saved', function() {
-            self.loadItems();
-          });
-          modal.$on('afterDel', function() {
-            self.loadItems();
-          });
+          self.modalize(resp);
         }
       );
     }
