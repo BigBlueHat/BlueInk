@@ -1,27 +1,23 @@
 <div id="blueink-menu-pages" class="section blueink-ui dropdown simple link item">
   <div>Pages</div>
-  <ul class="menu">
-    <li>
-      <div class="item">
-        <a class="blueink-ui tiny primary icon button"
-           title="visit parent page"
-           href="{{parent_url}}"
-           blueink-if="autogen">
-          <i class="arrow circle left icon"></i>
-        </a>
-        <a class="blueink-ui tiny primary button" blueink-on="click: editDoc(current)"
-          blueink-class="disabled: autogen">
-          page options
-        </a>
-      </div>
-      <div class="item" blueink-on="click: createDoc">
-        <a class="blueink-ui tiny positive button">new page</a>
-      </div>
-    </li>
-    <li blueink-repeat="pages">
-      <a class="item" href="{{url}}"
-         blueink-class="active: url == current">
-        {{url}}</a>
-    </li>
-  </ul>
+  <div class="menu">
+    <div class="item">
+      <a class="blueink-ui tiny primary icon button"
+         title="visit parent page"
+         href="{{parent_url}}"
+         blueink-if="autogen">
+        <i class="arrow circle left icon"></i>
+      </a>
+      <a class="blueink-ui tiny primary button"
+        blueink-on="click: editDoc(current)"
+        blueink-class="disabled: autogen">
+        page options
+      </a>
+      <a class="blueink-ui tiny positive button"
+        blueink-on="click: createDoc">new page</a>
+    </div>
+    <a blueink-repeat="pages" class="item" href="{{url}}"
+       blueink-class="active: url == current">
+      {{url}}</a>
+  </div>
 </div>
