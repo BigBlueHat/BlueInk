@@ -5,7 +5,8 @@ BlueInk.component('html-editor', {
     return {
       doc: {
         title: "",
-        content: ""
+        content: "",
+        type: "html"
       }
     }
   },

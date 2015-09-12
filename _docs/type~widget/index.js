@@ -5,7 +5,8 @@ BlueInk.component('widget-editor', {
     return {
       doc: {
         title: "",
-        content: ""
+        content: "",
+        type: "widget"
       }
     }
   },
