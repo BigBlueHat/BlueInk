@@ -21,7 +21,8 @@ module.exports = {
   created: function() {
     var base = document.getElementsByTagName('base')[0].href;
     // staticly storing these (vs. computed props) to avoid constant recalc
-    this.current = location.toString().replace(base, '');
+    var page_url = location.toString().replace(base, '');
+    this.current = page_url || 'home';
     this.parent_url = this.current.substring(0, this.current.lastIndexOf('/'));
 
     this.loadPages();

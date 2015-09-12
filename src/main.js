@@ -84,11 +84,18 @@ window.page = page = new BlueInk({
   created: function() {
     var self = this;
     // find page name
+    // TODO: ...this really needs rethinking...
+    // menu-pages/index.js has something similar using <base href>...hrm...
     var url = location.pathname.split('/');
     if (url.indexOf('_rewrite') > -1) {
       url = url.splice(url.indexOf('_rewrite') + 1);
     }
-    db.get(url.join('/'))
+    var page_url = url.join('/');
+    if (page_url === '') {
+      // TODO: this will need to change when home page name is configurable
+      page_url = 'home';
+    }
+    db.get(page_url)
       .then(function(resp) {
         self.page = resp;
       });
