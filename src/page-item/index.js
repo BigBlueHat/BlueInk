@@ -58,15 +58,26 @@ module.exports = {
         });
       } else {
         // look up area index
-        // currently requires templates to have direct area > item markup
-        var area_idx = this.$el.parentElement.dataset.blueinkAreaIndex;
+        var $area = dom(this.$el).up('[data-blueink-area-index]');
+        var area_idx = $area[0].dataset.blueinkAreaIndex;
         // look up item index
         // TODO: and if it's not been set?
-        var item_idx = this.itemIndex;
+        var item_idx;
+        $area.down('[item-id]').each(function(el, i) {
+          if (self.$el == el) {
+            item_idx = i;
+          } else {
+            item_idx = undefined;
+          }
+        });
         // remove item from page object
-        this.$root.removeItem(area_idx, item_idx);
-        // TODO: do this with a callback (as with savePage);
-        this.$destroy(true);
+        if (undefined !== item_idx) {
+          this.$root.removeItem(area_idx, item_idx);
+          // TODO: do this with a callback (as with savePage);
+          this.$destroy(true);
+        } else {
+          // TODO: handle this error...
+        }
       }
     }
   }
