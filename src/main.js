@@ -22,9 +22,6 @@ var sortables = [];
 window.page = page = new BlueInk({
   el: document.body,
   data: {
-    ui: {
-      pushed_down_by: 0
-    },
     user: {},
     page: {},
     types: {}
@@ -152,6 +149,7 @@ window.page = page = new BlueInk({
   methods: {
     addCSS: function() {
       include.css('_blueink/ui/app.css');
+      document.getElementsByTagName('html')[0].classList.add('blueinked');
     },
     loadUI: function() {
       var self = this;

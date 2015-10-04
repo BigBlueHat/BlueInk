@@ -7,14 +7,6 @@ var db = new PouchDB(db_url);
 
 module.exports = {
   inherit: true,
-  watch: {
-    'ui.pushed_down_by': function(v) {
-      document.body.style.top = v;
-    }
-  },
-  ready: function() {
-    this.ui.pushed_down_by = this.$el.clientHeight + 'px';
-  },
   replace: true,
   template: require('./template.html'),
   components: {
@@ -24,7 +16,7 @@ module.exports = {
   methods: {
     logout: function() {
       var self = this;
-      document.body.classList.remove('ui-blueink');
+      document.getElementsByTagName('html')[0].classList.remove('blueinked');
       // TODO: make this data state driven
       db.logout(function (err, response) {
         if (err) {
@@ -33,7 +25,6 @@ module.exports = {
         } else {
           // no need to hang around if we are logged out
           self.user = {};
-          self.ui.pushed_down_by = 0;
           self.$destroy(true);
         }
       });
