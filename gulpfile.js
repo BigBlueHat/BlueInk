@@ -37,13 +37,13 @@ gulp.task('rework', function() {
           } else {
             // for reset / tag-named stuff
             if (selector.substr(0,4) !== 'html'
-                && selector.substr(0,4) !== 'body'
-                && selector[0] !== '*') {
-              return '.blueink-ui ' + selector;
-            } else if ((selector.substr(0,4) !== 'html'
-                && selector.substr(0,4) !== 'body')
-                || selector[0] === '*') {
-              return selector;
+                && selector.substr(0,4) !== 'body') {
+              if (selector === '*') {
+                // add .blueink-ui into the * space
+                return '.blueink-ui, .blueink-ui ' + selector;
+              } else {
+                return '.blueink-ui ' + selector;
+              }
             }
           }
         });
