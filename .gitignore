@@ -10,4 +10,5 @@ blueink.esproj
 .settings
 node_modules/*
 _design/blueink/_attachments/bundle.js
+_design/blueink/_attachments/ui/
 _docs/*/_attachments/component.js
