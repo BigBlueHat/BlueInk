@@ -148,7 +148,7 @@ window.page = page = new BlueInk({
   },
   methods: {
     addCSS: function() {
-      include.css('_blueink/ui/app.css');
+      include.css('_blueink/ui/app.css', {prepend: true});
       document.getElementsByTagName('html')[0].classList.add('blueinked');
     },
     loadUI: function() {
