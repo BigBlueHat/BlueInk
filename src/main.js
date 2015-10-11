@@ -137,6 +137,12 @@ window.page = page = new BlueInk({
           var modal = self.$addChild(require('./login-modal'));
           modal.$mount();
           modal.$appendTo(document.body);
+          modal.$on('hook:destroyed', function() {
+            if (!self.loggedIn) {
+              // TODO: um...do this some place reusable... >_<
+              document.getElementsByTagName('html')[0].classList.remove('blueinked');
+            }
+          });
         } else{
           // response.userCtx.name is the current user
           self.user = resp.userCtx;
