@@ -59,6 +59,7 @@
     "yargs": "~3.6.0"
   },
   "scripts": {
+    "semantic": "cd node_modules/semantic-ui && gulp install && cd ../..",
     "styles": "cd src/semantic && gulp build && cd ../..",
 
     "test": "mocha --ui bdd",

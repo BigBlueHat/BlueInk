@@ -19,10 +19,10 @@ It's a bit rough in here still...but improving!
 3. copy `config_ui.json.sample` to `config_ui.json`
 4. update it with your settings
 5. `npm install`
-6. `npm run styles` to build Semantic-UI for rework to rework
+6. `npm run semantic` to install Semantic-UI for rework to rework
 7. `gulp rework` to "namespace" Semantic-UI under `.blueink-ui`
 8. `gulp`
-9. visit the URL you stored in 1config.json` sans login info and plus
+9. visit the URL you stored in `config.json` sans login info plus
 `/_design/blueink/_rewrite/`
 
 That should load the `home` (see `home.json`) page.
@@ -35,9 +35,13 @@ The `default` gulp task will run browserify and push the resulting contents of
 the various Design Docs which make up BlueInk to the database you configured.
 
 If you're working with CSS changes you'll need to re-run `gulp rework` as it is
-not (by design) part of the default gulp task. Also `npm run styles` can be
+not (by design) part of the default gulp task. Also `npm run semantic` can be
 used in conjunction with a `package.json` tweak to update the underlying
-Semantic-UI code.
+Semantic-UI code. If you've made changes to `src/semantic/src/theme.config`,
+you can use `npm run styles` to rebuild the CSS and then `gulp rework`.
+
+Note: plans exist in my brain to restructure the top-level `gulpfile.js` and
+leverage Semantic's gulp stuff directly. Patches welcome! :smiley_cat:
 
 ## Friend Funding
 
