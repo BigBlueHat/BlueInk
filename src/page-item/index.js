@@ -11,7 +11,7 @@ var db = new PouchDB(db_url);
 module.exports = {
   replace: false,
   template: require('./template.html'),
-  paramAttributes: ['item-id', 'item-index'],
+  paramAttributes: ['data-item-id', 'data-item-index'],
   attached: function() {
     this.$el.style.position = 'relative';
   },
@@ -62,22 +62,15 @@ module.exports = {
         var area_idx = $area[0].dataset.blueinkAreaIndex;
         // look up item index
         // TODO: and if it's not been set?
-        var item_idx;
-        $area.down('[item-id]').each(function(el, i) {
-          if (self.$el == el) {
-            item_idx = i;
+        $area.down('[data-item-id]').each(function(el, item_idx) {
+          if (self.itemId == el.dataset.itemId) {
+            self.$root.removeItem(area_idx, item_idx, function() {
+              self.$destroy(true);
+            });
           } else {
-            item_idx = undefined;
+            // TODO: handle this error...
           }
         });
-        // remove item from page object
-        if (undefined !== item_idx) {
-          this.$root.removeItem(area_idx, item_idx);
-          // TODO: do this with a callback (as with savePage);
-          this.$destroy(true);
-        } else {
-          // TODO: handle this error...
-        }
       }
     }
   }

@@ -239,11 +239,11 @@ window.page = page = new BlueInk({
       // save it
       self.savePage();
     },
-    removeItem: function(area_idx, item_idx) {
+    removeItem: function(area_idx, item_idx, callback) {
       this.page.page_items[area_idx].splice(item_idx, 1);
       // TODO: if the wrong indexes come in this could wipe out the page items!
       // validate by double checking the item id?
-      this.savePage();
+      this.savePage(callback);
     },
     createDoc: function(type) {
       return this.editDoc({type: type});
