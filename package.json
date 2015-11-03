@@ -47,7 +47,7 @@
     "browserify": "^9.0.7",
     "couch-push": "~1.1.4",
     "glob": "^4.3.1",
-    "gulp": "^3.8.10",
+    "gulp": "^3.9.0",
     "gulp-rework": "^1.0.3",
     "insert-css": "~0.1.1",
     "mocha": "~1.20.0",
