@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "browserify": "^9.0.7",
-    "couch-push": "~1.1.4",
+    "couchdb-push": "~2.2.0",
     "glob": "^4.3.1",
     "gulp": "^3.9.0",
     "gulp-rework": "^1.0.3",
