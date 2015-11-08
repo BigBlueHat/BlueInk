@@ -13,4 +13,20 @@
       blueink-attr="disabled: (doc._rev ? 'disabled' : '')"
       name="url" type="text">
   </div>
+  <div class="inline field">
+    <input type="checkbox" blueink-model="doc.display_title">
+    <label for="display_title">Display Title</label>
+  </div>
+  <div class="blueink-ui top attached header">Collection (optional)</div>
+  <div class="blueink-ui bottom attached segment">
+    <p>Collection pages are great for product groups, blogs, galleries, etc. Sub-pages are automatically generated for any item added to a collection page.</p>
+    <div class="inline field">
+      <label>Title</label>
+      <input type="text" blueink-model="collection.title">
+    </div>
+    <div class="inline field">
+      <label>Restrict to Items of type...</label>
+      <input type="text" blueink-model="collection.type">
+    </div>
+  </div>
 </form>
