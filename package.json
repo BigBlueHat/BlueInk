@@ -36,6 +36,7 @@
     "map-stream": "0.0.6",
     "pouchdb": "~3.5.0",
     "pouchdb-authentication": "~0.4.0",
+    "prosemirror": "git+https://github.com/ProseMirror/prosemirror.git#42b07ba77f7f81c0a5e81ad8d759fe0e66938fdc",
     "require-dot-file": "^0.4.0",
     "semantic-ui": "^2.1.3",
     "sortablejs": "~1.1.1",
@@ -61,6 +62,8 @@
   "scripts": {
     "semantic": "cd node_modules/semantic-ui && gulp install && cd ../..",
     "styles": "cd src/semantic && gulp build && cd ../..",
+
+    "prosemirror": "cd node_modules/prosemirror && npm install && npm run dist && cd ../..",
 
     "test": "mocha --ui bdd",
     "test-browser": "browserify -t partialify test/*.js --exclude test-bundle.js > test/test-bundle.js"

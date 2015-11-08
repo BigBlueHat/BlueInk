@@ -19,10 +19,11 @@ It's a bit rough in here still...but improving!
 3. copy `config_ui.json.sample` to `config_ui.json`
 4. update it with your settings
 5. `npm install`
-6. `npm run semantic` to install Semantic-UI for rework to rework
-7. `gulp rework` to "namespace" Semantic-UI under `.blueink-ui`
-8. `gulp`
-9. visit the URL you stored in `config.json` sans login info plus
+6. `npm run prosemirror` to build & install ProseMirror
+7. `npm run semantic` to install Semantic-UI for rework to rework
+8. `gulp rework` to "namespace" Semantic-UI under `.blueink-ui`
+9. `gulp`
+10. visit the URL you stored in `config.json` sans login info plus
 `/_design/blueink/_rewrite/`
 
 That should load the `home` (see `home.json`) page.

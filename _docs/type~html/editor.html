@@ -4,7 +4,6 @@
   <input blueink-model="doc.title" type="text">
 </div>
 <div class="inline field">
-  <label for="text">HTML</label>
-  <textarea blueink-model="doc.content"></textarea>
+  <prose-mirror blueink-with="doc: doc.content"></prose-mirror>
 </div>
 </form>

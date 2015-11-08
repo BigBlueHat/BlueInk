@@ -16,5 +16,8 @@ BlueInk.component('html-editor', {
       // TODO: add created & updated
       return this.doc;
     }
+  },
+  components: {
+    'prose-mirror': require('../../src/editor-prose-mirror')
   }
 });
