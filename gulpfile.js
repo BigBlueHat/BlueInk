@@ -98,6 +98,7 @@ gulp.task('docs', function() {
             console.log(JSON.stringify(resp));
             throw err;
           }
+          console.log(resp);
         });
     });
   });
