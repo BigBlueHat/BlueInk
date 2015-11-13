@@ -92,21 +92,45 @@ window.page = page = new BlueInk({
       // TODO: this will need to change when home page name is configurable
       page_url = 'home';
     }
+
+    // get page information
     db.get(page_url)
       .then(function(resp) {
         self.page = resp;
-      });
+      }
+    );
 
     // load types
-    db.query('blueink/type_definitions',
-      function(err, resp) {
+    db.query('blueink/type_definitions')
+      .then(function(resp) {
+        var types = {};
         resp.rows.forEach(function(row) {
           // load type info
-          self.types[row.key] = row.value;
+          types[row.key] = row.value;
+          if (!('name' in types[row.key])) {
+            types[row.key].name = row.key;
+          }
+          types[row.key].count = 0;
           // and it's component JS (editor and/or viewer)
           include.once(db_url + row.id + '/component.js');
         });
-      }
+        return types;
+      })
+      .then(function(types) {
+        db.query('blueink/by_type?group=true')
+          .then(function(resp) {
+            resp.rows.forEach(function(row) {
+              if (row.key in types) {
+                types[row.key].count = row.value;
+              }
+            });
+            // add it to the main VM
+            self.types = types;
+          })
+          .catch(console.log.bind(console)
+        );
+      })
+      .catch(console.log.bind(console)
     );
 
     // check session / load user name

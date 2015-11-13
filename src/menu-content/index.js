@@ -15,14 +15,7 @@ module.exports = {
     return {
       active: false,
       selected: '',
-      types: []
+      types: {} // passed in from ui-blueink
     }
-  },
-  created: function() {
-    var self = this;
-    db.query('blueink/by_type?group=true',
-    function(err, response) {
-      self.types = response.rows;
-    });
   }
 };

@@ -27,9 +27,9 @@ module.exports = {
   template: require('./template.html'),
   computed: {
     name: function() {
-      // TODO: make this smarter
-      if (this.doc.type) {
-        return this.doc.type;
+      // TODO: this.$root.mess must end!
+      if (this.$root.types[this.doc.type].name) {
+        return this.$root.types[this.doc.type].name;
       }
     }
   },
@@ -39,8 +39,8 @@ module.exports = {
     },
     'doc.type': function() {
       if (undefined != this.$root.types[this.doc.type]
-          && undefined != this.$root.types[this.doc.type].editor) {
-        this.editor = this.$root.types[this.doc.type].editor;
+          && undefined != this.$root.types[this.doc.type].components.editor) {
+        this.editor = this.$root.types[this.doc.type].components.editor;
       } else {
         // default to JSON editor
         this.editor = 'json';

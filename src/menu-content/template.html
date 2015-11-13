@@ -4,9 +4,9 @@
   <div>Content</div>
   <ul class="menu"
     blueink-class="transition: active, visible: active">
-    <li class="item" blueink-repeat="types" blueink-on="click: selected = key">
-      {{key}}
-      <span class="blueink-ui small bottom right attached label">{{value}}</span>
+    <li class="item" blueink-repeat="types" blueink-on="click: selected = $key">
+      {{name}}
+      <span class="blueink-ui small bottom right attached label">{{count}}</span>
     </li>
     <div blueink-component="menu-items" type="{{selected}}"></div>
   </ul>
