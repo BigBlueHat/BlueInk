@@ -5,8 +5,9 @@ function(head, req) {
     function() {
       send('<ul>');
       while(row = getRow()) {
-        send('<li data-blueink-type="' + row.key + '">'
-          + '<a href="items-by-type?key=%22' + row.key + '%22" title="' + row.key + '">'
+        var type = row.id.replace('type~', '');
+        send('<li data-blueink-type="' + type + '">'
+          + '<a href="items-by-type?type=' + type + '">'
           + row.key + '</a>'
           + ' <span class="count">' + row.value + '</span></li>');
       }
