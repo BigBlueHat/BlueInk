@@ -36,6 +36,7 @@
     "from": "_blueink/items-by-type",
     "to": "_list/item_list/by_type",
     "query": {
+      "key": ":type",
       "reduce": "false"
     }
   },
