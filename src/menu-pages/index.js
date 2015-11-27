@@ -36,12 +36,15 @@ module.exports = {
   methods: {
     loadPages: function() {
       var self = this;
-      db.query('blueink/pages?group=true',
+      db.query('blueink/pages?reduce=false',
         function(err, response) {
           self.pages = [];
           for (var i = 0; i < response.rows.length; i++) {
+            var row = response.rows[i];
             self.pages.push({
-              url: response.rows[i].key.join('/')
+              url: row.key.join('/'),
+              label: row.value.nav_label,
+              is_collection: row.value.is_collection
             });
           }
         });
