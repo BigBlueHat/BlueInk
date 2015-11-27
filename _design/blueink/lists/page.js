@@ -2,6 +2,7 @@ function(head, req) {
   var ddoc = this;
   var templates = {};
   var Handlebars = require("lib/handlebars");
+  Handlebars.registerHelper('compare', require("lib/handlebars.compare").compare);
   var array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive;
   var dateToArray = require("lib/dateToArray").dateToArray;
   var row;
