@@ -1,4 +1,5 @@
 var PouchDB = require('pouchdb');
+var defaultsDeep = require('lodash.defaultsdeep');
 
 // TODO: move this to a config lib
 var db_name = location.pathname.split('/')[1];
@@ -56,6 +57,8 @@ module.exports = {
       // we have "stub" / initiation doc, so reset to defaults
       this.doc = this.$.editor.$options.data.doc;
     }
+    // merge in editor's default doc fields
+    this.$set('doc', defaultsDeep(this.doc, this.$.editor.$options.data.doc));
     // connect the editor.doc and modal docs for change watching
     this.$watch('doc', function() {
       this.$.editor.doc = this.doc;

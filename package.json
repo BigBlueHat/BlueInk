@@ -33,6 +33,7 @@
     "gulp-watch": "^4.3.5",
     "jsinclude": "~1.1.0",
     "keymaster": "~1.6.2",
+    "lodash.defaultsdeep": "^3.10.0",
     "map-stream": "0.0.6",
     "pouchdb": "~3.5.0",
     "pouchdb-authentication": "~0.4.0",
