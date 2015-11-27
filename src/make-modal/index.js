@@ -88,6 +88,17 @@ module.exports = {
       var self = this;
       // get doc from editor
       var doc = this.$.editor.output();
+
+      // add/force time data
+      // TODO: is this really the best place?
+      // TODO: should I keep these under a `meta` or `blueink` key?
+      if (!('created' in doc) || isNaN(Date.parse(doc.created))) {
+        // we're missing `created` so let's...create it
+        doc.created = (new Date()).toISOString();
+      }
+      // updated is always the latest timestamp
+      doc.updated = (new Date()).toISOString();
+
       // save doc
       db.post(doc, function(err, resp) {
         if (err) {

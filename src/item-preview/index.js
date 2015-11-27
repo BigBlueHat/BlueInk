@@ -8,7 +8,8 @@ module.exports = {
       var self = this;
       var keys = Object.keys(this.doc);
       keys = keys.filter(function(v) {
-        if (v[0] !== '_' && typeof(self.doc[v]) === 'string') {
+        if (v[0] !== '_' && typeof(self.doc[v]) === 'string'
+            && v !== 'type') {
           return true;
         }
       });
