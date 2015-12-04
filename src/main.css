@@ -1,6 +1,6 @@
 html.blueinked body {
   position: relative;
-  top: 46px; /** TODO: do this dynamically...maybe **/
+  top: 3em; /** TODO: do this dynamically...maybe **/
 }
 #ui-blueink {
   top: 0;
