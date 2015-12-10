@@ -1,8 +1,13 @@
+<div class="ui small header">
+  {{doc.title}}
+</div>
 <div class="blueink-ui list">
   <div class="item" blueink-repeat="key: keys">
-    <strong class="disabled header">{{key}}</strong>
-    <div class="description">
-    {{doc[key]}}
-    </div>
+    <template blueink-if="key != 'title'">
+      <strong class="disabled header">{{key}}</strong>
+      <div class="description">
+      {{doc[key]}}
+      </div>
+    </template>
   </div>
 </div>
