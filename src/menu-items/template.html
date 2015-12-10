@@ -3,7 +3,8 @@
     <a class="blueink-ui tiny primary button"
       blueink-on="click: createDoc(type)">new {{type}}</a>
   </div>
-  <div class="item" blueink-repeat="items" blueink-on="click: selected = id">
+  <div class="item" blueink-repeat="items" blueink-on="click: selected = id"
+    blueink-class="active: selected == id">
     {{value}}
   </div>
   <!-- preview -->
