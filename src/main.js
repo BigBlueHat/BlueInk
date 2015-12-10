@@ -51,6 +51,20 @@ window.page = page = new BlueInk({
         });
       }
       return collection_info;
+    },
+    item_ids: function() {
+      // TODO: ...stop using expensive looping...
+      var ids = [];
+      if (undefined !== this.page.page_items) {
+        this.page.page_items.forEach(function(area) {
+          area.forEach(function(item) {
+            if ('_id' in item) {
+              ids.push(item._id);
+            }
+          });
+        });
+      }
+      return ids;
     }
   },
   watch: {

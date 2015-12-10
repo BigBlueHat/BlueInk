@@ -98,7 +98,12 @@ module.exports = {
       var self = this;
       db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
       function(err, response) {
-        self.items = response.rows;
+        var items = response.rows;
+        // add on_page info to items array
+        for (var i = 0; i < items.length; i++) {
+          items[i].on_page = Boolean(self.$root.item_ids.indexOf(items[i].id) !== -1);
+        }
+        self.items = items;
       });
     },
     modalize: function(doc) {
