@@ -15,6 +15,22 @@ module.exports = {
       preview: {}
     }
   },
+  computed: {
+    published: function() {
+      return this.items.filter(function(item) {
+        if (item.on_page) {
+          return item;
+        }
+      });
+    },
+    unpublished: function() {
+      return this.items.filter(function(item) {
+        if (!item.on_page) {
+          return item;
+        }
+      });
+    }
+  },
   watch: {
     type: function() {
       this.loadItems();
@@ -130,17 +146,5 @@ module.exports = {
   },
   components: {
     'item-preview': require('../item-preview')
-  },
-  filters: {
-    onlyIf: function(arr, sort_key, _, boo) {
-      // only return elements in array where `sort_key` matches is {boo}lean
-      // `_` === `is`...it's ignored regardless
-      sort_key = sort_key.replace(/^'(.*)'$/, "$1");
-      return arr.filter(function(item) {
-        if (item[sort_key] == boo) {
-          return item;
-        }
-      });
-    }
   }
 };

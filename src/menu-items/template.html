@@ -3,15 +3,15 @@
     <a class="blueink-ui tiny primary button"
       blueink-on="click: createDoc(type)">new {{type}}</a>
   </div>
-  <div class="ui divider"></div>
+  <div class="ui divider" blueink-show="published.length > 0"></div>
   <!-- items currently on this page -->
-  <div class="item" blueink-repeat="items | onlyIf 'on_page' is 1" blueink-on="click: selected = id"
+  <div class="item" blueink-repeat="published" blueink-on="click: selected = id"
     blueink-class="active: selected == id">
     {{value}}
   </div>
   <div class="ui divider"></div>
   <!-- items currently on this page -->
-  <div class="item" blueink-repeat="items | onlyIf 'on_page' is 0" blueink-on="click: selected = id"
+  <div class="item" blueink-repeat="unpublished" blueink-on="click: selected = id"
     blueink-class="active: selected == id">
     {{value}}
   </div>
