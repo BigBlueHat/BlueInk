@@ -107,7 +107,6 @@ module.exports = {
       });
     },
     modalize: function(doc) {
-      console.log('modalize', doc);
       var self = this;
       var modal = self.$root.editDoc(doc);
       modal.$on('saved', function() {
@@ -131,5 +130,17 @@ module.exports = {
   },
   components: {
     'item-preview': require('../item-preview')
+  },
+  filters: {
+    onlyIf: function(arr, sort_key, _, boo) {
+      // only return elements in array where `sort_key` matches is {boo}lean
+      // `_` === `is`...it's ignored regardless
+      sort_key = sort_key.replace(/^'(.*)'$/, "$1");
+      return arr.filter(function(item) {
+        if (item[sort_key] == boo) {
+          return item;
+        }
+      });
+    }
   }
 };

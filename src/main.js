@@ -63,6 +63,11 @@ window.page = page = new BlueInk({
             }
           });
         });
+        this.page.collection.forEach(function(item) {
+          if ('_id' in item) {
+            ids.push(item._id);
+          }
+        });
       }
       return ids;
     }
