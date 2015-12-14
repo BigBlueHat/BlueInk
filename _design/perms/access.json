@@ -1,0 +1,7 @@
+{
+  "read_only": true,
+  "write_roles": [
+    "_admin",
+    "blueink"
+  ]
+}
