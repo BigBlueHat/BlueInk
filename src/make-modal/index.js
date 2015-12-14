@@ -114,5 +114,10 @@ module.exports = {
         }
       });
     }
+  },
+  filters: {
+    encodeURIComponent: function(v) {
+      return encodeURIComponent(v);
+    }
   }
 };

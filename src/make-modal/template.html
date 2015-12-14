@@ -29,7 +29,7 @@
         Delete
       </div>
       <!-- debugging only -->
-      <a blueink-if="doc._id" class="disabled" target="_blank" href="../../../{{doc._id}}">
+      <a blueink-if="doc._id" class="disabled" target="_blank" href="../../../{{doc._id | encodeURIComponent}}">
         {{doc._id}}
       </a>
       <div class="blueink-ui tiny buttons">
