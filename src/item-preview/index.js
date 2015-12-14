@@ -1,9 +1,16 @@
 module.exports = {
   template: require('./template.html'),
+  replace: true,
   data: function() {
     doc: {}
   },
   computed: {
+    hasViewer: function() {
+      var types = this.$root.types;
+      return (undefined != types[this.doc.type]
+          && undefined != types[this.doc.type].components
+          && undefined != types[this.doc.type].components.viewer);
+    },
     keys: function() {
       var self = this;
       var keys = Object.keys(this.doc);

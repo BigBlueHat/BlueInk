@@ -7,6 +7,10 @@ function(doc) {
     if ('editor' in doc) {
       components['editor'] = id[1] + '-editor';
     }
+    if ('viewer' in doc) {
+      components['viewer'] = id[1] + '-viewer';
+    }
+
     if (Object.keys(components).length > 0) {
       emit(id[1], {
         name: doc.name,

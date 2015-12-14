@@ -1,13 +1,25 @@
+var blank_doc = {
+  title: "",
+  content: "",
+  type: "html"
+};
+
+BlueInk.component('html-viewer', {
+  template: require('./viewer.html'),
+  replace: true,
+  data: function() {
+    return {
+      data: blank_doc
+    };
+  }
+});
+
 BlueInk.component('html-editor', {
   template: require('./editor.html'),
   replace: true,
   data: function() {
     return {
-      doc: {
-        title: "",
-        content: "",
-        type: "html"
-      }
+      doc: blank_doc
     }
   },
   methods: {

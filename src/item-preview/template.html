@@ -1,4 +1,5 @@
-<div class="ui small header">
+<template blueink-if="!hasViewer">
+<div class="blueink-ui small header">
   {{doc.title}}
 </div>
 <div class="blueink-ui list">
@@ -11,3 +12,9 @@
     </template>
   </div>
 </div>
+</template>
+
+<template blueink-if="hasViewer">
+<div blueink-component="{{doc.type}}-viewer"
+     blueink-with="doc: doc"></div>
+</template>
