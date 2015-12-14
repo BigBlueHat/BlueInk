@@ -32,12 +32,11 @@ function(head, req) {
 
       while(row = getRow()) {
         url = {
-          "body": {
-            "url": row.id,
-            "nav_label": row.value
-          },
+          "body": row.value,
           "children": []
         };
+        // TODO: ...confusingly named...aren't we...
+        url.body.url = row.id;
 
         parent_url = row.id.substr(0, row.id.lastIndexOf('/'));
         addToTree(url, parent_url);
