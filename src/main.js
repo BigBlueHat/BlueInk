@@ -6,22 +6,21 @@ window.BlueInk = BlueInk;
 BlueInk.config.prefix = 'blueink-';
 BlueInk.config.debug = true;
 
-var PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-authentication'));
-var include = require('jsinclude');
-var key = require('keymaster');
-var Sortable = require('sortablejs');
-
 var db_name = location.pathname.split('/')[1];
 var db_url = location.protocol + '//' + location.hostname
     + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
-var db = new PouchDB(db_url);
+BlueInk.use(require('./vue-pouchdb'), {name: db_url});
 
+var ajax = require('pouchdb/extras/ajax');
+var include = require('jsinclude');
+var key = require('keymaster');
+var Sortable = require('sortablejs');
 var sortables = [];
 
 window.page = page = new BlueInk({
   el: document.body,
   data: {
+    db_url: db_url,
     user: {},
     page: {},
     types: {}
@@ -113,14 +112,14 @@ window.page = page = new BlueInk({
     }
 
     // get page information
-    db.get(page_url)
+    self.$db.get(page_url)
       .then(function(resp) {
         self.page = resp;
       }
     );
 
     // load types
-    db.query('blueink/type_definitions')
+    self.$db.query('blueink/type_definitions')
       .then(function(resp) {
         var types = {};
         resp.rows.forEach(function(row) {
@@ -136,7 +135,7 @@ window.page = page = new BlueInk({
         return types;
       })
       .then(function(types) {
-        db.query('blueink/by_type?group=true')
+        self.$db.query('blueink/by_type?group=true')
           .then(function(resp) {
             resp.rows.forEach(function(row) {
               if (row.key in types) {
@@ -153,7 +152,7 @@ window.page = page = new BlueInk({
     );
 
     // check session / load user name
-    db.getSession(function (err, resp) {
+    self.$db.getSession(function (err, resp) {
         if (err) {
           // network error
         } else if (resp.userCtx.name) {
@@ -168,7 +167,7 @@ window.page = page = new BlueInk({
 
     // listen for document-wide keyboard events
     key('ctrl+shift+l', function() {
-      db.getSession(function (err, resp) {
+      self.$db.getSession(function (err, resp) {
         if (err) {
           // network error
         } else if (!resp.userCtx.name) {
@@ -210,7 +209,7 @@ window.page = page = new BlueInk({
     },
     savePage: function(callback) {
       var self = this;
-      db.put(self.page)
+      self.$db.put(self.page)
         .then(function(resp) {
           // TODO: let the user know this worked
           self.page._rev = resp.rev
@@ -315,15 +314,15 @@ window.page = page = new BlueInk({
       // TODO: construct this URL better...
       var url = location.pathname.split(this.page._id)[0] + '/_blueink/sitemap';
       // get the new sitemap from the _list
-      PouchDB.ajax({url: url},
+      ajax({url: url},
         function(err, new_sitemap) {
           // next, get the current sitemap doc
-          db.get('sitemap')
+          self.$db.get('sitemap')
             .then(function(old_sitemap) {
               old_sitemap['urls'] = new_sitemap['urls'];
               return old_sitemap;
             }).then(function(updated_sitemap) {
-              return db.put(updated_sitemap);
+              return self.$db.put(updated_sitemap);
             }).then(function(resp) {
               console.log('stored?', resp);
               callback(page_id);

@@ -1,12 +1,5 @@
 require('insert-css')(require('./index.css'));
 
-// TODO: componentize
-var PouchDB = require('pouchdb');
-var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
-    + location.port + '/' + location.pathname.split('/')[1]);
-
-window.PouchDB = PouchDB;
-
 module.exports = {
   replace: true,
   template: require('./template.html'),
@@ -36,7 +29,7 @@ module.exports = {
   methods: {
     loadPages: function() {
       var self = this;
-      db.query('blueink/pages?reduce=false',
+      self.$db.query('blueink/pages?reduce=false',
         function(err, response) {
           self.pages = [];
           for (var i = 0; i < response.rows.length; i++) {
@@ -68,7 +61,7 @@ module.exports = {
     },
     editDoc: function(doc_id) {
       var self = this;
-      db.get(doc_id)
+      self.$db.get(doc_id)
         .then(function(resp) {
           self.modalize(resp);
         }

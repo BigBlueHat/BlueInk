@@ -1,15 +1,5 @@
 var key = require('keymaster');
 
-var PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-authentication'));
-
-// TODO: move this to a config lib
-var db_name = location.pathname.split('/')[1];
-var db_url = location.protocol + '//' + location.hostname
-    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
-var db = new PouchDB(db_url);
-
-
 module.exports = {
   replace: true,
   template: require('./template.html'),
@@ -34,7 +24,7 @@ module.exports = {
     login: function() {
       var self = this;
       // do the login
-      db.login(self.user, self.pass).then(function(resp) {
+      self.$db.login(self.user, self.pass).then(function(resp) {
         if (!resp.ok) {
           if (resp.name === 'unauthorized') {
             console.log('resp', resp);
@@ -47,7 +37,7 @@ module.exports = {
           }
         } else {
           // logged in
-          db.getSession(function (err, resp) {
+          self.$db.getSession(function (err, resp) {
               if (err) {
                 // network error
               } else if (resp.userCtx.name) {

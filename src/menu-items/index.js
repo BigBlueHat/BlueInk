@@ -1,7 +1,4 @@
-// TODO: componentize
-var PouchDB = require('pouchdb');
-var db = new PouchDB(location.protocol + '//' + location.hostname + ':'
-    + location.port + '/' + location.pathname.split('/')[1]);
+var ajax = require('pouchdb/extras/ajax');
 
 module.exports = {
   replace: true,
@@ -104,7 +101,7 @@ module.exports = {
     loadPreview: function() {
       var self = this;
       // TODO: implement an actual preview
-      PouchDB.ajax({
+      ajax({
         url: '_blueink/preview/' + this.selected
       }, function (err, resp) {
         self.preview = resp;
@@ -112,7 +109,7 @@ module.exports = {
     },
     loadItems: function() {
       var self = this;
-      db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
+      self.$db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
       function(err, response) {
         var items = response.rows;
         // add on_page info to items array
@@ -137,7 +134,7 @@ module.exports = {
     },
     editDoc: function(doc_id) {
       var self = this;
-      db.get(doc_id)
+      self.$db.get(doc_id)
         .then(function(resp) {
           self.modalize(resp);
         }

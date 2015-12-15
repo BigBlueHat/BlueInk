@@ -1,10 +1,3 @@
-var PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-authentication'));
-var db_name = location.pathname.split('/')[1];
-var db_url = location.protocol + '//' + location.hostname
-    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
-var db = new PouchDB(db_url);
-
 module.exports = {
   inherit: true,
   replace: true,
@@ -18,7 +11,7 @@ module.exports = {
       var self = this;
       document.getElementsByTagName('html')[0].classList.remove('blueinked');
       // TODO: make this data state driven
-      db.logout(function (err, response) {
+      self.$db.logout(function (err, response) {
         if (err) {
           // network error
           console.log('error', err);

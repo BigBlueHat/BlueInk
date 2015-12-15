@@ -1,12 +1,4 @@
 var dom = require('traversty');
-window.dom = dom;
-var PouchDB = require('pouchdb');
-
-// TODO: move this to a config lib
-var db_name = location.pathname.split('/')[1];
-var db_url = location.protocol + '//' + location.hostname
-    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
-var db = new PouchDB(db_url);
 
 module.exports = {
   replace: false,
@@ -25,7 +17,7 @@ module.exports = {
     edit: function(ev) {
       ev.preventDefault();
       var self = this;
-      db.get(self.itemId)
+      self.$db.get(self.itemId)
         .then(function(resp) {
           var doc = resp;
           var modal = self.$root.editDoc(doc);

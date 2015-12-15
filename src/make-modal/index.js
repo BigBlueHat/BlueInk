@@ -1,11 +1,4 @@
-var PouchDB = require('pouchdb');
 var defaultsDeep = require('lodash.defaultsdeep');
-
-// TODO: move this to a config lib
-var db_name = location.pathname.split('/')[1];
-var db_url = location.protocol + '//' + location.hostname
-    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
-var db = new PouchDB(db_url);
 
 var default_data = {
   active: false,
@@ -76,9 +69,9 @@ module.exports = {
     },
     del: function() {
       var self = this;
-      db.get(self.doc._id, function(err, doc) {
+      self.$db.get(self.doc._id, function(err, doc) {
         if (doc) {
-          db.remove(doc, function() {
+          self.$db.remove(doc, function() {
             alert('The ' + doc.type + ' has been deleted.');
             // TODO: remove preview of removed item
             self.$emit('afterDel');
@@ -103,7 +96,7 @@ module.exports = {
       doc.updated = (new Date()).toISOString();
 
       // save doc
-      db.post(doc, function(err, resp) {
+      self.$db.post(doc, function(err, resp) {
         if (err) {
           // TODO: maybe tell somebody...
           console.log('error: ', err);
