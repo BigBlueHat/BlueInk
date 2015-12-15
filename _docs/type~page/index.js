@@ -10,23 +10,33 @@ BlueInk.component('page-editor', {
         url: "",
         display_title: true,
         page_items: [[]],
-        collection: []
-      },
-      // intermediate info added to the doc during output
-      collection: {
-        title: '',
-        type: '',
-        template_type: 'card'
+        collection: {
+          title: '',
+          type: '',
+          template_type: 'card',
+          items: []
+        }
       },
       collection_area_index: 0,
       collection_item_index: 0
     }
   },
   ready: function() {
-    // if we have a current collection
-    if (Object.keys(this.current_collection).length > 0) {
-      // then we update the intermediary this.collection object
-      this.$set('collection', this.current_collection);
+    // if doc.collection is an array, we've got the old style, so upgrade it
+    if ('collection' in this.doc
+        // got an array
+        && undefined !== this.doc.collection.length) {
+      var collection_items = this.doc.collection;
+      var collection_meta = this.current_collection;
+
+      this.$set('doc.collection', {
+        title: collection_meta['title'],
+        type: collection_meta['type'],
+        template_type: collection_meta['template_type'],
+        items: []
+      });
+      this.$set('doc.collection.items', collection_items);
+      console.log('page has collection', JSON.stringify(this.$data));
     }
   },
   computed: {
@@ -41,6 +51,15 @@ BlueInk.component('page-editor', {
               // saving the indexes for use during output
               this.collection_area_index = i;
               this.collection_item_index = j;
+            } else if (typeof areas[i][j]['_id'] === 'object'
+                && '$ref' in areas[i][j]._id) {
+              current_collection = {
+                title: this.doc.collection.title,
+                type: this.doc.collection.type,
+                template_type: this.doc.collection.template_type
+              };
+              this.collection_area_index = i;
+              this.collection_item_index = j;
             }
           }
         }
@@ -50,7 +69,10 @@ BlueInk.component('page-editor', {
         // assumes we've already "gotten" this stuff once (at least)
         var area = this.collection_area_index;
         var item = this.collection_item_index;
-        this.doc.page_items[area][item]._collection = this.collection;
+        this.doc.page_items[area][item]._id = {
+          '$ref': '#/collection'
+        };
+        delete this.doc.page_items[area][item]._collection;
       }
     }
   },
@@ -59,18 +81,17 @@ BlueInk.component('page-editor', {
       var output = this.doc;
       output.type = 'page';
 
-      if (this.collection.title !== '') {
+      if (this.doc.collection.title !== '') {
         // we have collection data, so...let's output it in the correct place
         if (Object.keys(this.current_collection).length > 0) {
           this.current_collection = this.collection;
         } else {
           // we've got a new collection, so add it to the first areas list
           output.page_items[0].unshift({
-            _collection: this.collection
+            _id: {
+              '$ref': '#/collection'
+            }
           });
-          if (undefined === output.collection) {
-            output.collection = [];
-          }
         }
       }
 
