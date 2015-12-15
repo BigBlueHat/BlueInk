@@ -4,7 +4,7 @@ require("prosemirror/dist/menu/menubar") // Load menubar module
 module.exports = {
   data: function() {
     return {
-      doc: '',
+      doc: '<p></p>',
       docFormat: 'html'
     }
   },
@@ -13,7 +13,7 @@ module.exports = {
     var editor = new ProseMirror({
       menuBar: true,
       place: self.$el,
-      doc: self.doc,
+      doc: self.doc || '<p></p>',
       docFormat: self.docFormat
     });
     editor.on('change', function() {
