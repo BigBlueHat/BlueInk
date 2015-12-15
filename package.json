@@ -10,6 +10,7 @@
     "better-console": "^0.2.4",
     "del": "^1.2.1",
     "extend": "^3.0.0",
+    "filepicker-js": "^2.3.1",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-chmod": "^1.2.0",
     "gulp-clone": "^1.0.0",

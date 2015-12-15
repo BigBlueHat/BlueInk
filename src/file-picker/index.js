@@ -1,7 +1,9 @@
 var include = require('jsinclude');
+var filepicker = require('filepicker-js');
 
 // TODO: handle missing filepicker.io key...gracefully
 var APIKEY = require('../../config_ui.json').services['filepicker.io'].apikey;
+filepicker.setKey(APIKEY);
 
 module.exports = {
   template: '<button class="ui button" blueink-on="click: filepick">Pick a File</button>',
@@ -15,11 +17,6 @@ module.exports = {
       mimetype: '*/*',
       size: ''
     }
-  },
-  ready: function() {
-    include.once('//api.filepicker.io/v1/filepicker.js', function() {
-      filepicker.setKey(APIKEY);
-    });
   },
   methods: {
     filepick: function(e) {
