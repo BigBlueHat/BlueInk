@@ -63,7 +63,15 @@ window.page = page = new BlueInk({
           });
         });
         if ('collection' in this.page) {
-          this.page.collection.forEach(function(item) {
+          var collection_items = [];
+          if (undefined !== this.page.collection.length) {
+            // we have an old style array-based collection key
+            collection_items = this.page.collection;
+          } else {
+            // we've got (we hope) the new style object-based collection
+            collection_items = this.page.collection.items;
+          }
+          collection_items.forEach(function(item) {
             if ('_id' in item) {
               ids.push(item._id);
             }
