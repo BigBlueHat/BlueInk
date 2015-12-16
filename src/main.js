@@ -140,7 +140,9 @@ window.page = page = new BlueInk({
           }
           types[row.key].count = 0;
           // and it's component JS (editor and/or viewer)
-          include.once(db_url + row.id + '/component.js');
+          if (Object.keys(types[row.key].components).length > 0) {
+            include.once(db_url + row.id + '/component.js');
+          }
         });
         return types;
       })
