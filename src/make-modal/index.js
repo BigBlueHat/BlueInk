@@ -1,4 +1,4 @@
-var defaultsDeep = require('lodash.defaultsdeep');
+var observableDiff = require('deep-diff').observableDiff;
 
 var default_data = {
   active: false,
@@ -45,13 +45,23 @@ module.exports = {
     document.body.classList.add('dimmed', 'dimmable', 'scrolling');
   },
   compiled: function() {
+    var self = this;
+
     if (Object.keys(this.doc).length < 2
         && undefined !== this.doc.type) {
       // we have "stub" / initiation doc, so reset to defaults
       this.doc = this.$.editor.$options.data.doc;
     }
-    // merge in editor's default doc fields
-    this.$set('doc', defaultsDeep(this.doc, this.$.editor.$options.data.doc));
+
+    // trigger new keys into Vue.js' observable-ness
+    observableDiff(this.doc, this.$.editor.$options.data.doc,
+      function(diff) {
+        // if we've got a new key addition, trigger an $add
+        if (diff.kind === 'N') {
+          self.$add('doc.' + diff.path.join('.'), diff.rhs);
+        }
+      });
+
     // connect the editor.doc and modal docs for change watching
     this.$watch('doc', function() {
       this.$.editor.doc = this.doc;

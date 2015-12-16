@@ -8,6 +8,7 @@
   "main": "src/main.js",
   "dependencies": {
     "better-console": "^0.2.4",
+    "deep-diff": "^0.3.3",
     "del": "^1.2.1",
     "extend": "^3.0.0",
     "filepicker-js": "^2.3.1",
@@ -34,7 +35,6 @@
     "gulp-watch": "^4.3.5",
     "jsinclude": "~1.1.0",
     "keymaster": "~1.6.2",
-    "lodash.defaultsdeep": "^3.10.0",
     "map-stream": "0.0.6",
     "pouchdb": "~3.5.0",
     "pouchdb-authentication": "~0.4.0",
