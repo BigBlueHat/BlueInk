@@ -40,10 +40,7 @@ module.exports = {
       if (collection.length > 0) {
         // remove from the collection, not the page
         // TODO: check that we indeed do have a collection
-        console.log(this.itemIndex);
-        console.log('collection', this.$root.page.collection);
-        this.$root.page.collection.splice(this.itemIndex, 1);
-        console.log('collection', this.$root.page.collection);
+        this.$root.page.collection.items.splice(this.itemIndex, 1);
         // TODO: index change when you remove items...so all this must be smarter T_T
         this.$root.savePage(function() {
           self.$destroy(true);

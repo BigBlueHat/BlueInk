@@ -53,8 +53,7 @@ module.exports = {
       });
     },
     addToCollection: function(type) {
-      var collection_info = this.$root.collection_info;
-      var allowed_type = collection_info.type;
+      var allowed_type = this.$root.page.collection.type;
       // TODO: support multiple types?
       if (allowed_type !== '' && type !== allowed_type) {
         return false;
@@ -68,27 +67,27 @@ module.exports = {
       };
 
       // prevent duplicate items in the collection
-      for (var i = 0; i < this.$root.page.collection.length; i++) {
-        if (this.selected === this.$root.page.collection[i]._id) {
+      for (var i = 0; i < this.$root.page.collection.items.length; i++) {
+        if (this.selected === this.$root.page.collection.items[i]._id) {
           // TODO: UI still implies that you can...button just stops working
           return false;
         }
       }
 
-      if (undefined !== this.$root.page.collection) {
-        this.$root.page.collection.push(item);
+      if (undefined !== this.$root.page.collection.items) {
+        this.$root.page.collection.items.push(item);
       } else {
         // add to area 0 as item 0
-        this.$root.page.collection = [item];
+        this.$root.page.collection.items = [item];
       }
       this.$root.savePage(function() {
         location.reload();
       });
     },
     canHazCollection: function(type) {
-      var collection_type = this.$root.collection_info.type;
       // if it's a collection
       if (undefined !== this.$root.page.collection) {
+        var collection_type = this.$root.page.collection.type;
         // with a specified type
         if (undefined !== collection_type && collection_type !== "") {
           return (type === collection_type);
