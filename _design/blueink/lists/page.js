@@ -97,11 +97,15 @@ function(head, req) {
 
     switch (obj_part[1]) {
       case 'redirect':
+        var url_prefix = '';
+        if (req.requested_path[3] === '_rewrite') {
+          url_prefix = '/' + req.requested_path.slice(0,4).join('/') + '/';
+        }
         start({
           code: 302,
           headers: {
             'Content-Type': 'text/html',
-            'Location': value.url
+            'Location': url_prefix + value.url
           }
         });
         return '';

@@ -13,9 +13,9 @@ function(doc) {
 
   if (doc.type === 'redirect' && 'url' in doc) {
     emit(urlParts.concat('', '', 'redirect'), {'url': doc.url});
-  }
-  else
-  if (doc.type === 'page') {
+  } else if (doc.type === 'page' && 'redirect' in doc) {
+    emit(urlParts.concat('', '', 'redirect'), {'url': doc.redirect});
+  } else if (doc.type === 'page') {
     for (var i in doc.page_items) {
       for (var n in doc.page_items[i]) {
         if ('_collection' in doc.page_items[i][n]) {
