@@ -1,0 +1,32 @@
+<form class="blueink-ui horizontal form">
+
+  <div class="inline field">
+    <label for="title">Title</label>
+    <input blueink-model="doc.title" type="text">
+  </div>
+
+  <div class="inline field">
+    <label for="text">URL</label>
+    <input blueink-model="doc.current_url" type="text">
+  </div>
+
+  <div class="inline fields">
+    <label>Show</label>
+
+    <div class="field">
+      <div class="blueink-ui radio checkbox">
+        <input type="radio" name="everything" value="" blueink-model="doc.show_only" />
+        <label for="everything">Everything</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="blueink-ui radio checkbox">
+        <input type="radio" name="children" value="children" blueink-model="doc.show_only" />
+        <label for="children">Only child pages</label>
+      </div>
+    </div>
+
+  </div>
+
+</form>

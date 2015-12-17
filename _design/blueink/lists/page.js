@@ -6,6 +6,8 @@ function(head, req) {
   var array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive;
   var dateToArray = require("lib/dateToArray").dateToArray;
   var row;
+  var flatten = require('lib/lodash-flatten');
+  var filter = require('lib/lodash-filter');
 
   // sort of require include_docs
   // TODO: ...should throw a proper error here
@@ -53,6 +55,17 @@ function(head, req) {
     return obj;
   }
 
+  function extractChildren(urls, find) {
+    return flatten(filter(urls.map(function(url) {
+      if (url.body.url === find) {
+        return url.children;
+      } else if (url.children.length > 0) {
+        return extractChildren(url.children, find);
+      } else {
+        return false;
+      }
+    })));
+  }
 
   var output = {
     url: req.query.startkey.join('/'),
@@ -60,6 +73,7 @@ function(head, req) {
     items:[],
     copyright: 'BigBlueHat'
   };
+  var navigation = [];
 
   // where it all gets put together
   while(row = getRow()) {
@@ -143,10 +157,10 @@ function(head, req) {
         item = prepItem(doc, value, obj_part[3], current_collection.template_type);
         output.items[area_idx].area[output.items[area_idx].area.length-1].posts.push(item);
       } else {
-        if (undefined !== value._id) {
-          item = prepItem(doc, value, obj_part[1]);
-        } else if (doc.type === 'navigation') {
+        if (doc.type === 'navigation') {
           item = doc;
+        } else if (undefined !== value._id) {
+          item = prepItem(doc, value, obj_part[1]);
         } else {
           // we've got a collection item
           item._blueink = {index: obj_part[1]};
@@ -163,22 +177,27 @@ function(head, req) {
   // find navigation items and generate their content
   output.items.forEach(function(area, area_idx) {
     area.area.forEach(function(item, idx) {
-      if (item.doc && item.doc.type && item.doc.type == 'navigation') {
-        var nav_item = item,
-            nav = {'sitemap':{}};
+      // TODO: this stuff is a tangle of the past, the present, and the future
+      if (item.type && item.type === 'navigation') {
+        var nav_item = item;
+        var navigation = item;
+        navigation._blueink = {index: idx};
+        navigation.sitemap = {};
 
-        if (nav_item.doc.show_only && nav_item.doc.show_only == 'children') {
-          // TODO: this needs to be recursive
-          output.sitemap.forEach(function(el) {
-            if (el.body.url == nav_item.doc.current_url && el.children) {
-              navigation.sitemap = el.children;
-            }
-          });
+        if (nav_item.show_only && nav_item.show_only == 'children') {
+          navigation.sitemap = extractChildren(output.sitemap, nav_item.current_url);
         } else {
           navigation.sitemap = output.sitemap;
         }
 
-        output.items[area_idx].area[idx] = {'item':Handlebars.compile(templates.types['navigation'])(navigation)};
+        output.items[area_idx].area[idx] = {
+          _blueink: {
+            _id: item._id,
+            index: idx,
+            base_url: output.url
+          },
+          item: Handlebars.compile(templates.types['navigation'])(navigation)
+        };
       }
     });
   });
