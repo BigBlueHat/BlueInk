@@ -3,6 +3,10 @@ function(head, req) {
   var templates = {};
   var Handlebars = require("lib/handlebars");
   Handlebars.registerHelper('compare', require("lib/handlebars.compare").compare);
+  Handlebars.registerHelper('toJSON', function(object) {
+    // From: http://zshawnsyed.com/2015/04/30/output-json-in-handlebars/
+    return new Handlebars.SafeString(JSON.stringify(object));
+  });
   var array_replace_recursive = require("lib/array_replace_recursive").array_replace_recursive;
   var dateToArray = require("lib/dateToArray").dateToArray;
   var row;
