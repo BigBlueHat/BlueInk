@@ -19,10 +19,13 @@ BlueInk.component('page-editor', {
         redirect: ""
       },
       collection_area_index: 0,
-      collection_item_index: 0
+      collection_item_index: 0,
+      original_id: ''
     }
   },
   ready: function() {
+    this.original_id = this.doc._id;
+
     // if doc.collection is an array, we've got the old style, so upgrade it
     if ('collection' in this.doc
         // got an array
@@ -37,7 +40,6 @@ BlueInk.component('page-editor', {
         items: []
       });
       this.$set('doc.collection.items', collection_items);
-      console.log('page has collection', JSON.stringify(this.$data));
     }
   },
   computed: {
@@ -79,8 +81,29 @@ BlueInk.component('page-editor', {
   },
   methods: {
     output: function() {
+      this.$log();
       var output = this.doc;
-      output.type = 'page';
+
+      // if the _id has changed, the page is moving
+      if (this.original_id !== output._id) {
+        // remove Vue getter/setter stuff
+        var old_page = JSON.parse(JSON.stringify(this.doc));
+        // set the _id to the old one
+        old_page._id = this.original_id;
+        // make sure it's still a page
+        old_page.type = 'page';
+        // store the new _id in `redirect`
+        old_page.redirect = output._id;
+        this.$db
+          .post(old_page)
+          .then(function(resp) {
+            // output something?
+          })
+          .catch(console.log.bind(console));
+
+        // remove the _rev from the old page data & store it with the new _id
+        delete output._rev;
+      }
 
       if (this.doc.collection.title !== '') {
         // we have collection data, so...let's output it in the correct place
@@ -96,7 +119,7 @@ BlueInk.component('page-editor', {
         }
       }
 
-      // TODO: add created & updated
+      output.type = 'page';
       return output;
     }
   }
