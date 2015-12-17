@@ -54,7 +54,8 @@ module.exports = {
         var area_idx = $area[0].dataset.blueinkAreaIndex;
         // look up item index
         // TODO: and if it's not been set?
-        $area.down('[data-item-id]').each(function(el, item_idx) {
+        $area.down('[data-item-id]').each(function(el) {
+          var item_idx = el.dataset.itemIndex;
           if (self.itemId == el.dataset.itemId) {
             self.$root.removeItem(area_idx, item_idx, function() {
               self.$destroy(true);
