@@ -99,6 +99,8 @@ module.exports = {
     },
     loadPreview: function() {
       var self = this;
+      // TODO: a bit "leaky" here to put CSS mods during AJAX data loading...
+      this.$el.querySelector('#item-preview').style.left = this.$parent.$el.querySelector('.menu').offsetWidth + this.$el.querySelector('#item-list').offsetWidth + 'px';
       // TODO: implement an actual preview
       ajax({
         url: '_blueink/preview/' + this.selected
@@ -108,6 +110,8 @@ module.exports = {
     },
     loadItems: function() {
       var self = this;
+      // TODO: a bit "leaky" here to put CSS mods during AJAX data loading...
+      this.$el.querySelector('.menu').style.left = this.$parent.$el.querySelector('.menu').offsetWidth + 'px';
       self.$db.query('blueink/by_type?reduce=false&key="' + self.type + '"',
       function(err, response) {
         var items = response.rows;

@@ -1,4 +1,8 @@
-<div class="menu" blueink-class="transition: $parent.selected != '', visible: $parent.selected != ''">
+<div>
+<div class="menu" id="item-list"
+  blueink-class="transition: $parent.selected != '' && $parent.active, visible: $parent.selected != '' && $parent.active"
+  blueink-style="max-height: $root.maxHeight"
+  style="overflow: auto; overflow-x: hidden">
   <div class="item">
     <a class="blueink-ui tiny primary button"
       blueink-on="click: createDoc(type)">new {{type}}</a>
@@ -15,35 +19,38 @@
     blueink-class="active: selected == id">
     {{value}}
   </div>
-  <!-- preview -->
-  <div class="blueink-ui vertical menu" blueink-class="transition: selected != '', visible: selected != ''" style="width: auto">
-    <div class="item">
-      <a class="blueink-ui tiny primary button"
-        blueink-on="click: editDoc(selected)">
-        edit
-      </a>
-      <a class="blueink-ui tiny positive button"
-        blueink-if="!canHazCollection(type)"
-        blueink-on="click: addToPage()">
+</div>
+
+<!-- preview -->
+<div class="blueink-ui vertical menu" id="item-preview"
+  blueink-class="transition: selected != '' && $parent.active, visible: selected != '' && $parent.active" style="width: auto">
+  <div class="item">
+    <a class="blueink-ui tiny primary button"
+      blueink-on="click: editDoc(selected)">
+      edit
+    </a>
+    <a class="blueink-ui tiny positive button"
+      blueink-if="!canHazCollection(type)"
+      blueink-on="click: addToPage()">
+      add to page
+    </a>
+    <div class="blueink-ui tiny buttons"
+         style="min-width: 13em"
+         blueink-if="canHazCollection(type)">
+      <a class="blueink-ui positive button"
+         blueink-on="click: addToPage()">
         add to page
       </a>
-      <div class="blueink-ui tiny buttons"
-           style="min-width: 13em"
-           blueink-if="canHazCollection(type)">
-        <a class="blueink-ui positive button"
-           blueink-on="click: addToPage()">
-          add to page
-        </a>
-        <div class="or"></div>
-        <a class="blueink-ui positive button"
-           blueink-on="click: addToCollection(type)">
-          collection
-        </a>
-      </div>
-    </div>
-    <div blueink-if="preview" class="item">
-      <!-- TODO: build a proper preview system leveraging types system -->
-      <div blueink-component="item-preview" blueink-with="doc: preview"></div>
+      <div class="or"></div>
+      <a class="blueink-ui positive button"
+         blueink-on="click: addToCollection(type)">
+        collection
+      </a>
     </div>
   </div>
+  <div blueink-if="preview" class="item">
+    <!-- TODO: build a proper preview system leveraging types system -->
+    <div blueink-component="item-preview" blueink-with="doc: preview"></div>
+  </div>
+</div>
 </div>

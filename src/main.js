@@ -79,6 +79,9 @@ window.page = page = new BlueInk({
         }
       }
       return ids;
+    },
+    maxHeight: function() {
+      return window.innerHeight * 0.8 + 'px';
     }
   },
   watch: {

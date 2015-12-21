@@ -3,12 +3,15 @@
     blueink-class="active: active, visible: active">
   <div>Content</div>
   <ul class="menu"
-    blueink-class="transition: active, visible: active">
+    blueink-class="transition: active, visible: active"
+    blueink-style="max-height: $root.maxHeight"
+    style="overflow: auto; overflow-x: hidden">
     <li class="item" blueink-repeat="types" blueink-on="click: selected = $key"
       blueink-class="active: selected == $key">
       {{name}}
       <span class="blueink-ui small bottom right attached label">{{count}}</span>
     </li>
-    <div blueink-component="menu-items" type="{{selected}}"></div>
   </ul>
+  <div blueink-component="menu-items"
+       type="{{selected}}"></div>
 </div>
