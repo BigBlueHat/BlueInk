@@ -24,6 +24,18 @@ module.exports = {
     autogen: function() {
       // page data loads later, so this needs to be a computed property
       return Boolean(undefined === this.$root.page._id);
+    },
+    active: {
+      get: function() {
+        return this.$root.ui.menu === 'pages';
+      },
+      set: function(v) {
+        if (v === true) {
+          this.$root.ui.menu = 'pages';
+        } else {
+          this.$root.ui.menu = '';
+        }
+      }
     }
   },
   methods: {
@@ -66,6 +78,11 @@ module.exports = {
           self.modalize(resp);
         }
       );
+    },
+    setActive: function(ev) {
+      if (ev.target === this.$el) {
+        this.$set('active', !this.active);
+      }
     }
   }
 };

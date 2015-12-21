@@ -8,6 +8,9 @@ html.blueinked body {
   left: 0;
   text-align: left;
 }
+#ui-blueink + .blueink-ui.dimmer {
+  z-index: 1;
+}
 
 #ui-blueink ul.menu {
   list-style: none;

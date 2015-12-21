@@ -6,6 +6,17 @@ module.exports = {
     'menu-pages': require('../menu-pages'),
     'menu-content': require('../menu-content'),
   },
+  watch: {
+    'ui.menu': function(menu) {
+      // no menu set? undim.
+      this.$set('ui.dim', Boolean(menu !== ''));
+    },
+    'ui.dim': function(dimmed) {
+      if (!dimmed) {
+        this.$set('ui.menu', '');
+      }
+    }
+  },
   methods: {
     logout: function() {
       var self = this;

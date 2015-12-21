@@ -23,7 +23,11 @@ window.page = page = new BlueInk({
     db_url: db_url,
     user: {},
     page: {},
-    types: {}
+    types: {},
+    ui: {
+      dim: false,
+      menu: ''
+    }
   },
   computed: {
     loggedIn: function() {

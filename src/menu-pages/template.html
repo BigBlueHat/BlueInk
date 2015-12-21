@@ -1,6 +1,9 @@
-<div id="blueink-menu-pages" class="section blueink-ui dropdown simple link item">
-  <div>Pages</div>
+<div id="blueink-menu-pages" class="section blueink-ui dropdown link item"
+    blueink-on="click: setActive"
+    blueink-class="active: active">
+  Pages
   <div class="menu"
+    blueink-class="transition: active, visible: active"
     blueink-style="max-height: $root.maxHeight"
     style="overflow: auto; overflow-x: hidden">
     <div class="item">

@@ -55,6 +55,8 @@ module.exports = {
   },
   created: function() {
     document.body.classList.add('dimmed', 'dimmable', 'scrolling');
+    // hide all menus
+    this.$root.ui.menu = '';
   },
   compiled: function() {
     var self = this;
