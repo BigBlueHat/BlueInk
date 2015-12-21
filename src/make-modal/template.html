@@ -28,6 +28,7 @@
         blueink-on="click: del()">
         Delete
       </div>
+      <select blueink-model="doc.type" options="types"></select>
       <!-- debugging only -->
       <a blueink-if="doc._id" class="disabled" target="_blank" href="../../../{{doc._id | encodeURIComponent}}">
         {{doc._id}}
