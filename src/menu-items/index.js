@@ -123,9 +123,11 @@ module.exports = {
       var modal = self.$root.editDoc(doc);
       modal.$on('saved', function() {
         self.loadItems();
+        self.$root.loadTypeList();
       });
       modal.$on('afterDel', function() {
         self.loadItems();
+        self.$root.loadTypeList();
       });
     },
     createDoc: function(type) {
@@ -133,6 +135,9 @@ module.exports = {
     },
     editDoc: function(doc_id) {
       var self = this;
+      // unset preview, so we don't see old content post-edit
+      self.selected = '';
+      self.preview = {};
       self.$db.get(doc_id)
         .then(function(resp) {
           self.modalize(resp);

@@ -129,39 +129,7 @@ window.page = page = new BlueInk({
     );
 
     // load types
-    self.$db.query('blueink/type_definitions')
-      .then(function(resp) {
-        var types = {};
-        resp.rows.forEach(function(row) {
-          // load type info
-          types[row.key] = row.value;
-          if (!('name' in types[row.key])) {
-            types[row.key].name = row.key;
-          }
-          types[row.key].count = 0;
-          // and it's component JS (editor and/or viewer)
-          if (Object.keys(types[row.key].components).length > 0) {
-            include.once(db_url + row.id + '/component.js');
-          }
-        });
-        return types;
-      })
-      .then(function(types) {
-        self.$db.query('blueink/by_type?group=true')
-          .then(function(resp) {
-            resp.rows.forEach(function(row) {
-              if (row.key in types) {
-                types[row.key].count = row.value;
-              }
-            });
-            // add it to the main VM
-            self.types = types;
-          })
-          .catch(console.log.bind(console)
-        );
-      })
-      .catch(console.log.bind(console)
-    );
+    self.loadTypeList();
 
     // check session / load user name
     self.$db.getSession(function (err, resp) {
@@ -341,6 +309,42 @@ window.page = page = new BlueInk({
               callback(page_id);
             }).catch(console.log.bind(console));
         }
+      );
+    },
+    loadTypeList: function() {
+      var self = this;
+      self.$db.query('blueink/type_definitions')
+        .then(function(resp) {
+          var types = {};
+          resp.rows.forEach(function(row) {
+            // load type info
+            types[row.key] = row.value;
+            if (!('name' in types[row.key])) {
+              types[row.key].name = row.key;
+            }
+            types[row.key].count = 0;
+            // and it's component JS (editor and/or viewer)
+            if (Object.keys(types[row.key].components).length > 0) {
+              include.once(db_url + row.id + '/component.js');
+            }
+          });
+          return types;
+        })
+        .then(function(types) {
+          self.$db.query('blueink/by_type?group=true')
+            .then(function(resp) {
+              resp.rows.forEach(function(row) {
+                if (row.key in types) {
+                  types[row.key].count = row.value;
+                }
+              });
+              // add it to the main VM
+              self.types = types;
+            })
+            .catch(console.log.bind(console)
+          );
+        })
+        .catch(console.log.bind(console)
       );
     }
   },
