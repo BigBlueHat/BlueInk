@@ -1,4 +1,6 @@
 require('insert-css')(require('./index.css'));
+var URI = require('urijs');
+window.URI = URI;
 
 module.exports = {
   replace: true,
@@ -14,9 +16,9 @@ module.exports = {
   created: function() {
     var base = document.getElementsByTagName('base')[0].href;
     // staticly storing these (vs. computed props) to avoid constant recalc
-    var page_url = location.toString().replace(base, '');
-    this.current = page_url || 'home';
-    this.parent_url = this.current.substring(0, this.current.lastIndexOf('/'));
+    var page_url = URI().relativeTo(base);
+    this.current = page_url.toString() || 'home';
+    this.parent_url = page_url.directory().toString();
 
     this.loadPages();
   },

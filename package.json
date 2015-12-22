@@ -43,6 +43,7 @@
     "semantic-ui": "^2.1.3",
     "sortablejs": "~1.1.1",
     "traversty": "^1.0.5",
+    "urijs": "^1.17.0",
     "vue": "~0.11.9",
     "yamljs": "^0.2.3"
   },
