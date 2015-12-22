@@ -58,24 +58,26 @@ module.exports = {
     // hide all menus
     this.$root.ui.menu = '';
   },
-  compiled: function() {
+  beforeCompile: function() {
     var self = this;
+    var blank_doc = BlueInk.component(this.editor).options.data();
 
     if (Object.keys(this.doc).length < 2
         && undefined !== this.doc.type) {
       // we have "stub" / initiation doc, so reset to defaults
-      this.doc = this.$.editor.$options.data.doc;
+      this.doc = blank_doc.doc;
     }
 
     // trigger new keys into Vue.js' observable-ness
-    observableDiff(this.doc, this.$.editor.$options.data.doc,
+    observableDiff(this.doc, blank_doc.doc,
       function(diff) {
         // if we've got a new key addition, trigger an $add
         if (diff.kind === 'N') {
-          self.$add('doc.' + diff.path.join('.'), diff.rhs);
+          self.doc.$add(diff.path.join('.'), diff.rhs);
         }
       });
-
+  },
+  compiled: function() {
     // connect the editor.doc and modal docs for change watching
     this.$watch('doc', function() {
       this.$.editor.doc = this.doc;

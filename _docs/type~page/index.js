@@ -55,7 +55,8 @@ BlueInk.component('page-editor', {
               this.collection_area_index = i;
               this.collection_item_index = j;
             } else if (typeof areas[i][j]['_id'] === 'object'
-                && '$ref' in areas[i][j]._id) {
+                && '$ref' in areas[i][j]._id
+                && 'collection' in this.doc) {
               current_collection = {
                 title: this.doc.collection.title,
                 type: this.doc.collection.type,
