@@ -53,7 +53,10 @@ function(head, req) {
     if (display_settings.display_title === false) {
       delete for_template.title;
     }
-    for_template._blueink.base_url = output.url;
+    for_template._blueink = {
+      base_url: output.site.url,
+      page_url: output.url
+    };
     // TODO: handle published_date
     obj.item = Handlebars.compile(template)(for_template);
     return obj;
@@ -202,7 +205,8 @@ function(head, req) {
           _blueink: {
             _id: item._id,
             index: idx,
-            base_url: output.url
+            base_url: output.site.url,
+            page_url: output.url
           },
           item: Handlebars.compile(templates.types['navigation'])(navigation)
         };
