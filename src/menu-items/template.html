@@ -22,7 +22,7 @@
 </div>
 
 <!-- preview -->
-<div class="blueink-ui vertical menu" id="item-preview"
+<div class="blueink-ui vertical menu" id="item-preview" style="min-width: 400px"
   blueink-class="transition: selected != '' && $parent.active, visible: selected != '' && $parent.active" style="width: auto">
   <div class="item">
     <a class="blueink-ui tiny primary button"
@@ -48,7 +48,7 @@
       </a>
     </div>
   </div>
-  <div blueink-if="preview" class="item">
+  <div blueink-if="preview" class="item" style="word-wrap: normal">
     <!-- TODO: build a proper preview system leveraging types system -->
     <div blueink-component="item-preview" blueink-with="doc: preview"></div>
   </div>

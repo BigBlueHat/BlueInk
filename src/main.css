@@ -7,9 +7,10 @@ html.blueinked body {
   right: 0;
   left: 0;
   text-align: left;
+  z-index: 201;
 }
 #ui-blueink + .blueink-ui.dimmer {
-  z-index: 1;
+  z-index: 200;
 }
 
 #ui-blueink ul.menu {
