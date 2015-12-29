@@ -16,6 +16,7 @@ BlueInk.component('page-editor', {
           template_type: 'card',
           items: []
         },
+        image: '',
         redirect: ""
       },
       collection_area_index: 0,

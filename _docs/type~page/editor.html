@@ -1,20 +1,32 @@
 <form class="blueink-ui horizontal form">
-  <div class="field">
-    <label for="title">Title</label>
-    <input blueink-model="doc.title" name="title" type="text">
-  </div>
-  <div class="field">
-    <label for="nav_label">Navigation Label</label>
-    <input blueink-model="doc.nav_label" name="nav_label" type="text">
-  </div>
-  <div class="field">
-    <label for="url">URL</label>
-    <input blueink-model="doc._id"
-      name="url" type="text">
-  </div>
-  <div class="inline field">
-    <input type="checkbox" blueink-model="doc.display_title">
-    <label for="display_title">Display Title</label>
+  <div class="blueink-ui grid">
+    <div class="ten wide column">
+      <div class="field">
+        <label for="title">Title</label>
+        <input blueink-model="doc.title" name="title" type="text">
+      </div>
+      <div class="field">
+        <label for="nav_label">Navigation Label</label>
+        <input blueink-model="doc.nav_label" name="nav_label" type="text">
+      </div>
+      <div class="field">
+        <label for="url">URL</label>
+        <input blueink-model="doc._id"
+          name="url" type="text">
+      </div>
+      <div class="inline field">
+        <input type="checkbox" blueink-model="doc.display_title">
+        <label for="display_title">Display Title</label>
+      </div>
+    </div>
+    <div class="six wide column">
+      <div class="field">
+        <label for="title">Image (optional)</label>
+        <div blueink-component="file-picker" mimetype="image/*" blueink-with="url: doc.image"></div>
+        <input blueink-model="doc.image" name="image" type="text" />
+        <img blueink-attr="src: doc.image" class="blueink-ui image" />
+      </div>
+    </div>
   </div>
   <div class="blueink-ui top attached header">Collection (optional)</div>
   <div class="blueink-ui bottom attached segment">
