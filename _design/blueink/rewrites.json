@@ -11,6 +11,10 @@
     }
   },
   {
+    "from": "_blueink/site",
+    "to": "../../site"
+  },
+  {
     "from": "_blueink/sitemap",
     "to": "_list/sitemap/pages",
     "query": {
