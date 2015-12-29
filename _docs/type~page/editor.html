@@ -14,9 +14,9 @@
         <input blueink-model="doc._id"
           name="url" type="text">
       </div>
-      <div class="inline field">
-        <input type="checkbox" blueink-model="doc.display_title">
-        <label for="display_title">Display Title</label>
+      <div class="blueink-ui inline checkbox field">
+        <input type="checkbox" name="display_title" blueink-model="doc.display_title">
+        <label for="display_title" blueink-on="click: doc.display_title = !doc.display_title">Display Title</label>
       </div>
     </div>
     <div class="six wide column">
