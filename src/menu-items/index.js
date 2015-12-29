@@ -122,15 +122,20 @@ module.exports = {
         self.items = items;
       });
     },
+    resetState: function() {
+      this.$parent.selected = '';
+      this.selected = '';
+      this.items = [];
+    },
     modalize: function(doc) {
       var self = this;
       var modal = self.$root.editDoc(doc);
       modal.$on('saved', function() {
-        self.loadItems();
+        self.resetState();
         self.$root.loadTypeList();
       });
       modal.$on('afterDel', function() {
-        self.loadItems();
+        self.resetState();
         self.$root.loadTypeList();
       });
     },
