@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Over the top Content Management on Apache CouchDB",
   "author": "BigBlueHat",
-  "license": "Apache License 2.0",
+  "license": "Apache-2.0",
   "repository": "https://github.com/BigBlueHat/BlueInk.git",
   "main": "src/main.js",
   "dependencies": {
