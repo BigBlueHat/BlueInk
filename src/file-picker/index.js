@@ -6,7 +6,7 @@ var APIKEY = require('../../config_ui.json').services['filepicker.io'].apikey;
 filepicker.setKey(APIKEY);
 
 module.exports = {
-  template: '<button class="ui button" blueink-on="click: filepick">Pick a File</button>',
+  template: '<button type="button" class="ui button" blueink-on="click: filepick">Pick a File</button>',
   paramAttributes: [
     'mimetype'
   ],
