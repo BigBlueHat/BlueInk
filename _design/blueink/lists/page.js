@@ -1,4 +1,9 @@
 function(head, req) {
+  start({
+    'headers': {
+      'Content-Type': 'text/html'
+    }
+  });
   var ddoc = this;
   var templates = {};
   var Handlebars = require("lib/handlebars");
@@ -236,11 +241,6 @@ function(head, req) {
 
   provides('html',
     function() {
-      start({
-        'headers': {
-          'Content-Type': 'text/html'
-        }
-      });
       return Handlebars.compile(templates.page)(output);
     }
   );
