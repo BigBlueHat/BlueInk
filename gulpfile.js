@@ -118,5 +118,5 @@ gulp.task('apps', function() {
 });
 
 gulp.task('default', function() {
-  runSequence('blueink', ['apps', 'docs']);
+  runSequence('blueink', ['apps', 'docs'], function() { console.log(Date()); });
 });
