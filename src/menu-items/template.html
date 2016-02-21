@@ -11,13 +11,19 @@
   <!-- items currently on this page -->
   <div class="item" blueink-repeat="published" blueink-on="click: selected = id"
     blueink-class="active: selected == id">
-    {{value}}
+    <span blueink-if="type !== 'image'">
+      {{value}}
+    </span>
+    <img blueink-if="type === 'image'" class="blueink-ui image" src="{{value}}" />
   </div>
   <div class="ui divider"></div>
-  <!-- items currently on this page -->
+  <!-- items not (yet?!) on this page -->
   <div class="item" blueink-repeat="unpublished" blueink-on="click: selected = id"
     blueink-class="active: selected == id">
-    {{value}}
+    <span blueink-if="type !== 'image'">
+      {{value}}
+    </span>
+    <img blueink-if="type === 'image'" class="blueink-ui image" src="{{value}}" />
   </div>
 </div>
 

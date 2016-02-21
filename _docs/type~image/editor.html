@@ -1,0 +1,8 @@
+<div class="blueink-ui labeled input">
+  <label class="blueink-ui label">Pick a file</label>
+  <input type="file" accept="image/*"
+    blueink-on="change: setFile" />
+</div>
+
+<img class="blueink-ui image"
+  blueink-if="src" blueink-attr="src: src" />
