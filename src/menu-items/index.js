@@ -102,11 +102,13 @@ module.exports = {
       // TODO: a bit "leaky" here to put CSS mods during AJAX data loading...
       this.$el.querySelector('#item-preview').style.left = this.$parent.$el.querySelector('.menu').offsetWidth + this.$el.querySelector('#item-list').offsetWidth + 'px';
       // TODO: implement an actual preview
-      ajax({
-        url: '_blueink/preview/' + this.selected
-      }, function (err, resp) {
-        self.preview = resp;
-      });
+      if (this.selected) {
+        ajax({
+          url: '_blueink/preview/' + this.selected
+        }, function (err, resp) {
+          self.preview = resp;
+        });
+      }
     },
     loadItems: function() {
       var self = this;
