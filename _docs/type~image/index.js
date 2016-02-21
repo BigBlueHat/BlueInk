@@ -1,11 +1,23 @@
+var blank_doc = {
+  type: 'image',
+};
+
+BlueInk.component('image-viewer', {
+  template: require('./viewer.html'),
+  replace: true,
+  data: function() {
+    return {
+      data: blank_doc
+    };
+  }
+});
+
 BlueInk.component('image-editor', {
   template: require('./editor.html'),
   replace: true,
   data: function() {
     return {
-      doc: {
-        type: 'image',
-      },
+      doc: blank_doc,
       // storage for Blob from file selection
       file: ''
     }
