@@ -335,21 +335,24 @@ window.page = page = new BlueInk({
               include.once(db_url + row.id + '/component.js');
             }
           });
-          return types;
+          self.types = types;
+          self.loadTypeCounts();
         })
-        .then(function(types) {
-          self.$db.query('blueink/by_type?group=true')
-            .then(function(resp) {
-              resp.rows.forEach(function(row) {
-                if (row.key in types) {
-                  types[row.key].count = row.value;
-                }
-              });
-              // add it to the main VM
-              self.types = types;
-            })
-            .catch(console.log.bind(console)
-          );
+        .catch(console.log.bind(console)
+      );
+    },
+    loadTypeCounts: function() {
+      var self = this;
+      var types = this.types;
+      self.$db.query('blueink/by_type?group=true')
+        .then(function(resp) {
+          resp.rows.forEach(function(row) {
+            if (row.key in types) {
+              types[row.key].count = row.value;
+            }
+          });
+          // add it to the main VM
+          self.types = types;
         })
         .catch(console.log.bind(console)
       );
