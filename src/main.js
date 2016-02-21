@@ -111,6 +111,9 @@ window.page = page = new BlueInk({
     loggedin: function(userCtx) {
       var self = this;
       self.user = userCtx;
+    },
+    refreshTypeCounts: function(type) {
+      this.loadTypeCounts(type);
     }
   },
   created: function() {
@@ -341,18 +344,19 @@ window.page = page = new BlueInk({
         .catch(console.log.bind(console)
       );
     },
-    loadTypeCounts: function() {
+    loadTypeCounts: function(type) {
       var self = this;
-      var types = this.types;
-      self.$db.query('blueink/by_type?group=true')
+      var view = 'blueink/by_type?group=true';
+      if (type) {
+        view += '&key="' + type + '"';
+      }
+      self.$db.query(view)
         .then(function(resp) {
           resp.rows.forEach(function(row) {
-            if (row.key in types) {
-              types[row.key].count = row.value;
+            if (row.key in self.types) {
+              self.types[row.key].count = row.value;
             }
           });
-          // add it to the main VM
-          self.types = types;
         })
         .catch(console.log.bind(console)
       );

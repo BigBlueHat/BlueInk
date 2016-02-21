@@ -132,11 +132,11 @@ module.exports = {
       var modal = self.$root.editDoc(doc);
       modal.$on('saved', function() {
         self.resetState();
-        self.$root.loadTypeCounts();
+        self.$dispatch('refreshTypeCounts', doc.type);
       });
       modal.$on('afterDel', function() {
         self.resetState();
-        self.$root.loadTypeCounts();
+        self.$dispatch('refreshTypeCounts', doc.type);
       });
     },
     createDoc: function(type) {
