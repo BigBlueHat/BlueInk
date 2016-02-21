@@ -14,7 +14,8 @@
     <span blueink-if="type !== 'image'">
       {{value}}
     </span>
-    <img blueink-if="type === 'image'" class="blueink-ui image" src="{{value}}" />
+    <img blueink-if="type === 'image'" class="blueink-ui image"
+      blueink-attr="src: value" />
   </div>
   <div class="ui divider"></div>
   <!-- items not (yet?!) on this page -->
@@ -23,7 +24,8 @@
     <span blueink-if="type !== 'image'">
       {{value}}
     </span>
-    <img blueink-if="type === 'image'" class="blueink-ui image" src="{{value}}" />
+    <img blueink-if="type === 'image'" class="blueink-ui image"
+      blueink-attr="src: value" />
   </div>
 </div>
 
