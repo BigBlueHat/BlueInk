@@ -30,3 +30,17 @@ html.blueinked body {
 .blueink-ui {
   box-sizing: border-box;
 }
+
+.blueink-ui .image.active {
+  outline: 2px solid orange;
+}
+.blueink-ui .image.active img {
+  margin: 0;
+}
+
+/** TODO: hook into the build system for Semantic-UI so we can use variables **/
+.blueink-ui .small.square.images a.image {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+}

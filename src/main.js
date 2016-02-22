@@ -300,6 +300,14 @@ window.page = page = new BlueInk({
       modal.$appendTo(this.$el);
       return modal;
     },
+    selectDoc: function(type) {
+      var modal = this.$addChild(require('./select-modal'));
+      modal.$set('type', type);
+      modal.$set('active', true);
+      modal.$mount();
+      modal.$appendTo(this.$el);
+      return modal;
+    },
     generateSitemap: function(callback, page_id) {
       var self = this;
       // TODO: construct this URL better...

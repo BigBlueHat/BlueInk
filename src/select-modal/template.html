@@ -1,0 +1,48 @@
+<div class="blueink-ui dimmer modals page visible" blueink-class="active: active">
+  <div class="blueink-ui fullscreen modal transition visible active scrolling">
+    <div class="header">
+      <div class="blueink-ui two column grid">
+        <div class="column">
+          <div class="blueink-ui huge header">{{type}}</div>
+        </div>
+        <div class="right floated right aligned column">
+          <div class="blueink-ui tiny buttons">
+            <div class="blueink-ui positive button"
+              blueink-on="click: save()">
+              Save
+            </div>
+            <div class="or"></div>
+            <div class="blueink-ui button"
+              blueink-on="click: destroy()">
+              Cancel
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <!-- TODO: ugh...needs more abstraction potion -->
+      <div class="blueink-ui small square images"
+       blueink-if="type === 'image'">
+        <a class="image" blueink-class="active: active == item.id"
+         blueink-repeat="item: items" blueink-on="click: activate(item)">
+          <img blueink-attr="src: '_blueink/' + item.id + '/self'" />
+        </a>
+       </div>
+    </div>
+    <div class="actions">
+    <div class="right floated right aligned column">
+      <div class="blueink-ui tiny buttons">
+        <div class="blueink-ui positive button"
+          blueink-on="click: save()">
+          Save
+        </div>
+        <div class="or"></div>
+        <div class="blueink-ui button"
+          blueink-on="click: destroy()">
+          Cancel
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
