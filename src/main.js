@@ -26,7 +26,8 @@ window.page = page = new BlueInk({
     types: {},
     ui: {
       dim: false,
-      menu: ''
+      menu: '',
+      modal_count: 0
     }
   },
   computed: {
@@ -105,6 +106,16 @@ window.page = page = new BlueInk({
       if (undefined !== page_id && this.loggedIn) {
         this.enableSortables();
       }
+    },
+    'ui.modal_count': function(v) {
+      // TODO: danger: this could remove a site's version of these :( namespace?
+      if (v < 1) {
+        document.body.classList.remove('dimmed', 'dimmable', 'scrolling');
+      } else {
+        // hide all menus
+        this.ui.menu = '';
+        document.body.classList.add('dimmed', 'dimmable', 'scrolling');
+      }
     }
   },
   events: {
@@ -114,6 +125,12 @@ window.page = page = new BlueInk({
     },
     refreshTypeCounts: function(type) {
       this.loadTypeCounts(type);
+    },
+    modalOpened: function() {
+      this.ui.modal_count++;
+    },
+    modalClosed: function() {
+      this.ui.modal_count--;
     }
   },
   created: function() {

@@ -18,6 +18,9 @@ module.exports = {
       this.selected = '';
     }
   },
+  created: function() {
+    this.$dispatch('modalOpened');
+  },
   methods: {
     save: function() {
       this.selected = this.active;
@@ -25,6 +28,7 @@ module.exports = {
     },
     destroy: function() {
       this.$destroy(true);
+      this.$dispatch('modalClosed');
     },
     activate: function(item) {
       // set the id

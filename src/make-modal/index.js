@@ -56,9 +56,7 @@ module.exports = {
     }
   },
   created: function() {
-    document.body.classList.add('dimmed', 'dimmable', 'scrolling');
-    // hide all menus
-    this.$root.ui.menu = '';
+    this.$dispatch('modalOpened');
   },
   beforeCompile: function() {
     var self = this;
@@ -91,9 +89,8 @@ module.exports = {
   },
   methods: {
     destroy: function() {
-      // TODO: danger: this could remove a sites version of these :( namespace?
-      document.body.classList.remove('dimmed', 'dimmable', 'scrolling');
       this.$destroy(true);
+      this.$dispatch('modalClosed');
     },
     del: function() {
       var self = this;
