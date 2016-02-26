@@ -20,12 +20,6 @@ module.exports = {
   replace: true,
   template: require('./template.html'),
   computed: {
-    name: function() {
-      // TODO: this.$root.mess must end!
-      if (this.$root.types[this.doc.type].name) {
-        return this.$root.types[this.doc.type].name;
-      }
-    },
     types: function() {
       var options = [];
       if (this.$root) {

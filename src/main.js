@@ -304,14 +304,21 @@ window.page = page = new BlueInk({
       return this.editDoc({type: type});
     },
     editDoc: function(doc, schema_name) {
+      // TODO: all this assumes at least doc.type...
       var modal = this.$addChild(require('./make-modal'));
+      var name = doc.type;
+      if (doc.type in this.types && 'name' in this.types[doc.type]) {
+        name = this.types[doc.type].name
+      }
+      var schema_url = '';
       if (schema_name) {
         // TODO: update this to use _blueink route
-        modal.$set('schema_url', '_rewrite/schemas/' + schema_name);
-      } else {
-        modal.$set('schema_url', '');
+        schema_url = '_rewrite/schemas/' + schema_name;
       }
+      // TODO: pretty confident all this smells...
       modal.$set('doc', doc);
+      modal.$set('name', name);
+      modal.$set('schema_url', schema_url);
       modal.$set('active', true);
       modal.$mount();
       modal.$appendTo(this.$el);
