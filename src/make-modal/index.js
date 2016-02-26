@@ -19,22 +19,6 @@ module.exports = {
   },
   replace: true,
   template: require('./template.html'),
-  computed: {
-    types: function() {
-      var options = [];
-      if (this.$root) {
-        // get the types list from $root, but in Vue.js' special select format
-        var type_names = Object.keys(this.$root.types);
-        for (var i = 0; i < type_names.length; i++) {
-          options.push({
-            text: this.$root.types[type_names[i]].name,
-            value: type_names[i]
-          });
-        }
-      }
-      return options;
-    }
-  },
   watch: {
     schema_url: function() {
       this.editor = 'vue-schema';

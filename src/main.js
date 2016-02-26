@@ -85,6 +85,18 @@ window.page = page = new BlueInk({
       }
       return ids;
     },
+    type_options: function() {
+      // get the types list, but in Vue.js' special select format
+      var options = [];
+      var type_names = Object.keys(this.types);
+      for (var i = 0; i < type_names.length; i++) {
+        options.push({
+          text: this.types[type_names[i]].name,
+          value: type_names[i]
+        });
+      }
+      return options;
+    },
     maxHeight: function() {
       return window.innerHeight * 0.8 + 'px';
     }
@@ -320,6 +332,7 @@ window.page = page = new BlueInk({
       modal.$set('name', name);
       modal.$set('schema_url', schema_url);
       modal.$set('active', true);
+      modal.$set('types', this.type_options);
       modal.$mount();
       modal.$appendTo(this.$el);
       return modal;
