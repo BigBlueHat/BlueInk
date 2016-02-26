@@ -322,13 +322,24 @@ window.page = page = new BlueInk({
       if (doc.type in this.types && 'name' in this.types[doc.type]) {
         name = this.types[doc.type].name
       }
+
+      var editor = 'json';
       var schema_url = '';
       if (schema_name) {
         // TODO: update this to use _blueink route
         schema_url = '_rewrite/schemas/' + schema_name;
+        editor = 'vue-schema';
       }
+
+      if (doc.type in this.types
+          && 'components' in this.types[doc.type]
+          && 'editor' in this.types[doc.type].components) {
+        editor = this.types[doc.type].components.editor;
+      }
+
       // TODO: pretty confident all this smells...
       modal.$set('doc', doc);
+      modal.$set('editor', editor);
       modal.$set('name', name);
       modal.$set('schema_url', schema_url);
       modal.$set('active', true);

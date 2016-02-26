@@ -19,20 +19,6 @@ module.exports = {
   },
   replace: true,
   template: require('./template.html'),
-  watch: {
-    schema_url: function() {
-      this.editor = 'vue-schema';
-    },
-    'doc.type': function() {
-      if (undefined != this.$root.types[this.doc.type]
-          && undefined != this.$root.types[this.doc.type].components.editor) {
-        this.editor = this.$root.types[this.doc.type].components.editor;
-      } else {
-        // default to JSON editor
-        this.editor = 'json';
-      }
-    }
-  },
   created: function() {
     this.$dispatch('modalOpened');
   },
