@@ -6,6 +6,10 @@
           <div class="blueink-ui huge header">{{type}}</div>
         </div>
         <div class="right floated right aligned column">
+          <div class="blueink-ui tiny button"
+            blueink-on="click: $root.createDoc(type)">
+            new {{type}}
+          </div>
           <div class="blueink-ui tiny buttons">
             <div class="blueink-ui positive button"
               blueink-on="click: save()">

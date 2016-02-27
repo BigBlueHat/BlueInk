@@ -317,10 +317,17 @@ window.page = page = new BlueInk({
     },
     editDoc: function(doc, schema_name) {
       // TODO: all this assumes at least doc.type...
-      var modal = this.$addChild(require('./make-modal'));
-      var name = doc.type;
+      var modal = this.$addChild({
+        data: {
+          name: doc.type,
+          doc: doc,
+          active: true,
+          types: this.type_options
+        }
+      }, BlueInk.extend(require('./make-modal')));
+
       if (doc.type in this.types && 'name' in this.types[doc.type]) {
-        name = this.types[doc.type].name
+        modal.$set('name', this.types[doc.type].name);
       }
 
       var editor = 'json';
@@ -338,12 +345,9 @@ window.page = page = new BlueInk({
       }
 
       // TODO: pretty confident all this smells...
-      modal.$set('doc', doc);
       modal.$set('editor', editor);
-      modal.$set('name', name);
       modal.$set('schema_url', schema_url);
-      modal.$set('active', true);
-      modal.$set('types', this.type_options);
+
       modal.$mount();
       modal.$appendTo(this.$el);
       return modal;
