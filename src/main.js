@@ -374,7 +374,15 @@ window.page = page = new BlueInk({
             }).then(function(resp) {
               console.log('stored?', resp);
               callback(page_id);
-            }).catch(console.log.bind(console));
+            }).catch(function(err) {
+              if (err.status == 404) {
+                // doesn't exist, so save it for the first time
+                new_sitemap._id = 'sitemap';
+                self.$db.put(new_sitemap);
+              } else {
+                console.log('error', err);
+              }
+            });
         }
       );
     },
