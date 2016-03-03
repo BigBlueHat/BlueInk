@@ -1,5 +1,9 @@
 [
   {
+    "from": "_session",
+    "to": "../../../_session"
+  },
+  {
     "from" : "style/*",
     "to" : "style/*"
   },
