@@ -14,7 +14,13 @@ module.exports = {
     }
   },
   created: function() {
-    var base = document.getElementsByTagName('base')[0].href;
+    // this is here to support /db/_design/blueink/_rewrite/ locations...but...
+    // TODO: ...it should be better...
+    var base_tag = document.getElementsByTagName('base')[0];
+    var base = '/';
+    if (base_tag) {
+      base = base_tag.href;
+    }
     // staticly storing these (vs. computed props) to avoid constant recalc
     var page_url = URI().relativeTo(base);
     this.current = page_url.toString() || 'home';
