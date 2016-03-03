@@ -6,9 +6,8 @@ window.BlueInk = BlueInk;
 BlueInk.config.prefix = 'blueink-';
 BlueInk.config.debug = true;
 
-var db_name = location.pathname.split('/')[1];
 var db_url = location.protocol + '//' + location.hostname
-    + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
+    + (location.port ? ':' + location.port : '') + '/_blueink/';
 BlueInk.use(require('./vue-pouchdb'), {name: db_url});
 
 var ajax = require('pouchdb/extras/ajax');
