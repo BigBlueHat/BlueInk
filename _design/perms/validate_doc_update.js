@@ -18,8 +18,8 @@ function(newDoc, oldDoc, userCtx, secObj) {
     if(~ secObj.admins.roles.indexOf(userCtx.roles[i]))
       IS_DB_ADMIN = true;
   // check access.json's write_roles collection
-  for(var i = 0; i < userCtx.roles; i++)
-    if(~ ddoc.write_roles.indexOf(userCtx.roles[i]))
+  for(var i = 0; i < userCtx.roles.length; i++)
+    if(~ ddoc.access.write_roles.indexOf(userCtx.roles[i]))
       IS_DB_ADMIN = true;
 
   if(ddoc.access && ddoc.access.read_only)
