@@ -22,6 +22,10 @@ function(newDoc, oldDoc, userCtx, secObj) {
     if(~ ddoc.access.write_roles.indexOf(userCtx.roles[i]))
       IS_DB_ADMIN = true;
 
+  // check for db-name-based permission
+  if(~ userCtx.roles.indexOf(userCtx.db))
+    IS_DB_ADMIN = true;
+
   if(ddoc.access && ddoc.access.read_only)
     if(IS_DB_ADMIN)
       log('Admin change on read-only db: ' + newDoc._id);
