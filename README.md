@@ -1,5 +1,8 @@
 # BlueInk
 
+[![GitHub license](https://img.shields.io/github/license/BigBlueHat/BlueInk.svg?style=flat-square)](http://github.com/BigBlueHat/BlueInk)
+[![Patreon](https://img.shields.io/badge/donate-patreon-orange.svg?style=flat-square)](https://www.patreon.com/BigBlueHat)
+
 BlueInk began in late 2005 from ideas gathered from previous projects,
 problems, and paper sketches. Over the years it grew into a unique and powerful
 CMS.
@@ -43,11 +46,6 @@ you can use `npm run styles` to rebuild the CSS and then `gulp rework`.
 
 Note: plans exist in my brain to restructure the top-level `gulpfile.js` and
 leverage Semantic's gulp stuff directly. Patches welcome! :smiley_cat:
-
-## Friend Funding
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=BigBlueHat&url=http://github.com/BigBlueHat/BlueInk&title=BlueInk CMS - over the top Content Management with CouchDB&language=en_GB&tags=github&category=software)
-[![Gittip](http://img.shields.io/gittip/BigBlueHat.svg)](https://www.gittip.com/BigBlueHat/)
 
 ### Page Demos
 * [Home](http://bigbluehat.cloudant.com/blueink/_design/blueink/_rewrite/home)
