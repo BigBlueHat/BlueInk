@@ -56,5 +56,3 @@ leverage Semantic's gulp stuff directly. Patches welcome! :smiley_cat:
 ## License
 
 BlueInk on CouchDB is release under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-[![I Love Open Source](http://www.iloveopensource.io/images/logo-lightbg.png)](http://www.iloveopensource.io/projects/5334dccb87659fce660018d8)
