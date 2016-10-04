@@ -1,9 +1,9 @@
-# BlueInk
+# BlueInk™
 
 [![GitHub license](https://img.shields.io/github/license/BigBlueHat/BlueInk.svg?style=flat-square)](http://github.com/BigBlueHat/BlueInk)
 [![Patreon](https://img.shields.io/badge/donate-patreon-orange.svg?style=flat-square)](https://www.patreon.com/BigBlueHat)
 
-BlueInk began in late 2005 from ideas gathered from previous projects,
+BlueInk™ began in late 2005 from ideas gathered from previous projects,
 problems, and paper sketches. Over the years it grew into a unique and powerful
 CMS.
 
