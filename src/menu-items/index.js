@@ -104,7 +104,7 @@ module.exports = {
       // TODO: implement an actual preview
       if (this.selected) {
         ajax({
-          url: '_blueink/preview/' + this.selected
+          url: '_blueink/preview/' + encodeURIComponent(this.selected)
         }, function (err, resp) {
           self.preview = resp;
         });
