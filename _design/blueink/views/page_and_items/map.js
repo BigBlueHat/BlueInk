@@ -11,11 +11,15 @@ function(doc) {
     }
   };
 
+  // emit redirect entry if this page currently redirects
   if (doc.type === 'redirect' && 'url' in doc) {
     emit(urlParts.concat('', '', 'redirect'), {'url': doc.url});
   } else if (doc.type === 'page' && 'redirect' in doc && doc.redirect !== '') {
     emit(urlParts.concat('', '', 'redirect'), {'url': doc.redirect});
-  } else if (doc.type === 'page') {
+  }
+
+  // emit page meta and the included items (and collection page item)
+  if (doc.type === 'page') {
     for (var i in doc.page_items) {
       for (var n in doc.page_items[i]) {
         if ('_collection' in doc.page_items[i][n]) {

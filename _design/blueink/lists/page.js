@@ -107,19 +107,27 @@ function(head, req) {
 
       switch (obj_part[1]) {
         case 'redirect':
-          var url_prefix = '';
-          if (req.requested_path[3] === '_rewrite') {
-            url_prefix = '/' + req.requested_path.slice(0,4).join('/') + '/';
+          // only do this if we're not logged in...otherwise we needed editing
+          if (req.userCtx.name === null) {
+            var url_prefix = '';
+            if (req.requested_path[3] === '_rewrite') {
+              url_prefix = '/' + req.requested_path.slice(0,4).join('/') + '/';
+            }
+            var redir_to = url_prefix + value.url;
+            if (value.url.substr(0, 10).indexOf('://') > -1) {
+              // we've got an absolute URL
+              redir_to = value.url;
+            }
+            return {
+              code: 302,
+              headers: {
+                'Content-Type': 'text/html',
+                'Location': redir_to
+              },
+              body: 'Page has moved to <a href="' + url_prefix + value.url + '">'
+                + url_prefix + value.url + '</a>'
+            };
           }
-          return {
-            code: 302,
-            headers: {
-              'Content-Type': 'text/html',
-              'Location': url_prefix + value.url
-            },
-            body: 'Page has moved to <a href="' + url_prefix + value.url + '">'
-              + url_prefix + value.url + '</a>'
-          };
           break;
         case 'site':
           // add the site-wide information
