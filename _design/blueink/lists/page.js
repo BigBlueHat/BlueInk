@@ -73,7 +73,7 @@ function(head, req) {
             rv.push(item);
           });
           return rv;
-        } else if (url.children.length > 0) {
+        } else if ('children' in url && url.children.length > 0) {
           return extractChildren(url.children, find);
         } else {
           return false;
