@@ -105,14 +105,15 @@ function(head, req) {
           if (req.requested_path[3] === '_rewrite') {
             url_prefix = '/' + req.requested_path.slice(0,4).join('/') + '/';
           }
-          start({
+          return {
             code: 302,
             headers: {
               'Content-Type': 'text/html',
               'Location': url_prefix + value.url
-            }
-          });
-          return '';
+            },
+            body: 'Page has moved to <a href="' + url_prefix + value.url + '">'
+              + url_prefix + value.url + '</a>'
+          };
           break;
         case 'site':
           // add the site-wide information
@@ -232,9 +233,19 @@ function(head, req) {
     }
 
     if (as === 'html') {
-      return Handlebars.compile(templates.page)(output);
+      return {
+        headers: {
+          'Content-Type': 'text/html'
+        },
+        body: Handlebars.compile(templates.page)(output)
+      };
     } else {
-      return output;
+      return {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: output
+      };
     }
   }
 
@@ -246,11 +257,10 @@ function(head, req) {
   provides('html', function() {
     var output = getOutput('html');
     start({
-      'headers': {
-        'Content-Type': 'text/html'
-      }
+      code: output.code || 200,
+      headers: output.headers
     });
 
-    return output;
+    return output.body;
   });
 }
