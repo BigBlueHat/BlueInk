@@ -257,7 +257,11 @@ function(head, req) {
 
   provides('json', function() {
     var output = getOutput();
-    send(JSON.stringify(output, null, 4));
+    start({
+      code: output.code || 200,
+      headers: output.headers
+    });
+    send(JSON.stringify(output.body, null, 4));
   });
 
   provides('html', function() {
