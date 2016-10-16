@@ -1,0 +1,28 @@
+<form class="blueink-ui horizontal form">
+<div class="inline field">
+  <label for="name">Name</label>
+  <input blueink-model="doc.name" type="text">
+</div>
+<div class="inline field">
+  <label>Page Template</label>
+  <textarea blueink-model="doc.templates.page"></textarea>
+</div>
+
+<div class="blueink-ui dividing header">Type Templates</div>
+<fieldset blueink-repeat="doc.templates.types">
+  <label>{{$key}}</label>
+  <textarea blueink-if="isString(doc.templates.types[$key])" blueink-model="$value"></textarea>
+  <div blueink-if="isObject(doc.templates.types[$key])" class="inline field">
+    <template blueink-repeat="doc.templates.types[$key]">
+    <label>{{$key}}</label>
+    <textarea blueink-model="$value"></textarea>
+    </template>
+  </div>
+</fieldset>
+
+<div class="blueink-ui dividing header">Partials</div>
+<div class="inline field" blueink-repeat="doc.templates.partials">
+  <label>{{$key}}</label>
+  <textarea blueink-model="$value"></textarea>
+</div>
+</form>
