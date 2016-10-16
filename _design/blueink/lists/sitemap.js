@@ -21,7 +21,7 @@ function(head, req) {
         } else if (parent_url !== previous_locations[previous_locations.length-1].body.url) {
           // work our way back to the top of the tree
           previous_locations.pop();
-          // tray a branch higher
+          // try a branch higher
           addToTree(url, parent_url);
         } else {
           // once we have a match, add it to the tree
@@ -31,6 +31,8 @@ function(head, req) {
       }
 
       while(row = getRow()) {
+        // skip hidden pages
+        if ('hide_page_from_nav' in row.value) continue;
         url = {
           "body": row.value,
           "children": []

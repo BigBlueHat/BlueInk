@@ -16,7 +16,8 @@ function(doc) {
     emit(doc._id.split('/'), {
       is_collection: is_collection,
       nav_label: doc.nav_label,
-      redirect: doc.redirect
+      redirect: doc.redirect,
+      hide_page_from_nav: doc.hide_page_from_nav
     });
   }
 }

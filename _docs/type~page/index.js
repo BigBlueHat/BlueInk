@@ -9,6 +9,7 @@ BlueInk.component('page-editor', {
         nav_label: "",
         url: "",
         display_title: true,
+        hide_page_from_nav: false,
         page_items: [[]],
         collection: {
           title: '',
