@@ -66,7 +66,13 @@ function(head, req) {
     function extractChildren(urls, find) {
       return flatten(filter(urls.map(function(url) {
         if (url.body.url === find) {
-          return url.children;
+          var rv = [];
+          url.children.forEach(function(item) {
+            // don't return grandkids
+            delete item.children;
+            rv.push(item);
+          });
+          return rv;
         } else if (url.children.length > 0) {
           return extractChildren(url.children, find);
         } else {
