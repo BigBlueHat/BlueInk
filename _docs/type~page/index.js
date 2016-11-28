@@ -22,11 +22,19 @@ BlueInk.component('page-editor', {
       },
       collection_area_index: 0,
       collection_item_index: 0,
-      original_id: ''
+      original_id: '',
+      parent_url: '',
+      short_name: ''
     }
   },
   ready: function() {
     this.original_id = this.doc._id;
+
+    if ('_id' in this.doc) {
+      var parts = this.doc._id.split('/');
+      this.short_name = parts.pop();
+      this.parent_url = parts.join('/');
+    }
 
     // if doc.collection is an array, we've got the old style, so upgrade it
     if ('collection' in this.doc
@@ -86,6 +94,11 @@ BlueInk.component('page-editor', {
     output: function() {
       this.$log();
       var output = this.doc;
+      if (this.parent_url) {
+        output._id = this.parent_url + '/' + this.short_name;
+      } else {
+        output._id = this.short_name;
+      }
 
       // if the _id has changed, the page is moving
       if (this.original_id !== output._id) {
@@ -124,6 +137,36 @@ BlueInk.component('page-editor', {
 
       output.type = 'page';
       return output;
+    }
+  },
+  components: {
+    'parent-pages': {
+      created: function() {
+        var self = this;
+        // TODO: >_< uses `page` global...should use _blueink API?
+        // TODO: can I use $parent? or $root here more effectively?
+        page.$db
+          .query('blueink/pages', {reduce: false})
+          .then(function(rv) {
+            if (rv.total_rows > 0) {
+              rv.rows.forEach(function(row) {
+                self.options.push({
+                  text: row.id,
+                  value: row.id
+                });
+              });
+            }
+          });
+      },
+      data: function() {
+        return {
+          selected: '',
+          options: [{
+            text: '',
+            value: ''
+          }]
+        };
+      }
     }
   }
 });

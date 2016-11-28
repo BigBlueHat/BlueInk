@@ -11,7 +11,10 @@
       </div>
       <div class="field">
         <label for="url">URL</label>
-        <input blueink-model="doc._id"
+        <div blueink-component="parent-pages" blueink-with="selected: parent_url" inline-template>
+          <select blueink-model="selected" options="options"></select>
+        </div>
+        <input blueink-model="short_name"
           name="url" type="text">
       </div>
       <div class="blueink-ui inline checkbox field">

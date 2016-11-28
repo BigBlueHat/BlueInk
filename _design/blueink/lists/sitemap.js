@@ -32,7 +32,11 @@ function(head, req) {
 
       while(row = getRow()) {
         // skip hidden pages
-        if ('hide_page_from_nav' in row.value) continue;
+        if ('hide_page_from_nav' in row.value
+            && row.value.hide_page_from_nav) {
+          continue;
+        }
+
         url = {
           "body": row.value,
           "children": []
