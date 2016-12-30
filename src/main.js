@@ -358,6 +358,22 @@ window.page = page = new BlueInk({
       modal.$appendTo(this.$el);
       return modal;
     },
+
+    addPageToSitemap: function(callback, page) {
+      var self = this;
+      // TODO: construct this URL better...
+      var url = location.pathname.split(this.page._id)[0] + '/_blueink/sitemap';
+      // get the new sitemap from the _list
+      ajax({
+          method: 'POST',
+          url: url,
+          json: true,
+          body: page
+        },
+        function(err, new_sitemap) {
+          callback(page._id);
+        });
+    },
     generateSitemap: function(callback, page_id) {
       var self = this;
       // TODO: construct this URL better...

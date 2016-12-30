@@ -66,9 +66,9 @@ module.exports = {
       var self = this;
       var modal = self.$root.editDoc(doc);
       modal.$on('saved', function(saved_doc) {
-        self.$root.generateSitemap(function(url) {
+        self.$root.addPageToSitemap(function(url) {
           location.href = url;
-        }, saved_doc._id);
+        }, saved_doc);
       });
       modal.$on('afterDel', function() {
         self.$root.generateSitemap(function() {
