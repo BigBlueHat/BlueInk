@@ -25,6 +25,11 @@
     "to": "_update/add_page/sitemap"
   },
   {
+    "method": "DELETE",
+    "from": "_blueink/sitemap",
+    "to": "_update/remove_page/sitemap"
+  },
+  {
     "method": "GET",
     "from": "_blueink/sitemap",
     "to": "_list/sitemap/pages",
