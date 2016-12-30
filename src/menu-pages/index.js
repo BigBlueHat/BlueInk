@@ -81,7 +81,7 @@ module.exports = {
     },
     editDoc: function(doc_id) {
       var self = this;
-      self.$db.get(doc_id)
+      self.$db.get(decodeURIComponent(doc_id))
         .then(function(resp) {
           self.modalize(resp);
         }
