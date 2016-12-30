@@ -161,7 +161,7 @@ window.page = page = new BlueInk({
     }
 
     // get page information
-    self.$db.get(page_url)
+    self.$db.get(decodeURIComponent(page_url))
       .then(function(resp) {
         self.page = resp;
       }
