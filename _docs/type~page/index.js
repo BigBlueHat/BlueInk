@@ -101,7 +101,7 @@ BlueInk.component('page-editor', {
       }
 
       // if the _id has changed, the page is moving
-      if (this.original_id !== output._id) {
+      if (this.original_id && this.original_id !== output._id) {
         // remove Vue getter/setter stuff
         var old_page = JSON.parse(JSON.stringify(this.doc));
         // set the _id to the old one
