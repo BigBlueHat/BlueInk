@@ -6,6 +6,14 @@ window.BlueInk = BlueInk;
 BlueInk.config.prefix = 'blueink-';
 BlueInk.config.debug = true;
 
+var base_path = '/';
+if (location.pathname.indexOf('_rewrite') > -1) {
+  base_path = location.pathname.split('/')
+    .splice(0, location.pathname.split('/').indexOf('_rewrite')+1)
+    .join('/');
+}
+var base_url = location.origin + base_path;
+
 var db_name = location.pathname.split('/')[1];
 var db_url = location.protocol + '//' + location.hostname
     + (location.port ? ':' + location.port : '') + '/' + db_name + '/';
@@ -361,8 +369,7 @@ window.page = page = new BlueInk({
 
     addPageToSitemap: function(callback, page) {
       var self = this;
-      // TODO: construct this URL better...
-      var url = location.pathname.split(this.page._id)[0] + '/_blueink/sitemap';
+      var url = base_url + '/_blueink/sitemap';
       // get the new sitemap from the _list
       ajax({
           method: 'POST',
@@ -376,8 +383,7 @@ window.page = page = new BlueInk({
     },
     generateSitemap: function(callback, page_id) {
       var self = this;
-      // TODO: construct this URL better...
-      var url = location.pathname.split(this.page._id)[0] + '/_blueink/sitemap';
+      var url = base_url + '/_blueink/sitemap';
       // get the new sitemap from the _list
       ajax({url: url},
         function(err, new_sitemap) {
