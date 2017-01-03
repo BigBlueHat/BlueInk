@@ -70,10 +70,10 @@ module.exports = {
           location.href = url;
         }, saved_doc);
       });
-      modal.$on('afterDel', function() {
-        self.$root.generateSitemap(function() {
+      modal.$on('afterDel', function(saved_doc) {
+        self.$root.removePageFromSitemap(function() {
           location.href = 'home';
-        });
+        }, saved_doc);
       });
     },
     createDoc: function() {

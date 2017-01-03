@@ -381,6 +381,19 @@ window.page = page = new BlueInk({
           callback(page._id);
         });
     },
+    removePageFromSitemap: function(callback, page) {
+      var self = this;
+      var url = base_url + '/_blueink/sitemap?url=' + page._id;
+      // get the new sitemap from the _list
+      ajax({
+          method: 'DELETE',
+          url: url
+        },
+        function(err, new_sitemap) {
+          callback();
+        });
+    },
+    // TODO: reconsider this and it's "overwrite" nature
     generateSitemap: function(callback, page_id) {
       var self = this;
       var url = base_url + '/_blueink/sitemap';

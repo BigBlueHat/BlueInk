@@ -63,7 +63,7 @@ module.exports = {
           self.$db.remove(doc, function() {
             alert('The ' + doc.type + ' has been deleted.');
             // TODO: remove preview of removed item
-            self.$emit('afterDel');
+            self.$emit('afterDel', doc);
             self.destroy();
           });
         }
