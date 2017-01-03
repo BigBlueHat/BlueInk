@@ -2,11 +2,14 @@ function (sitemap, req) {
   function collectUrls(urls, _just_urls) {
     var just_urls = _just_urls || [];
     for (var i = 0; i < urls.length; i++) {
-      if ('body' in urls[i]) {
-        just_urls.push(urls[i].body.url);
-      }
-      if ('children' in urls[i]) {
-        collectUrls(urls[i].children, just_urls);
+      // TODO: figure out why this is sometimes null
+      if (urls[i]) {
+        if ('body' in urls[i]) {
+          just_urls.push(urls[i].body.url);
+        }
+        if ('children' in urls[i] && urls[i].children.length > 0) {
+          collectUrls(urls[i].children, just_urls);
+        }
       }
     }
     return just_urls;

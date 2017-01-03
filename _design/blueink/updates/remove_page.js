@@ -1,19 +1,22 @@
 function (sitemap, req) {
-  function removeFromTree(urls, url) {
+  function removeFromTree(urls, _url) {
+    var url = decodeURIComponent(_url);
     // find URL in sitemap
     for (var i = 0; i < urls.length; i++) {
-      if ('body' in urls[i] && url === urls[i].body.url) {
-        // don't remove whole tree
-        if (!('children' in sitemap.urls[i])
-            || sitemap.urls[i].children.length === 0) {
-          // remove URL from sitemap
-          delete urls[i];
-        } else {
-          // found the URL, but it has children, so bail.
-          return false;
+      if (urls[i]) {
+        if ('body' in urls[i] && url === urls[i].body.url) {
+          // don't remove whole tree
+          if (!('children' in sitemap.urls[i])
+              || sitemap.urls[i].children.length === 0) {
+            // remove URL from sitemap
+            delete urls[i];
+          } else {
+            // found the URL, but it has children, so bail.
+            return false;
+          }
+        } else if ('children' in urls[i] && urls[i].children.length > 0) {
+          removeFromTree(urls[i].children, url);
         }
-      } else if ('children' in urls[i]) {
-        removeFromTree(urls[i].children, url);
       }
     }
     return urls;
