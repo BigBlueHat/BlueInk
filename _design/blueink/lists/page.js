@@ -65,7 +65,8 @@ function(head, req) {
 
     function extractChildren(urls, find) {
       return flatten(filter(urls.map(function(url) {
-        if (url.body.url === find) {
+        if (!url) return false; // TODO: why is this happening?
+        if ('body' in url && 'url' in url.body && url.body.url === find) {
           var rv = [];
           url.children.forEach(function(item) {
             // don't return grandkids
