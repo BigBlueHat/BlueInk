@@ -9,7 +9,7 @@ function (sitemap, req) {
           if (!('children' in sitemap.urls[i])
               || sitemap.urls[i].children.length === 0) {
             // remove URL from sitemap
-            delete urls[i];
+            urls.splice(i, 1);
           } else {
             // found the URL, but it has children, so bail.
             return false;
