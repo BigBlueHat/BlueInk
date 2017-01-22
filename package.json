@@ -41,7 +41,7 @@
     "prosemirror": "git+https://github.com/ProseMirror/prosemirror.git#42b07ba77f7f81c0a5e81ad8d759fe0e66938fdc",
     "require-dot-file": "^0.4.0",
     "semantic-ui": "^2.1.3",
-    "sortablejs": "~1.1.1",
+    "sortablejs": "~1.3.0",
     "traversty": "^1.0.5",
     "urijs": "^1.17.0",
     "vue": "~0.11.9",

@@ -1,0 +1,10 @@
+<div class="item">
+  <i class="sort icon"></i>
+  <div class="content">
+    <div class="header">{{body.nav_label}}</div>
+    <div class="description">{{body.url}}</div>
+    <div class="list" blueink-if="children.length > 0" blueink-sortable="children">
+      <div blueink-component="sortable-sitemap-page" blueink-repeat="children"></div>
+    </div>
+  </div>
+</div>

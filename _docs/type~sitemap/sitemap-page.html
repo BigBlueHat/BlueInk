@@ -1,0 +1,6 @@
+<li>
+  {{body.nav_label}}
+  <ul blueink-if="children.length > 0">
+    <li blueink-component="sitemap-page" blueink-repeat="children"></li>
+  </ul>
+</li>
